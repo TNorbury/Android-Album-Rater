@@ -5,6 +5,9 @@ import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.PrimaryKey;
 import android.support.annotation.NonNull;
 
+import java.util.Date;
+import java.util.concurrent.TimeUnit;
+
 /**
  * Represents a database entity for an album and its corresponding review.
  */
@@ -32,6 +35,10 @@ public class Album {
     @ColumnInfo(name = "review")
     private String mReview;
 
+    // The date the review was made
+    @ColumnInfo(name = "reviewDate")
+    private Date mReviewDate;
+
     /**
      * Create a new album entity
      * @param title The title of the album
@@ -39,11 +46,15 @@ public class Album {
      * @param rating The user's numerical rating of the album
      * @param review The user's review (in words) of the album
      */
-    public Album(@NonNull String title, @NonNull String artist, int rating, String review) {
+    public Album(@NonNull String title, @NonNull String artist, int rating,
+                 String review) {
         mTitle = title;
         mArtist = artist;
         mRating = rating;
         mReview = review;
+
+        // Set the review's date as the current time
+        mReviewDate = new Date(System.currentTimeMillis());
     }
 
     /**
@@ -74,5 +85,12 @@ public class Album {
      */
     public String getReview() {
         return mReview;
+    }
+
+    /**
+     * @return The date when the review was posted
+     */
+    public Date getReviewDate() {
+        return mReviewDate;
     }
 }
