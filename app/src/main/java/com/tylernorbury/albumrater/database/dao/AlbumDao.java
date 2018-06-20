@@ -1,3 +1,8 @@
+/**
+ * Author: Tyler Norbury (tylernorbury96@gmail.com)
+ * Version 1.1 (June 20th, 2018)
+ */
+
 package com.tylernorbury.albumrater.database.dao;
 
 import android.arch.lifecycle.LiveData;
