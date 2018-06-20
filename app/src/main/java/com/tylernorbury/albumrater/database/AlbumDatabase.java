@@ -19,7 +19,7 @@ import com.tylernorbury.albumrater.database.entity.Album;
 @Database(entities = {Album.class}, version = 1)
 public abstract class AlbumDatabase extends RoomDatabase {
 
-    // Gets a singleton instance of the Album DAO
+    // Gets an instance of the Album DAO
     public abstract AlbumDao albumDao();
 
     // The database will be singleton
