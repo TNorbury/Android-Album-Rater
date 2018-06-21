@@ -7,6 +7,7 @@ package com.tylernorbury.albumrater.database.entity;
 
 import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.Ignore;
 import android.arch.persistence.room.PrimaryKey;
 import android.support.annotation.NonNull;
 
@@ -49,6 +50,7 @@ public class Album {
      * @param artist The artist who made the album
      * @param rating The user's rating of the album
      */
+    @Ignore
     public Album(@NonNull String title, @NonNull String artist, int rating) {
         this(title, artist, rating, "");
     }
