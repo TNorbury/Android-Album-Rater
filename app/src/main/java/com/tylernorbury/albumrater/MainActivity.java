@@ -9,8 +9,12 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.MenuItem;
 import android.widget.TextView;
+
+import com.tylernorbury.albumrater.adapter.AlbumListAdapter;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -45,6 +49,11 @@ public class MainActivity extends AppCompatActivity {
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
+        // Create the recycler and adapter
+        RecyclerView recyclerView = findViewById(R.id.recylerView);
+        final AlbumListAdapter adapter = new AlbumListAdapter(this);
+        recyclerView.setAdapter(adapter);
+        recyclerView.setLayoutManager(new GridLayoutManager(this, 4));
     }
 
 }

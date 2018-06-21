@@ -39,7 +39,7 @@ public class AlbumListAdapter extends RecyclerView.Adapter<AlbumListAdapter.Albu
      * Create a new AlbumListAdapter
      * @param context The application context
      */
-    AlbumListAdapter(Context context) {
+    public AlbumListAdapter(Context context) {
         mInflater = LayoutInflater.from(context);
     }
 
