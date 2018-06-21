@@ -34,14 +34,14 @@ public interface AlbumDao {
      * album
      * @return All the albums that've been reviewed.
      */
-    @Query("SELECT title, artist, rating, review, datetime(reviewDate) FROM album " +
+    @Query("SELECT title, artist, rating, review, reviewDate FROM album " +
             "ORDER BY title DESC")
     LiveData<List<Album>> getAllAlbums();
 
     /**
      * @return a handful of the most recently reviewed albums
      */
-    @Query("SELECT title, artist, rating, review, datetime(reviewDate) FROM album " +
+    @Query("SELECT title, artist, rating, review, reviewDate FROM album " +
             "ORDER BY datetime(reviewDate) " +
             "LIMIT 5")
     LiveData<List<Album>> getRecentAlbums();
