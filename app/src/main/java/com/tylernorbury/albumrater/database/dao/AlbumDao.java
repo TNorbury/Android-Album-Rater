@@ -46,5 +46,8 @@ public interface AlbumDao {
             "LIMIT 5")
     LiveData<List<Album>> getRecentAlbums();
 
+    @Query("DELETE FROM album")
+    void deleteAll();
+
     // TODO add some queries for searching for albums by title/artist name
 }
