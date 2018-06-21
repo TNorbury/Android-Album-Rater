@@ -4,6 +4,6 @@
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
 
-    <color name="albumLabel">@android:color/foreground_material_dark</color>
-    <color name="albumBackground">@android:color/primary_material_dark</color>
+    <color name="albumLabel">#FAFAFA</color> <!-- Material Grey 50 -->
+    <color name="albumBackground">#37474F</color> <!-- Material Blue Grey 800-->
 </resources>
