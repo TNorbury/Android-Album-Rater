@@ -43,6 +43,17 @@ public class Album {
     private Date mReviewDate;
 
     /**
+     * Creates a new album that only has a rating, and no review
+
+     * @param title The title of the album
+     * @param artist The artist who made the album
+     * @param rating The user's rating of the album
+     */
+    public Album(@NonNull String title, @NonNull String artist, int rating) {
+        this(title, artist, rating, "");
+    }
+
+    /**
      * Create a new album entity
      * @param title The title of the album
      * @param artist The artist who made the album
