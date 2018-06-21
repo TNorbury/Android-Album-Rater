@@ -16,17 +16,15 @@ import java.util.concurrent.TimeUnit;
 /**
  * Represents a database entity for an album and its corresponding review.
  */
-@Entity(tableName = "album")
+@Entity(tableName = "album", primaryKeys = {"title", "artist"})
 public class Album {
 
     // The title of the album
-    @PrimaryKey
     @NonNull
     @ColumnInfo(name = "title")
     private String mTitle;
 
     // The artist who made the album
-    @PrimaryKey
     @NonNull
     @ColumnInfo(name = "artist")
     private String mArtist;
