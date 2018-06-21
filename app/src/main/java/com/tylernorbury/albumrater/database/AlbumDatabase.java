@@ -8,8 +8,10 @@ package com.tylernorbury.albumrater.database;
 import android.arch.persistence.room.Database;
 import android.arch.persistence.room.Room;
 import android.arch.persistence.room.RoomDatabase;
+import android.arch.persistence.room.TypeConverters;
 import android.content.Context;
 
+import com.tylernorbury.albumrater.database.converter.DateTimeConverter;
 import com.tylernorbury.albumrater.database.dao.AlbumDao;
 import com.tylernorbury.albumrater.database.entity.Album;
 
@@ -17,6 +19,7 @@ import com.tylernorbury.albumrater.database.entity.Album;
  * A database that contains all the album reviews
  */
 @Database(entities = {Album.class}, version = 1)
+@TypeConverters(DateTimeConverter.class)
 public abstract class AlbumDatabase extends RoomDatabase {
 
     // Gets an instance of the Album DAO

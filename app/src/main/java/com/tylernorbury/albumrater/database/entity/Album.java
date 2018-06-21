@@ -96,4 +96,8 @@ public class Album {
     public Date getReviewDate() {
         return mReviewDate;
     }
+
+    public void setReviewDate(Date date) {
+        mReviewDate = date;
+    }
 }
