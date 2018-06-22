@@ -35,7 +35,7 @@ public interface AlbumDao {
      * @return All the albums that've been reviewed.
      */
     @Query("SELECT title, artist, rating, review, reviewDate FROM album " +
-            "ORDER BY title DESC")
+            "ORDER BY title ASC")
     LiveData<List<Album>> getAllAlbums();
 
     /**
