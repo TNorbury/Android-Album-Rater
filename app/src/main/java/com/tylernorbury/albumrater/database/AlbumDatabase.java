@@ -84,22 +84,26 @@ public abstract class AlbumDatabase extends RoomDatabase {
         protected Void doInBackground(final Void... params) {
             mDao.deleteAll();
 
-            // Create a new album
-            Album album = new Album("Larva", "James Gameboy",
-                    1);
+            // An array of albums to insert into the database.
+            Album[] albums = {
+                new Album("Larva", "James Gameboy", Album.GOOD_ALBUM),
+                new Album("Evil Friends", "Portugal. The Man", Album.GOOD_ALBUM),
+                new Album("Pure Heroin", "Lorde", Album.GOOD_ALBUM),
+                new Album("When I Was Young", "MØ", Album.GOOD_ALBUM),
+                new Album("How Did We Get So Dark?", "Royal Blood", Album.BAD_ALBUM),
+                new Album("You're Gonna Miss It All", "Modern Baseball", Album.GOOD_ALBUM),
+                new Album("Big Fish Theory", "Vince Staples", Album.GOOD_ALBUM),
+                new Album("Cozy Tapes Vol. 2: Too Cozy", "A$AP Mob", Album.BAD_ALBUM),
+                new Album("Black Sabbath", "Black Sabbath", Album.GOOD_ALBUM),
+                new Album("KIDS SEE GHOSTS", "KIDS SEE GHOSTS", Album.GOOD_ALBUM),
+                new Album("More Life", "Drake", Album.BAD_ALBUM),
+                new Album("Views", "Drake", Album.BAD_ALBUM)
+            };
 
-            // Insert the album into the database
-            mDao.insert(album);
-
-            // Insert some other albums
-            album = new Album("Evil Friends", "Portugal. The Man", 1);
-            mDao.insert(album);
-
-            album = new Album("Pure Heroin", "Lorde", 1);
-            mDao.insert(album);
-
-            album = new Album("When I Was Young", "MØ", 1);
-            mDao.insert(album);
+            // Go through all the albums above and insert them into the database
+            for (Album album: albums) {
+                mDao.insert(album);
+            }
 
             return null;
         }
