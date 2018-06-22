@@ -12,6 +12,7 @@ import android.arch.persistence.room.PrimaryKey;
 import android.support.annotation.NonNull;
 
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -41,7 +42,7 @@ public class Album {
 
     // The date the review was made
     @ColumnInfo(name = "reviewDate")
-    private Date mReviewDate;
+    private GregorianCalendar mReviewDate;
 
     /**
      * Creates a new album that only has a rating, and no review
@@ -70,7 +71,8 @@ public class Album {
         mReview = review;
 
         // Set the review's date as the current time
-        mReviewDate = new Date(System.currentTimeMillis());
+        mReviewDate = new GregorianCalendar();
+        mReviewDate.setTimeInMillis(System.currentTimeMillis());
     }
 
     /**
@@ -106,11 +108,15 @@ public class Album {
     /**
      * @return The date when the review was posted
      */
-    public Date getReviewDate() {
+    public GregorianCalendar getReviewDate() {
         return mReviewDate;
     }
 
-    public void setReviewDate(Date date) {
+    /**
+     * Set the date that the review was created.
+     * @param date The date of the review
+     */
+    public void setReviewDate(GregorianCalendar date) {
         mReviewDate = date;
     }
 }

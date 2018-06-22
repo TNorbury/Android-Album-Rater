@@ -13,6 +13,7 @@ import android.widget.TextView;
 import com.tylernorbury.albumrater.R;
 import com.tylernorbury.albumrater.database.entity.Album;
 
+import java.util.Calendar;
 import java.util.List;
 
 /**
@@ -24,7 +25,7 @@ public class AlbumListAdapter extends RecyclerView.Adapter<AlbumListAdapter.Albu
      * A view holder that holds a single album view
      */
     class AlbumViewHolder extends RecyclerView.ViewHolder {
-        private final GridView album;
+        private final GridLayout album;
 
         private AlbumViewHolder(View albumView) {
             super(albumView);
@@ -63,21 +64,21 @@ public class AlbumListAdapter extends RecyclerView.Adapter<AlbumListAdapter.Albu
         // If we've received a list of albums, then set up the current album's
         // view with the relevant UI information
         if (mAlbums != null) {
-           Album current = mAlbums.get(position);
+            Album current = mAlbums.get(position);
 
-           // Display the title of the album
-           TextView title = holder.album.findViewById(R.id.AlbumTitle);
-           title.setText(current.getTitle());
+            // Display the title of the album
+            TextView title = holder.album.findViewById(R.id.AlbumTitle);
+            title.setText(current.getTitle());
 
-           // Display the artist of the album
-           TextView artist = holder.album.findViewById(R.id.AlbumArtist);
-           artist.setText(current.getArtist());
+            // Display the artist of the album
+            TextView artist = holder.album.findViewById(R.id.AlbumArtist);
+            artist.setText(current.getArtist());
 
-           // Display the date the review was posted
+            // Display the date the review was posted
             TextView date = holder.album.findViewById(R.id.AlbumReviewDate);
-            date.setText(current.getReviewDate().toString());
+            date.setText((current.getReviewDate().get(Calendar.MONTH) + 1) + "-" + current.getReviewDate().get(Calendar.DATE) + "-" + (current.getReviewDate().get(Calendar.YEAR)));
 
-           //TODO Display the album's rating
+            //TODO Display the album's rating
         }
     }
 
@@ -87,7 +88,7 @@ public class AlbumListAdapter extends RecyclerView.Adapter<AlbumListAdapter.Albu
      *
      * @param albums The new list of albums
      */
-    void setAlbums(List<Album> albums) {
+    public void setAlbums(List<Album> albums) {
         mAlbums = albums;
         notifyDataSetChanged();
     }
