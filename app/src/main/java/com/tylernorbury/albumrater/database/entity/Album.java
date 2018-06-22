@@ -22,6 +22,10 @@ import java.util.concurrent.TimeUnit;
 @Entity(tableName = "album", primaryKeys = {"title", "artist"})
 public class Album {
 
+    // Constants used to represent the internal ranking of an album as good or bad.
+    public static final int GOOD_ALBUM = 1;
+    public static final int BAD_ALBUM = 0;
+
     // The title of the album
     @NonNull
     @ColumnInfo(name = "title")
