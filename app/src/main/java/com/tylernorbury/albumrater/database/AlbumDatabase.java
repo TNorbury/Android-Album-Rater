@@ -91,6 +91,16 @@ public abstract class AlbumDatabase extends RoomDatabase {
             // Insert the album into the database
             mDao.insert(album);
 
+            // Insert some other albums
+            album = new Album("Evil Friends", "Portugal. The Man", 1);
+            mDao.insert(album);
+
+            album = new Album("Pure Heroin", "Lorde", 1);
+            mDao.insert(album);
+
+            album = new Album("When I Was Young", "MØ", 1);
+            mDao.insert(album);
+
             return null;
         }
     }
