@@ -76,7 +76,7 @@ public class AlbumListAdapter extends RecyclerView.Adapter<AlbumListAdapter.Albu
 
             // Display the date the review was posted
             TextView date = holder.album.findViewById(R.id.AlbumReviewDate);
-            date.setText((current.getReviewDate().get(Calendar.MONTH) + 1) + "-" + current.getReviewDate().get(Calendar.DATE) + "-" + (current.getReviewDate().get(Calendar.YEAR)));
+            date.setText(current.getReviewDateString());
 
             //TODO Display the album's rating
         }

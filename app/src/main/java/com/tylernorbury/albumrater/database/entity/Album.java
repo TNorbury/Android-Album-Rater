@@ -11,6 +11,7 @@ import android.arch.persistence.room.Ignore;
 import android.arch.persistence.room.PrimaryKey;
 import android.support.annotation.NonNull;
 
+import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.concurrent.TimeUnit;
@@ -110,6 +111,17 @@ public class Album {
      */
     public GregorianCalendar getReviewDate() {
         return mReviewDate;
+    }
+
+    /**
+     * Returns the date of the review formatted as MM-DD-YYYY
+     *
+     * @return The date of the review
+     */
+    public String getReviewDateString() {
+        return (mReviewDate.get(Calendar.MONTH) + 1)
+                + "-" + mReviewDate.get(Calendar.DATE)
+                + "-" + mReviewDate.get(Calendar.YEAR);
     }
 
     /**
