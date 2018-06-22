@@ -14,6 +14,7 @@ import android.content.Context;
 import android.os.AsyncTask;
 import android.support.annotation.NonNull;
 
+import com.tylernorbury.albumrater.BuildConfig;
 import com.tylernorbury.albumrater.database.converter.DateTimeConverter;
 import com.tylernorbury.albumrater.database.dao.AlbumDao;
 import com.tylernorbury.albumrater.database.entity.Album;
@@ -62,8 +63,13 @@ public abstract class AlbumDatabase extends RoomDatabase {
     private static AlbumDatabase.Callback sAlbumDatabaseCallback = new RoomDatabase.Callback() {
         @Override
         public void onOpen(@NonNull SupportSQLiteDatabase db) {
-            super.onOpen(db);
-            new PopulateDbAsync(INSTANCE).execute();
+
+            // If this is a debug version, then we'll artificially populate
+            // the database
+            if (BuildConfig.DEBUG) {
+                super.onOpen(db);
+                new PopulateDbAsync(INSTANCE).execute();
+            }
         }
     };
 
@@ -103,6 +109,14 @@ public abstract class AlbumDatabase extends RoomDatabase {
             // Go through all the albums above and insert them into the database
             for (Album album: albums) {
                 mDao.insert(album);
+
+                // Add a small delay in between each insertion to simulate data
+                // being updated on the fly
+                try {
+                    Thread.sleep(500);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
             }
 
             return null;
