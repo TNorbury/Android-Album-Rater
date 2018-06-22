@@ -5,8 +5,11 @@
 
 package com.tylernorbury.albumrater;
 
+import android.arch.lifecycle.Observer;
+import android.arch.lifecycle.ViewModelProviders;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
@@ -15,10 +18,15 @@ import android.view.MenuItem;
 import android.widget.TextView;
 
 import com.tylernorbury.albumrater.adapter.AlbumListAdapter;
+import com.tylernorbury.albumrater.database.entity.Album;
+import com.tylernorbury.albumrater.viewModel.AlbumViewModel;
+
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
     private TextView mTextMessage;
+    private AlbumViewModel mAlbumViewModel;
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -53,7 +61,19 @@ public class MainActivity extends AppCompatActivity {
         RecyclerView recyclerView = findViewById(R.id.recylerView);
         final AlbumListAdapter adapter = new AlbumListAdapter(this);
         recyclerView.setAdapter(adapter);
-        recyclerView.setLayoutManager(new GridLayoutManager(this, 4));
+        recyclerView.setLayoutManager(new GridLayoutManager(this, 1));
+
+        // Get a view model for the AlbumViewModel
+        mAlbumViewModel = ViewModelProviders.of(this).get(AlbumViewModel.class);
+
+        // Add an observer for any changes to the list of albums. When that
+        // change does happen, then update the copy of words that the adapter has saved
+        mAlbumViewModel.getAllAlbums().observe(this, new Observer<List<Album>>() {
+            @Override
+            public void onChanged(@Nullable List<Album> albums) {
+                adapter.setAlbums(albums);
+            }
+        });
     }
 
 }
