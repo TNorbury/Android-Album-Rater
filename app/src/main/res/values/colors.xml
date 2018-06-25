@@ -6,4 +6,6 @@
 
     <color name="albumLabel">#FAFAFA</color> <!-- Material Grey 50 -->
     <color name="albumBackground">#37474F</color> <!-- Material Blue Grey 800-->
+
+    <color name="ratingSelected">#1565C0</color> <!-- Material Blue 800 -->
 </resources>

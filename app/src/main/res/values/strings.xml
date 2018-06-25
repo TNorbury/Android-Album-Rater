@@ -3,4 +3,9 @@
     <string name="title_home">Home</string>
     <string name="title_add">Add Album</string>
     <string name="title_notifications">Notifications</string>
+
+    <!-- Strings for various fields of the form for adding an album -->
+    <string name="album_name_hint">Album Name</string>
+    <string name="album_artist_hint">Artist</string>
+    <string name="album_review_submit">Add Album</string>
 </resources>

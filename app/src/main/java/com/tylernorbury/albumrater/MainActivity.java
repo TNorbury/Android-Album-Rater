@@ -31,8 +31,17 @@ public class MainActivity extends AppCompatActivity {
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
 
+        /**
+         * Switches the displayed fragment depending on which menu option was
+         * selected
+         * @param item The menu item that was selected.
+         * @return
+         */
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+
+            // First, determine which menu item was selected
+
             switch (item.getItemId()) {
                 case R.id.navigation_home:
                     mTextMessage.setText(R.string.title_home);
