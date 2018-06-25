@@ -8,4 +8,14 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <!-- Style for the "good" rating selection -->
+    <style name="AlbumRatingGoodButton" parent="@android:style/Widget.CompoundButton.RadioButton">
+        <item name="android:button">@drawable/album_rating_good_button</item>
+    </style>
+
+    <!-- Style for the "bad" rating selection -->
+    <style name="AlbumRatingBadButton" parent="@android:style/Widget.CompoundButton.RadioButton">
+        <item name="android:button">@drawable/album_rating_bad_button</item>
+    </style>
+
 </resources>
