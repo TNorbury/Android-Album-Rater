@@ -30,7 +30,6 @@ public class AllAlbumsFragment extends Fragment {
      * @param adapter The RecyclerView adapter that this fragment will use.
      * @return a new AllAlbumsFragment
      */
-    // TODO: Rename and change types and number of parameters
     public static AllAlbumsFragment newInstance(AlbumListAdapter adapter) {
         AllAlbumsFragment fragment = new AllAlbumsFragment();
 
