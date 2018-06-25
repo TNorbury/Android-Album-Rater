@@ -29,9 +29,9 @@
         app:menu="@menu/navigation" />
 
     <fragment
-        class="com.tylernorbury.albumrater.AllAlbumsFragment"
+        class="com.tylernorbury.albumrater.fragment.AllAlbumsFragment"
         android:id="@+id/fragment"
-        android:name="com.tylernorbury.albumrater.AllAlbumsFragment"
+        android:name="com.tylernorbury.albumrater.fragment.AllAlbumsFragment"
         android:layout_width="0dp"
         android:layout_height="477dp"
         android:layout_marginBottom="8dp"
