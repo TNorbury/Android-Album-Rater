@@ -58,7 +58,7 @@ public class MainActivity extends AppCompatActivity {
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
         // Create the recycler and adapter
-        RecyclerView recyclerView = findViewById(R.id.recylerView);
+        RecyclerView recyclerView = findViewById(R.id.recyclerView);
         final AlbumListAdapter adapter = new AlbumListAdapter(this);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new GridLayoutManager(this, 1));
