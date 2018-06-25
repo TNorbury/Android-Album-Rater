@@ -27,6 +27,7 @@ public class MainActivity extends AppCompatActivity {
 
     private TextView mTextMessage;
     private AlbumViewModel mAlbumViewModel;
+    private AllAlbumsFragment mAllAlbumsFragment;
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -58,10 +59,9 @@ public class MainActivity extends AppCompatActivity {
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
         // Create the recycler and adapter
-        RecyclerView recyclerView = findViewById(R.id.recyclerView);
         final AlbumListAdapter adapter = new AlbumListAdapter(this);
-        recyclerView.setAdapter(adapter);
-        recyclerView.setLayoutManager(new GridLayoutManager(this, 1));
+
+        mAllAlbumsFragment = AllAlbumsFragment.newInstance(adapter);
 
         // Get a view model for the AlbumViewModel
         mAlbumViewModel = ViewModelProviders.of(this).get(AlbumViewModel.class);
