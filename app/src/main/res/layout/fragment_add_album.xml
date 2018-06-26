@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".fragment.AddAlbumFragment">
+    tools:context=".fragment.AddAlbumFragment"
+    android:id="@+id/fragment_add_album">
 
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
@@ -63,8 +64,6 @@
                 android:button="@drawable/album_rating_bad_button"
                 android:checked="false"
                 android:textAlignment="viewStart" />
-
-
         </RadioGroup>
 
         <Button
@@ -76,7 +75,6 @@
             android:text="@string/album_review_submit"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/radioGroup" />
-
 
     </android.support.constraint.ConstraintLayout>
 </FrameLayout>

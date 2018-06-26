@@ -7,26 +7,33 @@ package com.tylernorbury.albumrater;
 
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.BottomNavigationView;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.util.AttributeSet;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.TextView;
 
 import com.tylernorbury.albumrater.adapter.AlbumListAdapter;
 import com.tylernorbury.albumrater.database.entity.Album;
+import com.tylernorbury.albumrater.fragment.AddAlbumFragment;
 import com.tylernorbury.albumrater.fragment.AllAlbumsFragment;
 import com.tylernorbury.albumrater.viewModel.AlbumViewModel;
 
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
-
     private TextView mTextMessage;
     private AlbumViewModel mAlbumViewModel;
-    private AllAlbumsFragment mAllAlbumsFragment;
+    private AlbumListAdapter mAdapter;
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -39,21 +46,37 @@ public class MainActivity extends AppCompatActivity {
          */
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+            boolean ret = false;
+            Fragment frag = null;
 
             // First, determine which menu item was selected
-
             switch (item.getItemId()) {
+
+                // The home screen will display all the albums the user has
+                // reviewed
                 case R.id.navigation_home:
+                    frag = AllAlbumsFragment.newInstance(mAdapter);
                     mTextMessage.setText(R.string.title_home);
-                    return true;
+                    ret = true;
+                    break;
+
+                // This will the screen where the user can add a new album
+                // review
                 case R.id.navigation_add:
+                    frag = new AddAlbumFragment();
                     mTextMessage.setText(R.string.title_add);
-                    return true;
-/*                case R.id.navigation_notifications:
-                    mTextMessage.setText(R.string.title_notifications);
-                    return true;*/
+                    ret = true;
+                    break;
             }
-            return false;
+
+            // Now perform a transaction to display the new fragment
+            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+            transaction.replace(R.id.main_view, frag);
+            transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
+            transaction.addToBackStack(null);
+            transaction.commit();
+
+            return ret;
         }
     };
 
@@ -66,10 +89,16 @@ public class MainActivity extends AppCompatActivity {
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
-        // Create the recycler and adapter
-        final AlbumListAdapter adapter = new AlbumListAdapter(this);
+        // Create an adapter for display the list of albums
+        mAdapter = new AlbumListAdapter(this);
 
-        mAllAlbumsFragment = AllAlbumsFragment.newInstance(adapter);
+        // Create a new fragment for displaying all of the albums.
+        AllAlbumsFragment fragment = AllAlbumsFragment.newInstance(mAdapter);
+
+        // Perform a transaction to display the fragment.
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.replace(R.id.main_view, fragment);
+        transaction.commit();
 
         // Get a view model for the AlbumViewModel
         mAlbumViewModel = ViewModelProviders.of(this).get(AlbumViewModel.class);
@@ -79,9 +108,8 @@ public class MainActivity extends AppCompatActivity {
         mAlbumViewModel.getAllAlbums().observe(this, new Observer<List<Album>>() {
             @Override
             public void onChanged(@Nullable List<Album> albums) {
-                adapter.setAlbums(albums);
+                mAdapter.setAlbums(albums);
             }
         });
     }
-
 }

@@ -3,7 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".fragment.AllAlbumsFragment">
+    tools:context=".fragment.AllAlbumsFragment"
+    android:id="@+id/fragment_all_albums">
 
 
     <android.support.v7.widget.RecyclerView

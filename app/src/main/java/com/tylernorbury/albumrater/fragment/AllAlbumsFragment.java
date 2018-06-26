@@ -2,6 +2,8 @@ package com.tylernorbury.albumrater.fragment;
 
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -21,6 +23,7 @@ import com.tylernorbury.albumrater.adapter.AlbumListAdapter;
 public class AllAlbumsFragment extends Fragment {
 
     private static RecyclerView mRecyclerView;
+    private static AlbumListAdapter mAdapter;
 
 
     public AllAlbumsFragment() { }
@@ -31,33 +34,16 @@ public class AllAlbumsFragment extends Fragment {
      * @return a new AllAlbumsFragment
      */
     public static AllAlbumsFragment newInstance(AlbumListAdapter adapter) {
+
+        // Create a new fragment
         AllAlbumsFragment fragment = new AllAlbumsFragment();
 
-        // Take the adapter passed as an argument and connect it to this
-        // fragment's recycler view
-        mRecyclerView.setAdapter(adapter);
+        // Set the adapter to the one supplied via argument
+        mAdapter = adapter;
 
-        // Set the grid layout manager for the recycler view
-        mRecyclerView.setLayoutManager(new GridLayoutManager(fragment.getContext(), 1));
-
-
-        // not sure if I need all this bundle stuff, so I'll leave it commented
-        // out for now.
-        // Bundle args = new Bundle();
-        // args.putString(ARG_PARAM1, param1);
-        // args.putString(ARG_PARAM2, param2);
-        // fragment.setArguments(args);
         return fragment;
     }
 
-/*    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-*//*        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }*//*
-    }*/
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -65,10 +51,18 @@ public class AllAlbumsFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_all_albums, container, false);
 
-        // Get a reference to the recycler view
-        mRecyclerView = (RecyclerView) view.findViewById(R.id.recyclerView);
-
         return view;
     }
 
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        // Get a reference to the recycler view
+        mRecyclerView = (RecyclerView) view.findViewById(R.id.recyclerView);
+
+        // Set the adapter for the recycler view and set to the layout manager.
+        mRecyclerView.setAdapter(mAdapter);
+        mRecyclerView.setLayoutManager(new GridLayoutManager(this.getContext(), 1));
+    }
 }
