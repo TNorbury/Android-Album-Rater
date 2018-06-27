@@ -12,7 +12,7 @@
         android:layout_height="match_parent">
 
         <EditText
-            android:id="@+id/editText7"
+            android:id="@+id/add_album_name"
             style="@android:style/Widget.Material.EditText"
             android:layout_width="300dp"
             android:layout_height="wrap_content"
@@ -25,7 +25,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <EditText
-            android:id="@+id/editText8"
+            android:id="@+id/add_album_artist"
             style="@android:style/Widget.Material.EditText"
             android:layout_width="300dp"
             android:layout_height="wrap_content"
@@ -35,20 +35,20 @@
             android:hint="@string/album_artist_hint"
             android:inputType="textPersonName"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/editText7" />
+            app:layout_constraintTop_toBottomOf="@+id/add_album_name" />
 
         <RadioGroup
-            android:id="@+id/radioGroup"
+            android:id="@+id/add_album_rating"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
             android:orientation="horizontal"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/editText8">
+            app:layout_constraintTop_toBottomOf="@+id/add_album_artist">
 
             <RadioButton
-                android:id="@+id/radioButton2"
+                android:id="@+id/add_album_rating_good"
                 android:layout_width="62dp"
                 android:layout_height="wrap_content"
                 android:button="@drawable/album_rating_good_button"
@@ -57,7 +57,7 @@
                 tools:layout_editor_absoluteY="155dp" />
 
             <RadioButton
-                android:id="@+id/radioButton3"
+                android:id="@+id/add_album_rating_bad"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -67,14 +67,14 @@
         </RadioGroup>
 
         <Button
-            android:id="@+id/button2"
+            android:id="@+id/btn_add_album"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
             android:text="@string/album_review_submit"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/radioGroup" />
+            app:layout_constraintTop_toBottomOf="@+id/add_album_rating" />
 
     </android.support.constraint.ConstraintLayout>
 </FrameLayout>

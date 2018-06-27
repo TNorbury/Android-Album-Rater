@@ -20,6 +20,7 @@ import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.TextView;
 
 import com.tylernorbury.albumrater.adapter.AlbumListAdapter;
@@ -111,5 +112,8 @@ public class MainActivity extends AppCompatActivity {
                 mAdapter.setAlbums(albums);
             }
         });
+
+        // This makes it so when the keyboard shows up the screen doesn't also move up.
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
     }
 }
