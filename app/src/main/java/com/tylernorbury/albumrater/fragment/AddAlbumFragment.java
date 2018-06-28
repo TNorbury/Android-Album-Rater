@@ -13,7 +13,9 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.RadioGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.tylernorbury.albumrater.AlbumRaterApp;
 import com.tylernorbury.albumrater.R;
 import com.tylernorbury.albumrater.database.entity.Album;
 import com.tylernorbury.albumrater.viewModel.AlbumViewModel;
@@ -28,7 +30,6 @@ public class AddAlbumFragment extends Fragment {
     // When the button is clicked we'll retrieve all the data from the various
     // forms, create an album object from that, and insert it into the database.
     Button.OnClickListener mButtonClickListener = new Button.OnClickListener() {
-
         public void onClick(View v) {
             int albumRating = -1;
             boolean validForm = true;
@@ -69,10 +70,7 @@ public class AddAlbumFragment extends Fragment {
             // selected. In that case tell the user to selected a rating
             else if (selectedRating == -1) {
                 validForm &= false;
-
-                // Send a toast or something
             }
-
 
             // If the form is considered "valid", then we want to insert the
             // data into the database
@@ -88,16 +86,25 @@ public class AddAlbumFragment extends Fragment {
                 // Now "pop" the back stack, returning the user to the last
                 // screen they were on
                 getActivity().getSupportFragmentManager().popBackStack();
-//                    ((BottomNavigationView)getActivity().findViewById(R.id.navigation)).setSelectedItemId(R.id.navigation_home);
+            }
+
+            // Otherwise, if the form isn't valid, tell the user.
+            else {
+                Toast.makeText(AlbumRaterApp.getContext(),
+                        "Please fill out all the fields and select a rating" +
+                                " before submitting",
+                        Toast.LENGTH_LONG).show();
             }
         }
     };
 
-    public AddAlbumFragment() {
-        // Required empty public constructor
-    }
+    public AddAlbumFragment() { }
 
 
+    /**
+     * Create a new instance of this fragment
+     * @return a new AddAlbumFragment
+     */
     public static AddAlbumFragment newInstance() {
         AddAlbumFragment fragment = new AddAlbumFragment();
 
