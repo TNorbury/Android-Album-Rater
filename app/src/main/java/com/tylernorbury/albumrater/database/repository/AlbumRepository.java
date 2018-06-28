@@ -20,6 +20,17 @@ import java.util.List;
  */
 public class AlbumRepository {
 
+    // We'll use these codes to determine which query we'll call. The different
+    // codes represent a different combination of column name and ordering
+    public static final int QUERY_TITLE_ASC = 1;
+    public static final int QUERY_TITLE_DESC = 2;
+    public static final int QUERY_ARTIST_ASC = 3;
+    public static final int QUERY_ARTIST_DESC = 4;
+    public static final int QUERY_RATING_ASC = 5;
+    public static final int QUERY_RATING_DESC = 6;
+    public static final int QUERY_DATE_ASC = 7;
+    public static final int QUERY_DATE_DESC = 8;
+
     // We want the repository to be a singleton
     private static AlbumRepository INSTANCE;
 
@@ -59,6 +70,56 @@ public class AlbumRepository {
      */
     public LiveData<List<Album>> getAllAlbums() {
         return mAllAlbums;
+    }
+
+    /**
+     * Get all the albums in the database, ordering the results by the given
+     * parameters
+     *
+     * @param queryCode The code for the query that'll well use to retrieve the
+     *                  data.
+     *
+     * @return an ordered list of the albums in the database.
+     */
+    public LiveData<List<Album>> getAllAlbumsOrdered(int queryCode) {
+
+        // Depending on the given query code, calling the corresponding query
+        // from the DAO
+        switch (queryCode) {
+            case QUERY_TITLE_ASC:
+                mAllAlbums = mAlbumDao.getAllAlbumsOrderedTitleASC();
+                break;
+
+            case QUERY_TITLE_DESC:
+                mAllAlbums = mAlbumDao.getAllAlbumsOrderedTitleDESC();
+                break;
+
+            case QUERY_ARTIST_ASC:
+                mAllAlbums = mAlbumDao.getAllAlbumsOrderedArtistASC();
+                break;
+
+            case QUERY_ARTIST_DESC:
+                mAllAlbums = mAlbumDao.getAllAlbumsOrderedArtistDESC();
+                break;
+
+            case QUERY_RATING_ASC:
+                mAllAlbums = mAlbumDao.getAllAlbumsOrderedRatingASC();
+                break;
+
+            case QUERY_RATING_DESC:
+                mAllAlbums = mAlbumDao.getAllAlbumsOrderedRatingDESC();
+                break;
+
+            case QUERY_DATE_ASC:
+                mAllAlbums = mAlbumDao.getAllAlbumsOrderedDateASC();
+                break;
+
+            case QUERY_DATE_DESC:
+                mAllAlbums = mAlbumDao.getAllAlbumsOrderedDateDESC();
+                break;
+        }
+
+        return  mAllAlbums;
     }
 
     /**

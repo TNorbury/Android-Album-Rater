@@ -28,9 +28,18 @@ public class AlbumViewModel extends AndroidViewModel {
     }
 
     /**
-     * @return All of the albums
+     * Get a list of all the albums in the database, using the give code to
+     * dictate how all the albums will be sorted
+     *
+     * @param queryCode The code for the query that'll well use to retrieve the
+     *                  data. These values are defined in {@link AlbumRepository}
+     *
+     * @return The list of albums, sorted by the given query code
      */
-    public LiveData<List<Album>> getAllAlbums() {
+    public LiveData<List<Album>> getAlbumsFromQuery(int queryCode) {
+        // Update the internal list of albums to be ordered by the given query
+        // code
+        mAllAlbums = mRepository.getAllAlbumsOrdered(queryCode);
         return mAllAlbums;
     }
 
