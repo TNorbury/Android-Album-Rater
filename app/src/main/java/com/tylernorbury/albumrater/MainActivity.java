@@ -28,7 +28,6 @@ import com.tylernorbury.albumrater.viewModel.AlbumViewModel;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
-    private TextView mTextMessage;
     private AlbumViewModel mAlbumViewModel;
     private AlbumListAdapter mAdapter;
 
@@ -76,7 +75,6 @@ public class MainActivity extends AppCompatActivity {
                 case R.id.navigation_home:
                     if (mBackstackState != BACKSTACK_POPPED)
                         frag = AllAlbumsFragment.newInstance(mAdapter);
-                    mTextMessage.setText(R.string.title_home);
                     ret = true;
                     break;
 
@@ -85,7 +83,6 @@ public class MainActivity extends AppCompatActivity {
                 case R.id.navigation_add:
                     if (mBackstackState != BACKSTACK_POPPED)
                         frag = new AddAlbumFragment();
-                    mTextMessage.setText(R.string.title_add);
                     ret = true;
                     break;
             }
@@ -114,7 +111,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        mTextMessage = (TextView) findViewById(R.id.message);
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
         navigation.setOnNavigationItemReselectedListener(mOnNavigationReselectedListener);
