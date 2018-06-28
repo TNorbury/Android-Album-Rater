@@ -20,7 +20,7 @@
             android:layout_marginTop="16dp"
             android:ems="10"
             android:hint="@string/album_name_hint"
-            android:inputType="text"
+            android:inputType="textCapSentences"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -33,7 +33,7 @@
             android:layout_marginTop="16dp"
             android:ems="10"
             android:hint="@string/album_artist_hint"
-            android:inputType="textPersonName"
+            android:inputType="textCapWords"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/add_album_name" />
 
