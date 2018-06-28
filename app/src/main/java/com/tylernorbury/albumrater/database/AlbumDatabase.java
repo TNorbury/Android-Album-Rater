@@ -13,8 +13,8 @@ import android.arch.persistence.room.TypeConverters;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.support.annotation.NonNull;
+import android.support.constraint.BuildConfig;
 
-import com.tylernorbury.albumrater.BuildConfig;
 import com.tylernorbury.albumrater.database.converter.DateTimeConverter;
 import com.tylernorbury.albumrater.database.dao.AlbumDao;
 import com.tylernorbury.albumrater.database.entity.Album;
