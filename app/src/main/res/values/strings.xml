@@ -18,4 +18,6 @@
     <string name="sort_rating_desc">Album Rating (High to Low)</string>
     <string name="sort_date_asc">Review Date (Old to New)</string>
     <string name="sort_date_desc">Review Date (New to Old)</string>
+
+    <string name="search_hint">Enter album name or artist</string>
 </resources>

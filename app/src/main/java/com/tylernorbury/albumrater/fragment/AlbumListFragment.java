@@ -1,6 +1,7 @@
 package com.tylernorbury.albumrater.fragment;
 
 
+import android.app.SearchManager;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -8,15 +9,26 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.EditorInfo;
 import android.widget.AdapterView;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.SearchView;
 import android.widget.Spinner;
+import android.widget.TextView;
+import android.widget.Toast;
 
+import com.tylernorbury.albumrater.AlbumRaterApp;
 import com.tylernorbury.albumrater.R;
 import com.tylernorbury.albumrater.adapter.AlbumListAdapter;
 import com.tylernorbury.albumrater.database.repository.AlbumRepository;
+
+import java.io.Console;
 
 
 /**
@@ -80,6 +92,34 @@ public class AlbumListFragment extends Fragment implements AdapterView.OnItemSel
         // Set up the spinner selection listener
         Spinner spinner = view.findViewById(R.id.sorting_spinner);
         spinner.setOnItemSelectedListener(this);
+
+        // Create an onClick listener for the search button
+        ImageButton searchButton = (ImageButton) view.findViewById(R.id.search_button);
+        searchButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Call the helper method to process the search
+                handleSearch();
+            }
+        });
+
+        // Create and set a listener for whenever the return/enter key is pressed
+        EditText searchField = (EditText) view.findViewById(R.id.search_text);
+        searchField.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+
+                // If the IME Action "done" happened, then call the method to
+                // handle searches
+                if (actionId == EditorInfo.IME_ACTION_DONE) {
+                    handleSearch();
+                }
+
+                // Returning false because we want the system handle the event
+                // as well (specifically we just want the keyboard to go away)
+                return false;
+            }
+        });
     }
 
     @Override
@@ -152,5 +192,14 @@ public class AlbumListFragment extends Fragment implements AdapterView.OnItemSel
         // If nothing is selected, then we'll do nothing
     }
 
+    /**
+     * Helper method used to handle search events, which are caused by either
+     * pressing the search button or hitting the return key while in the search
+     * text box
+     */
+    private void handleSearch() {
+        String searchText = ((EditText)(getView().findViewById(R.id.search_text))).getText().toString();
+        Toast.makeText(AlbumRaterApp.getContext(), searchText, Toast.LENGTH_SHORT).show();
+    }
 
 }
