@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="album_list_orderings">
+        <item>@string/sort_title_asc</item>
+        <item>@string/sort_title_desc</item>
+
+        <item>@string/sort_artist_asc</item>
+        <item>@string/sort_artist_desc</item>
+
+        <item>@string/sort_rating_asc</item>
+        <item>@string/sort_rating_desc</item>
+
+        <item>@string/sort_date_asc</item>
+        <item>@string/sort_date_desc</item>
+    </string-array>
+</resources>

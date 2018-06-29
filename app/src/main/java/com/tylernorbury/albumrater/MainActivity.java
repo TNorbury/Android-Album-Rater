@@ -17,7 +17,6 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.view.WindowManager;
-import android.widget.TextView;
 
 import com.tylernorbury.albumrater.adapter.AlbumListAdapter;
 import com.tylernorbury.albumrater.database.entity.Album;
@@ -27,9 +26,17 @@ import com.tylernorbury.albumrater.viewModel.AlbumViewModel;
 
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements AllAlbumsFragment.OnSortParametersChangedListener {
     private AlbumViewModel mAlbumViewModel;
     private AlbumListAdapter mAdapter;
+
+    // Define the observer that will observe the album list
+    private Observer<List<Album>> mAlbumListObserver = new Observer<List<Album>>() {
+        @Override
+        public void onChanged(@Nullable List<Album> albums) {
+            mAdapter.setAlbums(albums);
+        }
+    };
 
     // We'll use a set of flags to determine the current state of the fragment
     // backstack. This is done so that we don't unnecessarily replace fragments
@@ -129,15 +136,6 @@ public class MainActivity extends AppCompatActivity {
         // Get a view model for the AlbumViewModel
         mAlbumViewModel = ViewModelProviders.of(this).get(AlbumViewModel.class);
 
-        // Add an observer for any changes to the list of albums. When that
-        // change does happen, then update the copy of words that the adapter has saved
-        mAlbumViewModel.getAllAlbums().observe(this, new Observer<List<Album>>() {
-            @Override
-            public void onChanged(@Nullable List<Album> albums) {
-                mAdapter.setAlbums(albums);
-            }
-        });
-
         // This makes it so when the keyboard shows up the screen doesn't also move up.
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
 
@@ -149,14 +147,17 @@ public class MainActivity extends AppCompatActivity {
 
                 // If nothing was added to the backstack we know that this event
                 // was triggered by a "pop". In that case we want to tell the
-                // navigation view which fragment was popped, so that the correct button can be highlighted.
+                // navigation view which fragment was popped, so that the correct
+                // button can be highlighted.
                 if (mBackstackState != BACKSTACK_ADDED) {
 
                     // Indicate that something was popped from the backstack.
                     mBackstackState = BACKSTACK_POPPED;
 
-                    // Get the fragment that is currently displayed (the one that was popped)
-                    Fragment frag = getSupportFragmentManager().findFragmentByTag("visible_fragment");
+                    // Get the fragment that is currently displayed (the one that
+                    // was popped)
+                    Fragment frag = getSupportFragmentManager()
+                            .findFragmentByTag("visible_fragment");
 
                     // Get the navigation view
                     BottomNavigationView navigation = findViewById(R.id.navigation);
@@ -175,5 +176,15 @@ public class MainActivity extends AppCompatActivity {
                 mBackstackState = BACKSTACK_CLEAR;
             }
         });
+    }
+
+    @Override
+    public void onSortParametersChanged(int queryCode) {
+
+        // We want to take the parameters given to us by the fragment and make a
+        // query using them. We'll then take the newly ordered results and
+        // attach an observer to them
+        mAlbumViewModel.getAlbumsFromQuery(queryCode)
+                .observe(this, mAlbumListObserver);
     }
 }

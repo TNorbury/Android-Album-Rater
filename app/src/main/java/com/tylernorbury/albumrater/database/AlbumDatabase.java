@@ -68,7 +68,7 @@ public abstract class AlbumDatabase extends RoomDatabase {
             // the database
             if (BuildConfig.DEBUG) {
                 super.onOpen(db);
-                new PopulateDbAsync(INSTANCE).execute();
+                //new PopulateDbAsync(INSTANCE).execute();
             }
         }
     };

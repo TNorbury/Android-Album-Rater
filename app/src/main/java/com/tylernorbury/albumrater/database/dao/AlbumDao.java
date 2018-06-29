@@ -38,6 +38,7 @@ public interface AlbumDao {
             "ORDER BY title ASC")
     LiveData<List<Album>> getAllAlbums();
 
+
     /**
      * @return a handful of the most recently reviewed albums
      */
@@ -50,4 +51,60 @@ public interface AlbumDao {
     void deleteAll();
 
     // TODO add some queries for searching for albums by title/artist name
+
+    /**
+     * @return All albums, ordered by title, ascending
+     */
+    @Query("SELECT * FROM ALBUM " +
+            "ORDER BY title ASC")
+    LiveData<List<Album>> getAllAlbumsOrderedTitleASC();
+
+    /**
+     * @return all albums, ordered by title, descending
+     */
+    @Query("SELECT * FROM ALBUM " +
+            "ORDER BY title DESC")
+    LiveData<List<Album>> getAllAlbumsOrderedTitleDESC();
+
+    /**
+     * @return all albums, ordered by artist's name, ascending
+     */
+    @Query("SELECT * FROM ALBUM " +
+            "ORDER BY artist ASC")
+    LiveData<List<Album>> getAllAlbumsOrderedArtistASC();
+
+    /**
+     * @return all albums, ordered by artist's name, descending
+     */
+    @Query("SELECT * FROM ALBUM " +
+            "ORDER BY artist DESC")
+    LiveData<List<Album>> getAllAlbumsOrderedArtistDESC();
+
+    /**
+     * @return all albums, ordered by the album's rating, ascending
+     */
+    @Query("SELECT * FROM ALBUM " +
+            "ORDER BY rating ASC")
+    LiveData<List<Album>> getAllAlbumsOrderedRatingASC();
+
+    /**
+     * @return all albums, ordered by the album's rating, descending
+     */
+    @Query("SELECT * FROM ALBUM " +
+            "ORDER BY rating DESC")
+    LiveData<List<Album>> getAllAlbumsOrderedRatingDESC();
+
+    /**
+     * @return all albums, ordered by the date of the review, ascending
+     */
+    @Query("SELECT * FROM ALBUM " +
+            "ORDER BY reviewDate ASC")
+    LiveData<List<Album>> getAllAlbumsOrderedDateASC();
+
+    /**
+     * @return all albums, ordered by the date of the review, descending
+     */
+    @Query("SELECT * FROM ALBUM " +
+            "ORDER BY reviewDate DESC")
+    LiveData<List<Album>> getAllAlbumsOrderedDateDESC();
 }
