@@ -21,10 +21,10 @@ import com.tylernorbury.albumrater.database.repository.AlbumRepository;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link AllAlbumsFragment#newInstance} factory method to
+ * Use the {@link AlbumListFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class AllAlbumsFragment extends Fragment implements AdapterView.OnItemSelectedListener {
+public class AlbumListFragment extends Fragment implements AdapterView.OnItemSelectedListener {
 
     private static AlbumListAdapter mAdapter;
     private OnSortParametersChangedListener mListener;
@@ -38,19 +38,19 @@ public class AllAlbumsFragment extends Fragment implements AdapterView.OnItemSel
     }
 
     /**
-     * Creates a new AllAlbumsFragment
+     * Creates a new AlbumListFragment
      */
-    public AllAlbumsFragment() { }
+    public AlbumListFragment() { }
 
     /**
-     * Create a new instance of this AllAlbumsFragment
+     * Create a new instance of this AlbumListFragment
      * @param adapter The RecyclerView adapter that this fragment will use.
-     * @return a new AllAlbumsFragment
+     * @return a new AlbumListFragment
      */
-    public static AllAlbumsFragment newInstance(AlbumListAdapter adapter) {
+    public static AlbumListFragment newInstance(AlbumListAdapter adapter) {
 
         // Create a new fragment
-        AllAlbumsFragment fragment = new AllAlbumsFragment();
+        AlbumListFragment fragment = new AlbumListFragment();
 
         // Set the adapter to the one supplied via argument
         mAdapter = adapter;
@@ -63,7 +63,7 @@ public class AllAlbumsFragment extends Fragment implements AdapterView.OnItemSel
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_all_albums, container, false);
+        return inflater.inflate(R.layout.fragment_album_list, container, false);
     }
 
     @Override

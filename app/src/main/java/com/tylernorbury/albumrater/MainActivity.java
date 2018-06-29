@@ -21,12 +21,12 @@ import android.view.WindowManager;
 import com.tylernorbury.albumrater.adapter.AlbumListAdapter;
 import com.tylernorbury.albumrater.database.entity.Album;
 import com.tylernorbury.albumrater.fragment.AddAlbumFragment;
-import com.tylernorbury.albumrater.fragment.AllAlbumsFragment;
+import com.tylernorbury.albumrater.fragment.AlbumListFragment;
 import com.tylernorbury.albumrater.viewModel.AlbumViewModel;
 
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity implements AllAlbumsFragment.OnSortParametersChangedListener {
+public class MainActivity extends AppCompatActivity implements AlbumListFragment.OnSortParametersChangedListener {
     private AlbumViewModel mAlbumViewModel;
     private AlbumListAdapter mAdapter;
 
@@ -81,7 +81,7 @@ public class MainActivity extends AppCompatActivity implements AllAlbumsFragment
                 // reviewed
                 case R.id.navigation_home:
                     if (mBackstackState != BACKSTACK_POPPED)
-                        frag = AllAlbumsFragment.newInstance(mAdapter);
+                        frag = AlbumListFragment.newInstance(mAdapter);
                     ret = true;
                     break;
 
@@ -126,7 +126,7 @@ public class MainActivity extends AppCompatActivity implements AllAlbumsFragment
         mAdapter = new AlbumListAdapter(this);
 
         // Create a new fragment for displaying all of the albums.
-        AllAlbumsFragment fragment = AllAlbumsFragment.newInstance(mAdapter);
+        AlbumListFragment fragment = AlbumListFragment.newInstance(mAdapter);
 
         // Perform a transaction to display the fragment.
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
@@ -164,7 +164,7 @@ public class MainActivity extends AppCompatActivity implements AllAlbumsFragment
 
                     // Now determine which type of fragment was popped, and
                     // select that fragment's corresponding navigation item
-                    if (frag instanceof AllAlbumsFragment) {
+                    if (frag instanceof AlbumListFragment) {
                         navigation.setSelectedItemId(R.id.navigation_home);
                     }
                     else if (frag instanceof AddAlbumFragment) {
