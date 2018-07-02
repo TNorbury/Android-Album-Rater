@@ -22,14 +22,14 @@ public class AlbumRepository {
 
     // We'll use these codes to determine which query we'll call. The different
     // codes represent a different combination of column name and ordering
-    public static final int QUERY_TITLE_ASC = 1;
-    public static final int QUERY_TITLE_DESC = 2;
-    public static final int QUERY_ARTIST_ASC = 3;
-    public static final int QUERY_ARTIST_DESC = 4;
-    public static final int QUERY_RATING_ASC = 5;
-    public static final int QUERY_RATING_DESC = 6;
-    public static final int QUERY_DATE_ASC = 7;
-    public static final int QUERY_DATE_DESC = 8;
+    public static final int QUERY_TITLE_ASC = 0;
+    public static final int QUERY_TITLE_DESC = 1;
+    public static final int QUERY_ARTIST_ASC = 2;
+    public static final int QUERY_ARTIST_DESC = 3;
+    public static final int QUERY_RATING_ASC = 4;
+    public static final int QUERY_RATING_DESC = 5;
+    public static final int QUERY_DATE_ASC = 6;
+    public static final int QUERY_DATE_DESC = 7;
 
     // We want the repository to be a singleton
     private static AlbumRepository INSTANCE;
