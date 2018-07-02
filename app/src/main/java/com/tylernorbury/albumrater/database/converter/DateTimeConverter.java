@@ -2,7 +2,6 @@ package com.tylernorbury.albumrater.database.converter;
 
 import android.arch.persistence.room.TypeConverter;
 
-import java.util.Date;
 import java.util.GregorianCalendar;
 
 public class DateTimeConverter {
