@@ -50,8 +50,6 @@ public interface AlbumDao {
     @Query("DELETE FROM album")
     void deleteAll();
 
-    // TODO add some queries for searching for albums by title/artist name
-
     /**
      * @return All albums, ordered by title, ascending
      */

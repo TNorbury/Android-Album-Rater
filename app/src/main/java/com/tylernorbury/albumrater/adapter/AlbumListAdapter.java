@@ -88,7 +88,6 @@ public class AlbumListAdapter extends RecyclerView.Adapter<AlbumListAdapter.Albu
             // Get the view that contains the rating image
             ImageView ratingImage = holder.album.findViewById(R.id.AlbumRating);
 
-            //TODO Display the album's rating
             // If the album's rating is positive (i.e. 1), then we'll display a
             // thumbs up
             if (current.getRating() == Album.GOOD_ALBUM) {
