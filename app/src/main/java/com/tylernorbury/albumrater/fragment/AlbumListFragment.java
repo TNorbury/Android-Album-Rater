@@ -137,6 +137,18 @@ public class AlbumListFragment extends Fragment implements AdapterView.OnItemSel
 
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        EditText searchField = (EditText) getView().findViewById(R.id.search_text);
+
+        // Make sure that the search box is clear, and also "handle this
+        // search", so that the parent activity refreshes the album list
+        searchField.setText("");
+        handleSearch();
+    }
+
     /**
      * This will handle an item being selected from the spinner. The sorting of
      * the album list will be changed depending on the selection
@@ -197,11 +209,10 @@ public class AlbumListFragment extends Fragment implements AdapterView.OnItemSel
     /**
      * Helper method used to handle search events, which are caused by either
      * pressing the search button or hitting the return key while in the search
-     * text box
+     * text box. This method generate an OnSearchSubmitted event
      */
     private void handleSearch() {
         String searchText = ((EditText)(getView().findViewById(R.id.search_text))).getText().toString();
-        Toast.makeText(AlbumRaterApp.getContext(), searchText, Toast.LENGTH_SHORT).show();
         mOnSearchQuerySubmittedListener.onSearchQuerySubmittedListener(searchText);
     }
 
