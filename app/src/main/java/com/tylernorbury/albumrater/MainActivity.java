@@ -29,7 +29,6 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity implements AlbumListFragment.OnSortParametersChangedListener, AlbumListFragment.OnSearchQuerySubmittedListener {
     private AlbumViewModel mAlbumViewModel;
     private AlbumListAdapter mAdapter;
-    private Fragment mCurrentFrag;
 
     // Define the observer that will observe the album list
     private Observer<List<Album>> mAlbumListObserver = new Observer<List<Album>>() {
@@ -108,8 +107,6 @@ public class MainActivity extends AppCompatActivity implements AlbumListFragment
 
                 // Update the backstack state to indicate a fragment was added.
                 mBackstackState = BACKSTACK_ADDED;
-
-                mCurrentFrag = frag;
             }
 
             return ret;
@@ -135,8 +132,6 @@ public class MainActivity extends AppCompatActivity implements AlbumListFragment
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.main_view, fragment, "visible_fragment");
         transaction.commit();
-
-        mCurrentFrag = fragment;
 
         // Get a view model for the AlbumViewModel
         mAlbumViewModel = ViewModelProviders.of(this).get(AlbumViewModel.class);
@@ -171,12 +166,11 @@ public class MainActivity extends AppCompatActivity implements AlbumListFragment
                     // select that fragment's corresponding navigation item
                     if (frag instanceof AlbumListFragment) {
                         navigation.setSelectedItemId(R.id.navigation_home);
+
                     }
                     else if (frag instanceof AddAlbumFragment) {
                         navigation.setSelectedItemId(R.id.navigation_add);
                     }
-
-                    mCurrentFrag = frag;
                 }
 
                 // Indicate that the backstack change event has been handled
