@@ -1,6 +1,7 @@
 package com.tylernorbury.albumrater.fragment;
 
 
+import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -13,6 +14,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -79,7 +81,7 @@ public class AlbumListFragment extends Fragment implements AdapterView.OnItemSel
     }
 
     @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+    public void onViewCreated(@NonNull final View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
         // Get a reference to the recycler view
@@ -116,7 +118,7 @@ public class AlbumListFragment extends Fragment implements AdapterView.OnItemSel
                 }
 
                 // Returning false because we want the system handle the event
-                // as well (specifically we just want the keyboard to go away)
+                // as well and do whatever it needs to do with it.
                 return false;
             }
         });
@@ -212,6 +214,16 @@ public class AlbumListFragment extends Fragment implements AdapterView.OnItemSel
      * text box. This method generate an OnSearchSubmitted event
      */
     private void handleSearch() {
+
+        // Under most cases when this method is called the search box will be
+        // selected and the software keyboard will be up. Assuming that's the
+        // case then we want to move the keyboard off screen.
+        InputMethodManager imm = (InputMethodManager) AlbumRaterApp.getContext().getSystemService(Activity.INPUT_METHOD_SERVICE);
+        imm.hideSoftInputFromWindow(getView().getWindowToken(), 0);
+
+        // We also want to clear focus from the search box
+        getView().clearFocus();
+
         String searchText = ((EditText)(getView().findViewById(R.id.search_text))).getText().toString();
         mOnSearchQuerySubmittedListener.onSearchQuerySubmittedListener(searchText);
     }
