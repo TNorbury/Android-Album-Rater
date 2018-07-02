@@ -81,41 +81,41 @@ public class AlbumRepository {
      *
      * @return an ordered list of the albums in the database.
      */
-    public LiveData<List<Album>> getAllAlbumsOrdered(int queryCode) {
+    public LiveData<List<Album>> getAllAlbumsOrdered(int queryCode, String searchParameter) {
 
         // Depending on the given query code, calling the corresponding query
         // from the DAO
         switch (queryCode) {
             case QUERY_TITLE_ASC:
-                mAllAlbums = mAlbumDao.getAllAlbumsOrderedTitleASC();
+                mAllAlbums = mAlbumDao.getAllAlbumsOrderedTitleASC(formatSearchParameter(searchParameter));
                 break;
 
             case QUERY_TITLE_DESC:
-                mAllAlbums = mAlbumDao.getAllAlbumsOrderedTitleDESC();
+                mAllAlbums = mAlbumDao.getAllAlbumsOrderedTitleDESC(formatSearchParameter(searchParameter));
                 break;
 
             case QUERY_ARTIST_ASC:
-                mAllAlbums = mAlbumDao.getAllAlbumsOrderedArtistASC();
+                mAllAlbums = mAlbumDao.getAllAlbumsOrderedArtistASC(formatSearchParameter(searchParameter));
                 break;
 
             case QUERY_ARTIST_DESC:
-                mAllAlbums = mAlbumDao.getAllAlbumsOrderedArtistDESC();
+                mAllAlbums = mAlbumDao.getAllAlbumsOrderedArtistDESC(formatSearchParameter(searchParameter));
                 break;
 
             case QUERY_RATING_ASC:
-                mAllAlbums = mAlbumDao.getAllAlbumsOrderedRatingASC();
+                mAllAlbums = mAlbumDao.getAllAlbumsOrderedRatingASC(formatSearchParameter(searchParameter));
                 break;
 
             case QUERY_RATING_DESC:
-                mAllAlbums = mAlbumDao.getAllAlbumsOrderedRatingDESC();
+                mAllAlbums = mAlbumDao.getAllAlbumsOrderedRatingDESC(formatSearchParameter(searchParameter));
                 break;
 
             case QUERY_DATE_ASC:
-                mAllAlbums = mAlbumDao.getAllAlbumsOrderedDateASC();
+                mAllAlbums = mAlbumDao.getAllAlbumsOrderedDateASC(formatSearchParameter(searchParameter));
                 break;
 
             case QUERY_DATE_DESC:
-                mAllAlbums = mAlbumDao.getAllAlbumsOrderedDateDESC();
+                mAllAlbums = mAlbumDao.getAllAlbumsOrderedDateDESC(formatSearchParameter(searchParameter));
                 break;
         }
 
