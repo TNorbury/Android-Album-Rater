@@ -17,6 +17,8 @@ public class AlbumViewModel extends AndroidViewModel {
     private AlbumRepository mRepository;
     private LiveData<List<Album>> mAllAlbums;
     private String mSearchParameter = "";
+    private int mCurrentQuerySelection;
+
 
     /**
      * Creates a new AlbumViewModel
@@ -38,6 +40,9 @@ public class AlbumViewModel extends AndroidViewModel {
      * @return The list of albums, sorted by the given query code
      */
     public LiveData<List<Album>> getAlbumsFromQuery(int queryCode) {
+        // Update the current query code that's being used
+        mCurrentQuerySelection = queryCode;
+
         // Update the internal list of albums to be ordered by the given query
         // code
         mAllAlbums = mRepository.getAllAlbumsOrdered(queryCode, mSearchParameter);
@@ -64,5 +69,12 @@ public class AlbumViewModel extends AndroidViewModel {
      */
     public void updateSearchParameter(String searchQuery) {
         mSearchParameter = searchQuery;
+    }
+
+    /**
+     * @return the current query selection
+     */
+    public int getCurrentQuerySelection() {
+        return mCurrentQuerySelection;
     }
 }

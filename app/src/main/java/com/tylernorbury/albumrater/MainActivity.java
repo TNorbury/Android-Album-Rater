@@ -198,8 +198,7 @@ public class MainActivity extends AppCompatActivity implements AlbumListFragment
         // We now want to get all the albums with the updated query. We'll ask
         // the current frag what the current selection is so that we can make
         // sure to use the correct sorting query
-        mAlbumViewModel.getAlbumsFromQuery(((AlbumListFragment) mCurrentFrag)
-                .getCurrentQuerySelection())
+        mAlbumViewModel.getAlbumsFromQuery(mAlbumViewModel.getCurrentQuerySelection())
                 .observe(this, mAlbumListObserver);
     }
 }

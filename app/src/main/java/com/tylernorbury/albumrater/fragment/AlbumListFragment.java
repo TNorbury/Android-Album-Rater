@@ -36,7 +36,6 @@ public class AlbumListFragment extends Fragment implements AdapterView.OnItemSel
     private static AlbumListAdapter mAdapter;
     private OnSortParametersChangedListener mOnSortParametersChangedListener;
     private OnSearchQuerySubmittedListener mOnSearchQuerySubmittedListener;
-    private int mCurrentQuerySelection;
 
     /**
      * This interface will handle events when a new sorting parameter is
@@ -71,11 +70,6 @@ public class AlbumListFragment extends Fragment implements AdapterView.OnItemSel
 
         return fragment;
     }
-
-    public int getCurrentQuerySelection() {
-        return  mCurrentQuerySelection;
-    }
-
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
@@ -191,9 +185,6 @@ public class AlbumListFragment extends Fragment implements AdapterView.OnItemSel
         else if (sortSelection.equals(getString(R.string.sort_date_desc))) {
             queryCode = AlbumRepository.QUERY_DATE_DESC;
         }
-
-        // Update the currently selected query code
-        mCurrentQuerySelection = queryCode;
 
         mOnSortParametersChangedListener.onSortParametersChanged(queryCode);
     }
