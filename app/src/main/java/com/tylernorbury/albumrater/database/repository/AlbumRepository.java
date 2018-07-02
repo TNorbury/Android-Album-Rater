@@ -131,6 +131,29 @@ public class AlbumRepository {
     }
 
     /**
+     * Formats the given search parameter to make it better for searching
+     *
+     * @param searchParameter The parameter to format
+     * @return a formatted search parameter
+     */
+    private String formatSearchParameter(String searchParameter) {
+        StringBuilder sb = new StringBuilder();
+
+        // Firstly we want to put an SQL wild card character at the start of the
+        // parameter
+        sb.append("%");
+
+        // Next we want to append the search parameter itself
+        sb.append(searchParameter);
+
+        // Finally, we want to append an SQL wild card character to the end of
+        // the parameter
+        sb.append("%");
+
+        return sb.toString();
+    }
+
+    /**
      * Helper class that handles creating threads to handle the insertion of
      * albums into the repository.
      */
