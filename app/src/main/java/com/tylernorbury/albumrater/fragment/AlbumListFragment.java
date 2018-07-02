@@ -1,7 +1,6 @@
 package com.tylernorbury.albumrater.fragment;
 
 
-import android.app.SearchManager;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -15,10 +14,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
 import android.widget.AdapterView;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.SearchView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -27,8 +24,6 @@ import com.tylernorbury.albumrater.AlbumRaterApp;
 import com.tylernorbury.albumrater.R;
 import com.tylernorbury.albumrater.adapter.AlbumListAdapter;
 import com.tylernorbury.albumrater.database.repository.AlbumRepository;
-
-import java.io.Console;
 
 
 /**
@@ -39,7 +34,9 @@ import java.io.Console;
 public class AlbumListFragment extends Fragment implements AdapterView.OnItemSelectedListener {
 
     private static AlbumListAdapter mAdapter;
-    private OnSortParametersChangedListener mListener;
+    private OnSortParametersChangedListener mOnSortParametersChangedListener;
+    private OnSearchQuerySubmittedListener mOnSearchQuerySubmittedListener;
+    private int mCurrentQuerySelection;
 
     /**
      * This interface will handle events when a new sorting parameter is
@@ -47,6 +44,11 @@ public class AlbumListFragment extends Fragment implements AdapterView.OnItemSel
      */
     public interface OnSortParametersChangedListener {
         void onSortParametersChanged(int queryCode);
+    }
+
+
+    public interface OnSearchQuerySubmittedListener {
+        void onSearchQuerySubmittedListener(String searchQuery);
     }
 
     /**
@@ -68,6 +70,10 @@ public class AlbumListFragment extends Fragment implements AdapterView.OnItemSel
         mAdapter = adapter;
 
         return fragment;
+    }
+
+    public int getCurrentQuerySelection() {
+        return  mCurrentQuerySelection;
     }
 
 
@@ -126,13 +132,15 @@ public class AlbumListFragment extends Fragment implements AdapterView.OnItemSel
     public void onAttach(Context context) {
         super.onAttach(context);
 
-        // Try to cast the given context into an OnSortParametersChangedListener
+        // Try to cast the given context into an OnSortParametersChangedListener and an OnSearchQuerySubmittedListener
         try {
-            mListener = (OnSortParametersChangedListener) context;
+            mOnSortParametersChangedListener = (OnSortParametersChangedListener) context;
+            mOnSearchQuerySubmittedListener = (OnSearchQuerySubmittedListener) context;
         }
         catch (ClassCastException e) {
-            throw new ClassCastException(context.toString() + " must implement OnSortParametersChangedListener");
+            throw new ClassCastException(context.toString() + " must implement OnSortParametersChangedListener AND OnSearchQuerySubmittedListener");
         }
+
     }
 
     /**
@@ -184,7 +192,10 @@ public class AlbumListFragment extends Fragment implements AdapterView.OnItemSel
             queryCode = AlbumRepository.QUERY_DATE_DESC;
         }
 
-        mListener.onSortParametersChanged(queryCode);
+        // Update the currently selected query code
+        mCurrentQuerySelection = queryCode;
+
+        mOnSortParametersChangedListener.onSortParametersChanged(queryCode);
     }
 
     @Override
@@ -200,6 +211,7 @@ public class AlbumListFragment extends Fragment implements AdapterView.OnItemSel
     private void handleSearch() {
         String searchText = ((EditText)(getView().findViewById(R.id.search_text))).getText().toString();
         Toast.makeText(AlbumRaterApp.getContext(), searchText, Toast.LENGTH_SHORT).show();
+        mOnSearchQuerySubmittedListener.onSearchQuerySubmittedListener(searchText);
     }
 
 }

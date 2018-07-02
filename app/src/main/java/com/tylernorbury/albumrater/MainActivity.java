@@ -194,4 +194,18 @@ public class MainActivity extends AppCompatActivity implements AlbumListFragment
         mAlbumViewModel.getAlbumsFromQuery(queryCode)
                 .observe(this, mAlbumListObserver);
     }
+
+    @Override
+    public void onSearchQuerySubmittedListener(String searchQuery) {
+        // Take the given search query and get all albums using the query as a
+        // search parameter
+        mAlbumViewModel.updateSearchParameter(searchQuery);
+
+        // We now want to get all the albums with the updated query. We'll ask
+        // the current frag what the current selection is so that we can make
+        // sure to use the correct sorting query
+        mAlbumViewModel.getAlbumsFromQuery(((AlbumListFragment) mCurrentFrag)
+                .getCurrentQuerySelection())
+                .observe(this, mAlbumListObserver);
+    }
 }
