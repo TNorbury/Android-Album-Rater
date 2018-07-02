@@ -16,6 +16,7 @@ public class AlbumViewModel extends AndroidViewModel {
 
     private AlbumRepository mRepository;
     private LiveData<List<Album>> mAllAlbums;
+    private String mSearchParameter = "";
 
     /**
      * Creates a new AlbumViewModel
@@ -39,7 +40,7 @@ public class AlbumViewModel extends AndroidViewModel {
     public LiveData<List<Album>> getAlbumsFromQuery(int queryCode) {
         // Update the internal list of albums to be ordered by the given query
         // code
-        mAllAlbums = mRepository.getAllAlbumsOrdered(queryCode);
+        mAllAlbums = mRepository.getAllAlbumsOrdered(queryCode, mSearchParameter);
         return mAllAlbums;
     }
 
@@ -49,5 +50,19 @@ public class AlbumViewModel extends AndroidViewModel {
      */
     public void insert(Album album) {
         mRepository.insert(album);
+    }
+
+
+    /**
+     * Updates the search parameter that'll be used when getting albums from
+     * the database
+     *
+     * @param searchQuery The search parameter that will be used when getting
+     *                    albums from the database. The parameter will be used
+     *                    to find album titles or artist that have the given
+     *                    string in their name.
+     */
+    public void updateSearchParameter(String searchQuery) {
+        mSearchParameter = searchQuery;
     }
 }
