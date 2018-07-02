@@ -2,6 +2,8 @@ package com.tylernorbury.albumrater.fragment;
 
 
 import android.app.Activity;
+import android.arch.lifecycle.ViewModel;
+import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -26,6 +28,7 @@ import com.tylernorbury.albumrater.AlbumRaterApp;
 import com.tylernorbury.albumrater.R;
 import com.tylernorbury.albumrater.adapter.AlbumListAdapter;
 import com.tylernorbury.albumrater.database.repository.AlbumRepository;
+import com.tylernorbury.albumrater.viewModel.AlbumViewModel;
 
 
 /**
@@ -143,11 +146,20 @@ public class AlbumListFragment extends Fragment implements AdapterView.OnItemSel
     public void onResume() {
         super.onResume();
 
-        EditText searchField = (EditText) getView().findViewById(R.id.search_text);
+        // Set the spinner's selection to the whatever it was the last time the
+        // user was on this fragment. This is done so that there is some
+        // persistence when the user comes back to the persistence
+        Spinner s = getView().findViewById(R.id.sorting_spinner);
+        s.setSelection(ViewModelProviders.of(getActivity()).get(AlbumViewModel.class).getCurrentQuerySelection());
 
-        // Make sure that the search box is clear, and also "handle this
-        // search", so that the parent activity refreshes the album list
+        // However, we do want to clear the search parameters so that all albums
+        // will be displayed (albeit in the previously selected order) when they
+        // navigate back to this fragment.
+        EditText searchField = (EditText) getView().findViewById(R.id.search_text);
         searchField.setText("");
+
+        // We also want to treat this as if the user has cleared the search box
+        // themselves so that the activity will update the search parameters.
         handleSearch();
     }
 
