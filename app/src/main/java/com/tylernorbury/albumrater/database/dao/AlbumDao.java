@@ -56,55 +56,63 @@ public interface AlbumDao {
      * @return All albums, ordered by title, ascending
      */
     @Query("SELECT * FROM ALBUM " +
+            "WHERE title LIKE :searchParameter OR artist like :searchParameter " +
             "ORDER BY title ASC")
-    LiveData<List<Album>> getAllAlbumsOrderedTitleASC();
+    LiveData<List<Album>> getAllAlbumsOrderedTitleASC(String searchParameter);
 
     /**
      * @return all albums, ordered by title, descending
      */
     @Query("SELECT * FROM ALBUM " +
+            "WHERE title LIKE :searchParameter OR artist like :searchParameter " +
             "ORDER BY title DESC")
-    LiveData<List<Album>> getAllAlbumsOrderedTitleDESC();
+    LiveData<List<Album>> getAllAlbumsOrderedTitleDESC(String searchParameter);
 
     /**
      * @return all albums, ordered by artist's name, ascending
      */
     @Query("SELECT * FROM ALBUM " +
+            "WHERE title LIKE :searchParameter OR artist like :searchParameter " +
             "ORDER BY artist ASC")
-    LiveData<List<Album>> getAllAlbumsOrderedArtistASC();
+    LiveData<List<Album>> getAllAlbumsOrderedArtistASC(String searchParameter);
 
     /**
      * @return all albums, ordered by artist's name, descending
      */
     @Query("SELECT * FROM ALBUM " +
+            "WHERE title LIKE :searchParameter OR artist like :searchParameter " +
             "ORDER BY artist DESC")
-    LiveData<List<Album>> getAllAlbumsOrderedArtistDESC();
+    LiveData<List<Album>> getAllAlbumsOrderedArtistDESC(String searchParameter);
 
     /**
      * @return all albums, ordered by the album's rating, ascending
      */
     @Query("SELECT * FROM ALBUM " +
+            "WHERE title LIKE :searchParameter OR artist like :searchParameter " +
             "ORDER BY rating ASC")
-    LiveData<List<Album>> getAllAlbumsOrderedRatingASC();
+    LiveData<List<Album>> getAllAlbumsOrderedRatingASC(String searchParameter);
 
     /**
      * @return all albums, ordered by the album's rating, descending
      */
     @Query("SELECT * FROM ALBUM " +
+            "WHERE title LIKE :searchParameter OR artist like :searchParameter " +
             "ORDER BY rating DESC")
-    LiveData<List<Album>> getAllAlbumsOrderedRatingDESC();
+    LiveData<List<Album>> getAllAlbumsOrderedRatingDESC(String searchParameter);
 
     /**
      * @return all albums, ordered by the date of the review, ascending
      */
     @Query("SELECT * FROM ALBUM " +
+            "WHERE title LIKE :searchParameter OR artist like :searchParameter " +
             "ORDER BY reviewDate ASC")
-    LiveData<List<Album>> getAllAlbumsOrderedDateASC();
+    LiveData<List<Album>> getAllAlbumsOrderedDateASC(String searchParameter);
 
     /**
      * @return all albums, ordered by the date of the review, descending
      */
     @Query("SELECT * FROM ALBUM " +
+            "WHERE title LIKE :searchParameter OR artist like :searchParameter " +
             "ORDER BY reviewDate DESC")
-    LiveData<List<Album>> getAllAlbumsOrderedDateDESC();
+    LiveData<List<Album>> getAllAlbumsOrderedDateDESC(String searchParameter);
 }
