@@ -2,7 +2,6 @@ package com.tylernorbury.albumrater.fragment;
 
 
 import android.app.Activity;
-import android.arch.lifecycle.ViewModel;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
 import android.os.Bundle;
@@ -22,7 +21,6 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.tylernorbury.albumrater.AlbumRaterApp;
 import com.tylernorbury.albumrater.R;
