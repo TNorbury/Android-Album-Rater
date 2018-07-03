@@ -1,7 +1,6 @@
 package com.tylernorbury.albumrater.fragment;
 
 
-import android.arch.lifecycle.ViewModel;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.DialogInterface;
 import android.os.Bundle;
