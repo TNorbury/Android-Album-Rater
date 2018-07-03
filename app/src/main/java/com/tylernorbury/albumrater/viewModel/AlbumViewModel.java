@@ -50,11 +50,28 @@ public class AlbumViewModel extends AndroidViewModel {
     }
 
     /**
+     * Gets a list of all the albums from the database. Since no query code is
+     * given, the currently set query code will be used
+     *
+     * @return A list of all albums
+     */
+    public LiveData<List<Album>> getAlbums() {
+        return getAlbumsFromQuery(getCurrentQuerySelection());
+    }
+
+    /**
      * Insert an album into the database
      * @param album The album to be inserted into the database.
      */
     public void insert(Album album) {
         mRepository.insert(album);
+    }
+
+    /**
+     * Delete all the records from the database
+     */
+    public void deleteAll() {
+        mRepository.deleteAll();
     }
 
 

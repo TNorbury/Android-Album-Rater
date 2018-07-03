@@ -2,7 +2,7 @@
     <string name="app_name">Album Rater</string>
     <string name="title_home">Home</string>
     <string name="title_add">Add Album</string>
-    <string name="title_notifications">Notifications</string>
+    <string name="title_settings">Settings</string>
 
     <!-- Strings for various fields of the form for adding an album -->
     <string name="album_name_hint">Album Name</string>
@@ -20,4 +20,11 @@
     <string name="sort_date_desc">Review Date (New to Old)</string>
 
     <string name="search_hint">Enter album name or artist</string>
+
+    <!-- Strings for clearing the database -->
+    <string name="btn_clear_database_label">Clear Database</string>
+    <string name="dialog_clear_database_title">Confirm Database Clearance</string>
+    <string name="dialog_clear_database_msg">Are you sure you want to clear the database (this will delete all entries in the database)?</string>
+    <string name="dialog_confirm">Ok</string>
+    <string name="dialog_cancel">Cancel</string>
 </resources>

@@ -22,6 +22,7 @@ import com.tylernorbury.albumrater.adapter.AlbumListAdapter;
 import com.tylernorbury.albumrater.database.entity.Album;
 import com.tylernorbury.albumrater.fragment.AddAlbumFragment;
 import com.tylernorbury.albumrater.fragment.AlbumListFragment;
+import com.tylernorbury.albumrater.fragment.SettingsMenuFragment;
 import com.tylernorbury.albumrater.viewModel.AlbumViewModel;
 
 import java.util.List;
@@ -92,11 +93,17 @@ public class MainActivity extends AppCompatActivity implements AlbumListFragment
                         frag = new AddAlbumFragment();
                     ret = true;
                     break;
+
+                case R.id.navigation_settings:
+                    if (mBackstackState != BACKSTACK_POPPED)
+                        frag = new SettingsMenuFragment();
+                    ret = true;
+                    break;
             }
 
             // If the backstack wasn't popped, then we want to replace the
             // fragment that is displayed
-            if (mBackstackState != BACKSTACK_POPPED) {
+            if (mBackstackState != BACKSTACK_POPPED && frag != null) {
 
                 // Perform a transaction to display the new fragment
                 FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
@@ -171,6 +178,9 @@ public class MainActivity extends AppCompatActivity implements AlbumListFragment
                     else if (frag instanceof AddAlbumFragment) {
                         navigation.setSelectedItemId(R.id.navigation_add);
                     }
+                    else if (frag instanceof SettingsMenuFragment) {
+                        navigation.setSelectedItemId(R.id.navigation_settings);
+                    }
                 }
 
                 // Indicate that the backstack change event has been handled
@@ -195,10 +205,16 @@ public class MainActivity extends AppCompatActivity implements AlbumListFragment
         // search parameter
         mAlbumViewModel.updateSearchParameter(searchQuery);
 
-        // We now want to get all the albums with the updated query. We'll ask
-        // the current frag what the current selection is so that we can make
-        // sure to use the correct sorting query
-        mAlbumViewModel.getAlbumsFromQuery(mAlbumViewModel.getCurrentQuerySelection())
-                .observe(this, mAlbumListObserver);
+        // We now want to get all the albums with the updated query.
+        updateAlbumList();
+    }
+
+    /**
+     * Tell the activity that it needs to update its album list
+     */
+    public void updateAlbumList() {
+
+        // Update and observe the list of albums
+        mAlbumViewModel.getAlbums().observe(this, mAlbumListObserver);
     }
 }
