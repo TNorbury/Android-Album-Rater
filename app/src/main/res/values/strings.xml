@@ -2,7 +2,7 @@
     <string name="app_name">Album Rater</string>
     <string name="title_home">Home</string>
     <string name="title_add">Add Album</string>
-    <string name="title_notifications">Notifications</string>
+    <string name="title_settings">Settings</string>
 
     <!-- Strings for various fields of the form for adding an album -->
     <string name="album_name_hint">Album Name</string>

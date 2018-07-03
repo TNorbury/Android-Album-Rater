@@ -92,11 +92,15 @@ public class MainActivity extends AppCompatActivity implements AlbumListFragment
                         frag = new AddAlbumFragment();
                     ret = true;
                     break;
+
+                case R.id.navigation_settings:
+                    ret = true;
+                    break;
             }
 
             // If the backstack wasn't popped, then we want to replace the
             // fragment that is displayed
-            if (mBackstackState != BACKSTACK_POPPED) {
+            if (mBackstackState != BACKSTACK_POPPED && frag != null) {
 
                 // Perform a transaction to display the new fragment
                 FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
