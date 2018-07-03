@@ -1,7 +1,6 @@
 package com.tylernorbury.albumrater.fragment;
 
 
-import android.arch.lifecycle.ViewModel;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.DialogInterface;
 import android.os.Bundle;
@@ -13,9 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.Toast;
 
-import com.tylernorbury.albumrater.AlbumRaterApp;
 import com.tylernorbury.albumrater.R;
 import com.tylernorbury.albumrater.viewModel.AlbumViewModel;
 
@@ -57,7 +54,6 @@ public class SettingsMenuFragment extends Fragment {
                         .setPositiveButton(R.string.dialog_confirm, new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                Toast.makeText(AlbumRaterApp.getContext(), "Clearing Database", Toast.LENGTH_LONG).show();
 
                                 // Since the user has confirmed that they want to clear the database, do it
                                 AlbumViewModel model = ViewModelProviders.of(getActivity()).get(AlbumViewModel.class);
