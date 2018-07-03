@@ -157,7 +157,8 @@ public class AlbumRepository {
      * Deletes all the albums from the database
      */
     public void deleteAll() {
-        new DeleteAllAsyncTask(mAlbumDao);
+        // Create a new asynchronous task to clear the database
+        new DeleteAllAsyncTask(mAlbumDao).execute();
     }
 
     /**
