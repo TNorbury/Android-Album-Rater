@@ -127,7 +127,7 @@ public class AlbumRepository {
      * @param album The album to be inserted
      */
     public void insert(Album album) {
-        new insertAsyncTask(mAlbumDao).execute(album);
+        new InsertAsyncTask(mAlbumDao).execute(album);
     }
 
     /**
@@ -182,7 +182,7 @@ public class AlbumRepository {
      * Helper class that handles creating threads to handle the insertion of
      * albums into the repository.
      */
-    private static class insertAsyncTask extends AsyncTask<Album, Void, Void> {
+    private static class InsertAsyncTask extends AsyncTask<Album, Void, Void> {
 
         private AlbumDao mAsyncDao;
 
@@ -190,7 +190,7 @@ public class AlbumRepository {
          * Create a new async task
          * @param dao The DAO that the task will use.
          */
-        public insertAsyncTask(AlbumDao dao) {
+        public InsertAsyncTask(AlbumDao dao) {
             mAsyncDao = dao;
         }
 
