@@ -154,6 +154,31 @@ public class AlbumRepository {
     }
 
     /**
+     * Deletes all the albums from the database
+     */
+    public void deleteAll() {
+        new DeleteAllAsyncTask(mAlbumDao);
+    }
+
+    /**
+     * Helper class that creates thread(s) to clear the database
+     */
+    private static class DeleteAllAsyncTask extends AsyncTask<Void, Void, Void> {
+
+        private AlbumDao mAsyncDao;
+
+        public DeleteAllAsyncTask(AlbumDao dao) {
+            mAsyncDao = dao;
+        }
+
+        @Override
+        protected Void doInBackground(Void... voids) {
+            mAsyncDao.deleteAll();
+            return null;
+        }
+    }
+
+    /**
      * Helper class that handles creating threads to handle the insertion of
      * albums into the repository.
      */
