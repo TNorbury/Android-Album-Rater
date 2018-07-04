@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.ListFragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.KeyEvent;
@@ -19,14 +20,18 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ListAdapter;
+import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.tylernorbury.albumrater.AlbumRaterApp;
 import com.tylernorbury.albumrater.R;
 import com.tylernorbury.albumrater.adapter.AlbumListAdapter;
 import com.tylernorbury.albumrater.database.repository.AlbumRepository;
 import com.tylernorbury.albumrater.viewModel.AlbumViewModel;
+
 
 
 /**
@@ -86,11 +91,12 @@ public class AlbumListFragment extends Fragment implements AdapterView.OnItemSel
         super.onViewCreated(view, savedInstanceState);
 
         // Get a reference to the recycler view
-        RecyclerView recyclerView = view.findViewById(R.id.recyclerView);
+        RecyclerView recyclerView = view.findViewById(R.id.recyclerview);
 
         // Set the adapter for the recycler view and set to the layout manager.
         recyclerView.setAdapter(mAdapter);
         recyclerView.setLayoutManager(new GridLayoutManager(this.getContext(), 1));
+
 
         // Set up the spinner selection listener
         Spinner spinner = view.findViewById(R.id.sorting_spinner);
@@ -137,7 +143,6 @@ public class AlbumListFragment extends Fragment implements AdapterView.OnItemSel
         catch (ClassCastException e) {
             throw new ClassCastException(context.toString() + " must implement OnSortParametersChangedListener AND OnSearchQuerySubmittedListener");
         }
-
     }
 
     @Override

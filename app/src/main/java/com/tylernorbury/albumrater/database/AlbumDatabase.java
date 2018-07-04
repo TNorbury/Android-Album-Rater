@@ -68,7 +68,7 @@ public abstract class AlbumDatabase extends RoomDatabase {
             // the database
             if (BuildConfig.DEBUG) {
                 super.onOpen(db);
-                //new PopulateDbAsync(INSTANCE).execute();
+                // new PopulateDbAsync(INSTANCE).execute();
             }
         }
     };
@@ -107,7 +107,7 @@ public abstract class AlbumDatabase extends RoomDatabase {
             };
 
             // Go through all the albums above and insert them into the database
-           /* for (Album album: albums) {
+            for (Album album: albums) {
                 mDao.insert(album);
 
                 // Add a small delay in between each insertion to simulate data
@@ -117,7 +117,7 @@ public abstract class AlbumDatabase extends RoomDatabase {
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
-            }*/
+            }
 
             return null;
         }
