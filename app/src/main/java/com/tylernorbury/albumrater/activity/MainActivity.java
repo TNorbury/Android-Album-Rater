@@ -3,7 +3,7 @@
  * Version 1.1 (June 20th, 2018)
  */
 
-package com.tylernorbury.albumrater;
+package com.tylernorbury.albumrater.activity;
 
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
@@ -18,6 +18,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.view.WindowManager;
 
+import com.tylernorbury.albumrater.R;
 import com.tylernorbury.albumrater.adapter.AlbumListAdapter;
 import com.tylernorbury.albumrater.database.entity.Album;
 import com.tylernorbury.albumrater.fragment.AddAlbumFragment;
