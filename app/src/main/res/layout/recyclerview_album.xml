@@ -33,7 +33,7 @@
             android:id="@+id/AlbumTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Album Title"
+            android:text="@string/album_title_placeholder"
             android:textAppearance="@android:style/TextAppearance.Material.Medium"
             android:textColor="@color/albumLabel" />
 
@@ -41,7 +41,7 @@
             android:id="@+id/AlbumArtist"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Artist"
+            android:text="@string/album_artist_placeholder"
             android:textAppearance="@android:style/TextAppearance.Material.Small"
             android:textColor="@color/albumLabel" />
 
@@ -54,7 +54,7 @@
         android:layout_column="3"
         android:layout_marginRight="2dp"
         android:layout_row="0"
-        android:text="6-20-2018"
+        android:text="@string/album_date_placeholder"
         android:textAlignment="textEnd"
         android:textAppearance="@android:style/TextAppearance.Material.Small"
         android:textColor="@color/albumLabel"
