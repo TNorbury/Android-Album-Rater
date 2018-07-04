@@ -23,9 +23,13 @@ import java.util.List;
 public class AlbumListAdapter extends RecyclerView.Adapter<AlbumListAdapter.AlbumViewHolder> {
 
     private int mSelectedAlbumIndex = 0;
+    private final LayoutInflater mInflater;
+    private List<Album> mAlbums;
+    private OnAlbumSelectedListener mOnAlbumSelectedListener;
 
     /**
-     * A view holder that holds a single album view
+     * A view holder that holds and represents a single album. Also handles
+     * events when the album is selected.
      */
     class AlbumViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         private final GridLayout mAlbumView;
@@ -52,15 +56,17 @@ public class AlbumListAdapter extends RecyclerView.Adapter<AlbumListAdapter.Albu
             // We now want to notify the main activity that an album has been
             // selected and send it the album that was selected so that it can
             // handle displaying it.
-
-            // Debug message, send a toast indicating that an album has been selected
-            Album album = mAlbums.get(mSelectedAlbumIndex);
-            Toast.makeText(AlbumRaterApp.getContext(), album.getTitle() + " selected", Toast.LENGTH_SHORT).show();
+            mOnAlbumSelectedListener.onAlbumSelectedListener(mAlbums.get(mSelectedAlbumIndex));
         }
     }
 
-    private final LayoutInflater mInflater;
-    private List<Album> mAlbums;
+    /**
+     * This interface handles events for when an album is selected from the
+     * recycler view
+     */
+    public interface OnAlbumSelectedListener {
+        void onAlbumSelectedListener(Album album);
+    }
 
     /**
      * Create a new AlbumListAdapter
@@ -68,6 +74,8 @@ public class AlbumListAdapter extends RecyclerView.Adapter<AlbumListAdapter.Albu
      */
     public AlbumListAdapter(Context context) {
         mInflater = LayoutInflater.from(context);
+
+        mOnAlbumSelectedListener = (OnAlbumSelectedListener) context;
     }
 
     @NonNull

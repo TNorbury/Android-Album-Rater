@@ -17,7 +17,9 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.view.WindowManager;
+import android.widget.Toast;
 
+import com.tylernorbury.albumrater.AlbumRaterApp;
 import com.tylernorbury.albumrater.R;
 import com.tylernorbury.albumrater.adapter.AlbumListAdapter;
 import com.tylernorbury.albumrater.database.entity.Album;
@@ -28,7 +30,7 @@ import com.tylernorbury.albumrater.viewModel.AlbumViewModel;
 
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity implements AlbumListFragment.OnSortParametersChangedListener, AlbumListFragment.OnSearchQuerySubmittedListener {
+public class MainActivity extends AppCompatActivity implements AlbumListFragment.OnSortParametersChangedListener, AlbumListFragment.OnSearchQuerySubmittedListener, AlbumListAdapter.OnAlbumSelectedListener {
     private AlbumViewModel mAlbumViewModel;
     private AlbumListAdapter mAdapter;
 
@@ -217,5 +219,14 @@ public class MainActivity extends AppCompatActivity implements AlbumListFragment
 
         // Update and observe the list of albums
         mAlbumViewModel.getAlbums().observe(this, mAlbumListObserver);
+    }
+
+    @Override
+    public void onAlbumSelectedListener(Album album) {
+        // When an album is select when want to spawn a new activity to display
+        // info about the album
+
+        // Debug message, send a toast indicating that an album has been selected
+        Toast.makeText(this, album.getTitle() + " selected", Toast.LENGTH_SHORT).show();
     }
 }
