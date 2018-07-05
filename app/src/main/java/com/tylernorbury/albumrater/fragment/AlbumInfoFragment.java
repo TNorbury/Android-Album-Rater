@@ -1,8 +1,12 @@
 package com.tylernorbury.albumrater.fragment;
 
 
+import android.app.AlertDialog;
 import android.app.Application;
+import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.Observer;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -10,8 +14,10 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.tylernorbury.albumrater.AlbumRaterApp;
 import com.tylernorbury.albumrater.R;
@@ -22,7 +28,12 @@ import com.tylernorbury.albumrater.database.repository.AlbumRepository;
  * A simple {@link Fragment} subclass.
  */
 public class AlbumInfoFragment extends Fragment {
+    private Album mAlbum;
+    private OnAlbumDeletedListener mOnAlbumDeletedListener;
 
+    public interface OnAlbumDeletedListener {
+        void onAlbumDeleted(Album album);
+    }
 
     public AlbumInfoFragment() {
         // Required empty public constructor
@@ -48,6 +59,14 @@ public class AlbumInfoFragment extends Fragment {
         return inflater.inflate(R.layout.fragment_album_info, container, false);
     }
 
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+
+        // Create a reference to the attaching context and treat it as a
+        // listener for album deletion events
+        mOnAlbumDeletedListener = (OnAlbumDeletedListener) context;
+    }
 
     @Override
     public void onViewCreated(@NonNull final View view, @Nullable Bundle savedInstanceState) {
