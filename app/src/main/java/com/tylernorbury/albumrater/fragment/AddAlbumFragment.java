@@ -40,7 +40,7 @@ public class AddAlbumFragment extends Fragment {
 
             // If the album name is blank, tell the user to fill it out
             if (albumName.isEmpty()) {
-                validForm &= false;
+                validForm = false;
             }
 
             // Get the artist of the album
@@ -99,16 +99,6 @@ public class AddAlbumFragment extends Fragment {
 
     public AddAlbumFragment() { }
 
-
-    /**
-     * Create a new instance of this fragment
-     * @return a new AddAlbumFragment
-     */
-    public static AddAlbumFragment newInstance() {
-        AddAlbumFragment fragment = new AddAlbumFragment();
-
-        return fragment;
-    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,

@@ -97,7 +97,7 @@ public class AlbumListFragment extends Fragment implements AdapterView.OnItemSel
         spinner.setOnItemSelectedListener(this);
 
         // Create an onClick listener for the search button
-        ImageButton searchButton = (ImageButton) view.findViewById(R.id.search_button);
+        ImageButton searchButton = view.findViewById(R.id.search_button);
         searchButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -107,7 +107,7 @@ public class AlbumListFragment extends Fragment implements AdapterView.OnItemSel
         });
 
         // Create and set a listener for whenever the return/enter key is pressed
-        EditText searchField = (EditText) view.findViewById(R.id.search_text);
+        EditText searchField = view.findViewById(R.id.search_text);
         searchField.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
@@ -153,7 +153,7 @@ public class AlbumListFragment extends Fragment implements AdapterView.OnItemSel
         // However, we do want to clear the search parameters so that all albums
         // will be displayed (albeit in the previously selected order) when they
         // navigate back to this fragment.
-        EditText searchField = (EditText) getView().findViewById(R.id.search_text);
+        EditText searchField = getView().findViewById(R.id.search_text);
         searchField.setText("");
 
         // We also want to treat this as if the user has cleared the search box

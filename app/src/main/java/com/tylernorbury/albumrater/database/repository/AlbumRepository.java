@@ -168,7 +168,7 @@ public class AlbumRepository {
 
         private AlbumDao mAsyncDao;
 
-        public DeleteAllAsyncTask(AlbumDao dao) {
+        DeleteAllAsyncTask(AlbumDao dao) {
             mAsyncDao = dao;
         }
 
@@ -191,7 +191,7 @@ public class AlbumRepository {
          * Create a new async task
          * @param dao The DAO that the task will use.
          */
-        public InsertAsyncTask(AlbumDao dao) {
+        InsertAsyncTask(AlbumDao dao) {
             mAsyncDao = dao;
         }
 
