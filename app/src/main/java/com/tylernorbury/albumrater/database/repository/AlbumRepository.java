@@ -131,6 +131,18 @@ public class AlbumRepository {
     }
 
     /**
+     * Deletes all the albums from the database
+     */
+    public void deleteAll() {
+        // Create a new asynchronous task to clear the database
+        new DeleteAllAsyncTask(mAlbumDao).execute();
+    }
+
+    LiveData<Album> getAlbum(String albumTitle, String albumArtist) {
+        return mAlbumDao.getAlbum(albumTitle, albumArtist);
+    }
+
+    /**
      * Formats the given search parameter to make it better for searching
      *
      * @param searchParameter The parameter to format
@@ -153,13 +165,6 @@ public class AlbumRepository {
         return sb.toString();
     }
 
-    /**
-     * Deletes all the albums from the database
-     */
-    public void deleteAll() {
-        // Create a new asynchronous task to clear the database
-        new DeleteAllAsyncTask(mAlbumDao).execute();
-    }
 
     /**
      * Helper class that creates thread(s) to clear the database
