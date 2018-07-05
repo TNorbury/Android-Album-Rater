@@ -96,7 +96,6 @@ public class AlbumListAdapter extends RecyclerView.Adapter<AlbumListAdapter.Albu
     @Override
     public void onBindViewHolder(AlbumViewHolder holder, int position) {
 
-
         // If we've received a list of albums, then set up the current album's
         // view with the relevant UI information
         if (mAlbums != null) {
