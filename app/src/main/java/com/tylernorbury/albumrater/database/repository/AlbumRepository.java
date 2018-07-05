@@ -138,7 +138,7 @@ public class AlbumRepository {
         new DeleteAllAsyncTask(mAlbumDao).execute();
     }
 
-    LiveData<Album> getAlbum(String albumTitle, String albumArtist) {
+    public LiveData<Album> getAlbum(String albumTitle, String albumArtist) {
         return mAlbumDao.getAlbum(albumTitle, albumArtist);
     }
 
