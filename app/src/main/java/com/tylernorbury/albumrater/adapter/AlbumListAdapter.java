@@ -75,6 +75,7 @@ public class AlbumListAdapter extends RecyclerView.Adapter<AlbumListAdapter.Albu
     public AlbumListAdapter(Context context) {
         mInflater = LayoutInflater.from(context);
 
+        // From the given context, create a new listener.
         mOnAlbumSelectedListener = (OnAlbumSelectedListener) context;
     }
 
@@ -146,6 +147,7 @@ public class AlbumListAdapter extends RecyclerView.Adapter<AlbumListAdapter.Albu
         mAlbums = albums;
         notifyDataSetChanged();
     }
+
 
     /**
      * @return The total number of items in this adapter
