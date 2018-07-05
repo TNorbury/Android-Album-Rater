@@ -235,7 +235,5 @@ public class MainActivity extends AppCompatActivity implements AlbumListFragment
 
         startActivity(intent);
 
-        // Debug message, send a toast indicating that an album has been selected
-        Toast.makeText(this, album.getTitle() + " selected", Toast.LENGTH_SHORT).show();
     }
 }
