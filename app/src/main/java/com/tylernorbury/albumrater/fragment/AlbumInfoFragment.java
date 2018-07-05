@@ -35,22 +35,12 @@ public class AlbumInfoFragment extends Fragment {
         void onAlbumDeleted(Album album);
     }
 
+    /**
+     * Create a new AlbumInfoFragment
+     */
     public AlbumInfoFragment() {
         // Required empty public constructor
     }
-
-    public static AlbumInfoFragment newInstance(String albumTitle, String albumArtist) {
-        AlbumInfoFragment fragment = new AlbumInfoFragment();
-
-        // Set the arguments for the new fragment
-        Bundle args = new Bundle();
-        args.putString("albumTitle", albumTitle);
-        args.putString("albumArtist", albumArtist);
-        fragment.setArguments(args);
-
-        return fragment;
-    }
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
