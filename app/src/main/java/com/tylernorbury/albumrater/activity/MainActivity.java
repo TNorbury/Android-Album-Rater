@@ -7,6 +7,7 @@ package com.tylernorbury.albumrater.activity;
 
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -223,8 +224,16 @@ public class MainActivity extends AppCompatActivity implements AlbumListFragment
 
     @Override
     public void onAlbumSelectedListener(Album album) {
-        // When an album is select when want to spawn a new activity to display
+        // When an album is selected we want to spawn a new activity to display
         // info about the album
+        Intent intent = new Intent();
+        intent.setClass(MainActivity.this, AlbumInfoActivity.class);
+
+        // We want to pass the primary key of the album (its title and artist) to the intent
+        intent.putExtra(getString(R.string.album_title_key), album.getTitle());
+        intent.putExtra(getString(R.string.album_artist_key), album.getArtist());
+
+        startActivity(intent);
 
         // Debug message, send a toast indicating that an album has been selected
         Toast.makeText(this, album.getTitle() + " selected", Toast.LENGTH_SHORT).show();
