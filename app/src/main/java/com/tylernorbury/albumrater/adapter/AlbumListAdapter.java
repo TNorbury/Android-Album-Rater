@@ -34,7 +34,7 @@ public class AlbumListAdapter extends RecyclerView.Adapter<AlbumListAdapter.Albu
     class AlbumViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         private final GridLayout mAlbumView;
 
-        public AlbumViewHolder(View albumView) {
+        AlbumViewHolder(View albumView) {
             super(albumView);
             mAlbumView = albumView.findViewById(R.id.albumView);
             mAlbumView.setOnClickListener(this);
