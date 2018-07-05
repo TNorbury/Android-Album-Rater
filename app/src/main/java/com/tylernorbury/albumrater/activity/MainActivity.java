@@ -32,6 +32,10 @@ import com.tylernorbury.albumrater.viewModel.AlbumViewModel;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements AlbumListFragment.OnSortParametersChangedListener, AlbumListFragment.OnSearchQuerySubmittedListener, AlbumListAdapter.OnAlbumSelectedListener {
+
+    // Request code for calling the activity to display album info
+    public static final int REQUEST_CODE_DISPLAY_ALBUM_INFO = 1;
+
     private AlbumViewModel mAlbumViewModel;
     private AlbumListAdapter mAdapter;
 
@@ -233,7 +237,26 @@ public class MainActivity extends AppCompatActivity implements AlbumListFragment
         intent.putExtra(getString(R.string.album_title_key), album.getTitle());
         intent.putExtra(getString(R.string.album_artist_key), album.getArtist());
 
-        startActivity(intent);
+        // Start the activity to display album info, expecting a result in
+        // return
+        startActivityForResult(intent, REQUEST_CODE_DISPLAY_ALBUM_INFO);
+    }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        // We want to check the request code of the activity, and the result
+        // code that it returned in order to determine what we should do next
+
+        // If the result is to delete an album, then that is what we'll do
+        if (requestCode == REQUEST_CODE_DISPLAY_ALBUM_INFO
+                && resultCode == AlbumInfoActivity.RESULT_DELETE) {
+
+            // Tell the view model to delete the album and give it the primary
+            // key of the album to delete
+            mAlbumViewModel.deleteAlbum(data.getStringExtra(getString(R.string.album_title_key)),
+                    data.getStringExtra(getString(R.string.album_artist_key)));
+        }
     }
 }
