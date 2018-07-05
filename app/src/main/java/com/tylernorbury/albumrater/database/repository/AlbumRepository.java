@@ -31,6 +31,9 @@ public class AlbumRepository {
     public static final int QUERY_DATE_ASC = 6;
     public static final int QUERY_DATE_DESC = 7;
 
+    private static final int ALBUM_TITLE_INDEX = 0;
+    private static final int ALBUM_ARTIST_INDEX = 1;
+
     // We want the repository to be a singleton
     private static AlbumRepository INSTANCE;
 
@@ -138,8 +141,33 @@ public class AlbumRepository {
         new DeleteAllAsyncTask(mAlbumDao).execute();
     }
 
+    /**
+     * Gets the album with the given title and artist
+     *
+     * @param albumTitle the title of the album
+     * @param albumArtist the artist of the album
+     *
+     * @return The album with the given primary key
+     */
     public LiveData<Album> getAlbum(String albumTitle, String albumArtist) {
         return mAlbumDao.getAlbum(albumTitle, albumArtist);
+    }
+
+    /**
+     * Deletes an album for the database with the matching primary key
+     *
+     * @param albumTitle The title of the album to delete
+     * @param albumArtist The artist of the album to delete
+     */
+    public void deleteAlbum(String albumTitle, String albumArtist) {
+        // Create an array representing the primary key of the album to be deleted
+        String[] albumPrimaryKey = new String[2];
+        albumPrimaryKey[ALBUM_TITLE_INDEX] = albumTitle;
+        albumPrimaryKey[ALBUM_ARTIST_INDEX] = albumArtist;
+
+        // Create an async task to delete the album with the given PK from the
+        // database
+        new DeleteAlbumAsyncTask(mAlbumDao).execute(albumPrimaryKey);
     }
 
     /**
@@ -203,6 +231,23 @@ public class AlbumRepository {
         @Override
         protected Void doInBackground(final Album... params) {
             mAsyncDao.insert(params[0]);
+            return null;
+        }
+    }
+
+    /**
+     * Helper class which creates a thread to delete an album from the database
+     */
+    private static class DeleteAlbumAsyncTask extends AsyncTask<String, Void, Void> {
+        private AlbumDao mAsyncDao;
+
+        public DeleteAlbumAsyncTask(AlbumDao dao) {
+            mAsyncDao = dao;
+        }
+
+        @Override
+        protected Void doInBackground(String... args) {
+            mAsyncDao.deleteAlbum(args[ALBUM_TITLE_INDEX], args[ALBUM_ARTIST_INDEX]);
             return null;
         }
     }
