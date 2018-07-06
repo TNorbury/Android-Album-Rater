@@ -3,12 +3,13 @@ package com.tylernorbury.albumrater.activity;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.widget.Toast;
 
 import com.tylernorbury.albumrater.R;
 import com.tylernorbury.albumrater.database.entity.Album;
 import com.tylernorbury.albumrater.fragment.AlbumInfoFragment;
 
-public class AlbumInfoActivity extends AppCompatActivity implements AlbumInfoFragment.OnAlbumDeletedListener{
+public class AlbumInfoActivity extends AppCompatActivity implements AlbumInfoFragment.OnAlbumDeletedListener, AlbumInfoFragment.OnAlbumEditListener {
 
     public static final int RESULT_DELETE = 1;
 
@@ -43,5 +44,13 @@ public class AlbumInfoActivity extends AppCompatActivity implements AlbumInfoFra
         // then "finish" this activity
         setResult(RESULT_DELETE, reply);
         finish();
+    }
+
+    @Override
+    public void onAlbumEdit(Album album) {
+        // Swap out the fragments so that we're displaying the fragment for
+        // editing albums
+        Toast.makeText(this, "Edit Album Button Clicked", Toast.LENGTH_SHORT).show();
+
     }
 }

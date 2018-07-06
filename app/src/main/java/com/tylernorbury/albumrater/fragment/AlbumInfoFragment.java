@@ -30,9 +30,20 @@ import com.tylernorbury.albumrater.database.repository.AlbumRepository;
 public class AlbumInfoFragment extends Fragment {
     private Album mAlbum;
     private OnAlbumDeletedListener mOnAlbumDeletedListener;
+    private OnAlbumEditListener mOnAlbumEditListener;
 
+    /**
+     * Listener for when the user selects to delete an album
+     */
     public interface OnAlbumDeletedListener {
         void onAlbumDeleted(Album album);
+    }
+
+    /**
+     * Listener for when the user selects to delete an album
+     */
+    public interface OnAlbumEditListener {
+        void onAlbumEdit(Album album);
     }
 
     /**
@@ -56,6 +67,10 @@ public class AlbumInfoFragment extends Fragment {
         // Create a reference to the attaching context and treat it as a
         // listener for album deletion events
         mOnAlbumDeletedListener = (OnAlbumDeletedListener) context;
+
+        // Create a listener from the attaching context to handle album editing
+        // events
+        mOnAlbumEditListener = (OnAlbumEditListener) context;
     }
 
     @Override
@@ -117,8 +132,10 @@ public class AlbumInfoFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 // TODO Implement functionality for clicking on the edit album button
-                // Send a toast to indicate that the button was clicked
-                Toast.makeText(getContext(), "Edit Album Button Clicked", Toast.LENGTH_SHORT).show();
+                // We want to signal to our parent activity that we want to edit
+                // this album
+                mOnAlbumEditListener.onAlbumEdit(mAlbum);
+
             }
         });
 
