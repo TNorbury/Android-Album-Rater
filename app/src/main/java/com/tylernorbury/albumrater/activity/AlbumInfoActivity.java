@@ -8,6 +8,7 @@ import android.widget.Toast;
 import com.tylernorbury.albumrater.R;
 import com.tylernorbury.albumrater.database.entity.Album;
 import com.tylernorbury.albumrater.fragment.AlbumInfoFragment;
+import com.tylernorbury.albumrater.fragment.EditAlbumFragment;
 
 public class AlbumInfoActivity extends AppCompatActivity implements AlbumInfoFragment.OnAlbumDeletedListener, AlbumInfoFragment.OnAlbumEditListener {
 
@@ -51,6 +52,13 @@ public class AlbumInfoActivity extends AppCompatActivity implements AlbumInfoFra
         // Swap out the fragments so that we're displaying the fragment for
         // editing albums
         Toast.makeText(this, "Edit Album Button Clicked", Toast.LENGTH_SHORT).show();
+
+        EditAlbumFragment fragment = new EditAlbumFragment();
+        getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.album_info_fragment_holder, fragment)
+                .addToBackStack("")
+                .commit();
 
     }
 }
