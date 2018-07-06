@@ -88,8 +88,7 @@ public class AddAlbumFragment extends Fragment {
             // Otherwise, if the form isn't valid, tell the user.
             else {
                 Toast.makeText(AlbumRaterApp.getContext(),
-                        "Please fill out all the fields and select a rating" +
-                                " before submitting",
+                        getString(R.string.invalid_album_form_message),
                         Toast.LENGTH_LONG).show();
             }
         }

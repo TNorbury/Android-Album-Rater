@@ -56,4 +56,6 @@
     <string name="new_album_rating">newAlbumRating</string>
     <string name="new_album_review">newAlbumReview</string>
     <string name="new_album_date">newAlbumDate</string>
+
+    <string name="invalid_album_form_message">Please fill out all the fields and select a rating before submitting</string>
 </resources>
