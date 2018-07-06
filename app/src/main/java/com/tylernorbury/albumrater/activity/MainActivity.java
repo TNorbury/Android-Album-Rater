@@ -259,8 +259,8 @@ public class MainActivity extends AppCompatActivity implements AlbumListFragment
 
             // Tell the view model to delete the album and give it the primary
             // key of the album to delete
-            mAlbumViewModel.deleteAlbum(data.getStringExtra(getString(R.string.album_title_key)),
-                    data.getStringExtra(getString(R.string.album_artist_key)));
+            mAlbumViewModel.deleteAlbum(data.getStringExtra(getString(R.string.original_album_title)),
+                    data.getStringExtra(getString(R.string.original_album_title)));
         }
     }
 }

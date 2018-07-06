@@ -48,8 +48,8 @@ public class AlbumInfoActivity extends AppCompatActivity implements AlbumInfoFra
         Intent reply = new Intent();
 
         // Give the reply intent the primary key of the album to delete
-        reply.putExtra(getString(R.string.album_title_key), album.getTitle());
-        reply.putExtra(getString(R.string.album_artist_key), album.getArtist());
+        reply.putExtra(getString(R.string.original_album_title), album.getTitle());
+        reply.putExtra(getString(R.string.original_album_title), album.getArtist());
 
         // Indicate what type of result is being returned from this activity and
         // then "finish" this activity
