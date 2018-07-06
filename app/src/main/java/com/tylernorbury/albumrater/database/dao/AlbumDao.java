@@ -50,6 +50,36 @@ public interface AlbumDao {
     @Query("DELETE FROM album")
     void deleteAll();
 
+
+    /**
+     * Gets the album with the given title and artist
+     *
+     * @param albumTitle the title of the album
+     * @param albumArtist the artist of the album
+     *
+     * @return The album with the given primary key
+     */
+    @Query("SELECT * FROM album " +
+            "where title=:albumTitle AND artist=:albumArtist")
+    LiveData<Album> getAlbum(String albumTitle, String albumArtist);
+
+
+    /**
+     * Deletes an album for the database with the matching primary key
+     *
+     * @param albumTitle The title of the album to delete
+     * @param albumArtist The artist of the album to delete
+     */
+    @Query("DELETE FROM album " +
+            "WHERE title=:albumTitle AND artist=:albumArtist")
+    void deleteAlbum(String albumTitle, String albumArtist);
+
+
+
+    /**
+     * The following queries are related to getting albums for different sorting methods
+     */
+
     /**
      * @return All albums, ordered by title, ascending
      */

@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.GridLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.tylernorbury.albumrater.AlbumRaterApp;
 import com.tylernorbury.albumrater.R;
@@ -21,20 +22,51 @@ import java.util.List;
  */
 public class AlbumListAdapter extends RecyclerView.Adapter<AlbumListAdapter.AlbumViewHolder> {
 
-    /**
-     * A view holder that holds a single album view
-     */
-    class AlbumViewHolder extends RecyclerView.ViewHolder {
-        private final GridLayout album;
+    private int mSelectedAlbumIndex = 0;
+    private final LayoutInflater mInflater;
+    private List<Album> mAlbums;
+    private OnAlbumSelectedListener mOnAlbumSelectedListener;
 
-        private AlbumViewHolder(View albumView) {
+    /**
+     * A view holder that holds and represents a single album. Also handles
+     * events when the album is selected.
+     */
+    class AlbumViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+        private final GridLayout mAlbumView;
+
+        AlbumViewHolder(View albumView) {
             super(albumView);
-            album = albumView.findViewById(R.id.albumView);
+            mAlbumView = albumView.findViewById(R.id.albumView);
+            mAlbumView.setOnClickListener(this);
+        }
+
+        public GridLayout getAlbumView() {
+            return mAlbumView;
+        }
+
+        @Override
+        public void onClick(View v) {
+
+            // Since a new album has been selected, update the index to that of
+            // the currently selected album
+            notifyItemChanged(mSelectedAlbumIndex);
+            mSelectedAlbumIndex = getAdapterPosition();
+            notifyItemChanged(mSelectedAlbumIndex);
+
+            // We now want to notify the main activity that an album has been
+            // selected and send it the album that was selected so that it can
+            // handle displaying it.
+            mOnAlbumSelectedListener.onAlbumSelectedListener(mAlbums.get(mSelectedAlbumIndex));
         }
     }
 
-    private final LayoutInflater mInflater;
-    private List<Album> mAlbums;
+    /**
+     * This interface handles events for when an album is selected from the
+     * recycler view
+     */
+    public interface OnAlbumSelectedListener {
+        void onAlbumSelectedListener(Album album);
+    }
 
     /**
      * Create a new AlbumListAdapter
@@ -42,6 +74,9 @@ public class AlbumListAdapter extends RecyclerView.Adapter<AlbumListAdapter.Albu
      */
     public AlbumListAdapter(Context context) {
         mInflater = LayoutInflater.from(context);
+
+        // From the given context, create a new listener.
+        mOnAlbumSelectedListener = (OnAlbumSelectedListener) context;
     }
 
     @NonNull
@@ -66,24 +101,24 @@ public class AlbumListAdapter extends RecyclerView.Adapter<AlbumListAdapter.Albu
         if (mAlbums != null) {
             Album current = mAlbums.get(position);
 
-            // Display the title of the album
-            TextView title = holder.album.findViewById(R.id.AlbumTitle);
+            // Display the title of the mAlbumView
+            TextView title = holder.getAlbumView().findViewById(R.id.AlbumTitle);
             title.setText(current.getTitle());
 
-            // Display the artist of the album
-            TextView artist = holder.album.findViewById(R.id.AlbumArtist);
+            // Display the artist of the mAlbumView
+            TextView artist = holder.getAlbumView().findViewById(R.id.AlbumArtist);
             artist.setText(current.getArtist());
 
             // Display the date the review was posted
-            TextView date = holder.album.findViewById(R.id.AlbumReviewDate);
+            TextView date = holder.getAlbumView().findViewById(R.id.AlbumReviewDate);
             date.setText(current.getReviewDateString());
 
-            // Display the rating of the album as either a thumbs up or thumbs
+            // Display the rating of the mAlbumView as either a thumbs up or thumbs
             // down
             // Get the view that contains the rating image
-            ImageView ratingImage = holder.album.findViewById(R.id.AlbumRating);
+            ImageView ratingImage = holder.getAlbumView().findViewById(R.id.AlbumRating);
 
-            // If the album's rating is positive (i.e. 1), then we'll display a
+            // If the mAlbumView's rating is positive (i.e. 1), then we'll display a
             // thumbs up
             if (current.getRating() == Album.GOOD_ALBUM) {
                 ratingImage.setImageDrawable(AlbumRaterApp.getContext()
@@ -111,6 +146,7 @@ public class AlbumListAdapter extends RecyclerView.Adapter<AlbumListAdapter.Albu
         mAlbums = albums;
         notifyDataSetChanged();
     }
+
 
     /**
      * @return The total number of items in this adapter

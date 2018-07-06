@@ -74,6 +74,15 @@ public class AlbumViewModel extends AndroidViewModel {
         mRepository.deleteAll();
     }
 
+    /**
+     * Deletes an album for the database with the matching primary key
+     *
+     * @param albumTitle The title of the album to delete
+     * @param albumArtist The artist of the album to delete
+     */
+    public void deleteAlbum(String albumTitle, String albumArtist) {
+        mRepository.deleteAlbum(albumTitle, albumArtist);
+    }
 
     /**
      * Updates the search parameter that'll be used when getting albums from

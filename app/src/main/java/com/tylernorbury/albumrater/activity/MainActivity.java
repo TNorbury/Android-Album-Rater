@@ -7,6 +7,7 @@ package com.tylernorbury.albumrater.activity;
 
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -17,7 +18,9 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.view.WindowManager;
+import android.widget.Toast;
 
+import com.tylernorbury.albumrater.AlbumRaterApp;
 import com.tylernorbury.albumrater.R;
 import com.tylernorbury.albumrater.adapter.AlbumListAdapter;
 import com.tylernorbury.albumrater.database.entity.Album;
@@ -28,7 +31,11 @@ import com.tylernorbury.albumrater.viewModel.AlbumViewModel;
 
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity implements AlbumListFragment.OnSortParametersChangedListener, AlbumListFragment.OnSearchQuerySubmittedListener {
+public class MainActivity extends AppCompatActivity implements AlbumListFragment.OnSortParametersChangedListener, AlbumListFragment.OnSearchQuerySubmittedListener, AlbumListAdapter.OnAlbumSelectedListener {
+
+    // Request code for calling the activity to display album info
+    public static final int REQUEST_CODE_DISPLAY_ALBUM_INFO = 1;
+
     private AlbumViewModel mAlbumViewModel;
     private AlbumListAdapter mAdapter;
 
@@ -217,5 +224,39 @@ public class MainActivity extends AppCompatActivity implements AlbumListFragment
 
         // Update and observe the list of albums
         mAlbumViewModel.getAlbums().observe(this, mAlbumListObserver);
+    }
+
+    @Override
+    public void onAlbumSelectedListener(Album album) {
+        // When an album is selected we want to spawn a new activity to display
+        // info about the album
+        Intent intent = new Intent();
+        intent.setClass(MainActivity.this, AlbumInfoActivity.class);
+
+        // We want to pass the primary key of the album (its title and artist) to the intent
+        intent.putExtra(getString(R.string.album_title_key), album.getTitle());
+        intent.putExtra(getString(R.string.album_artist_key), album.getArtist());
+
+        // Start the activity to display album info, expecting a result in
+        // return
+        startActivityForResult(intent, REQUEST_CODE_DISPLAY_ALBUM_INFO);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        // We want to check the request code of the activity, and the result
+        // code that it returned in order to determine what we should do next
+
+        // If the result is to delete an album, then that is what we'll do
+        if (requestCode == REQUEST_CODE_DISPLAY_ALBUM_INFO
+                && resultCode == AlbumInfoActivity.RESULT_DELETE) {
+
+            // Tell the view model to delete the album and give it the primary
+            // key of the album to delete
+            mAlbumViewModel.deleteAlbum(data.getStringExtra(getString(R.string.album_title_key)),
+                    data.getStringExtra(getString(R.string.album_artist_key)));
+        }
     }
 }
