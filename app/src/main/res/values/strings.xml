@@ -36,10 +36,6 @@
     <!-- Labels for the album info view buttons -->
     <string name="btn_delete_album">Delete Album</string>
     <string name="btn_edit_album">Edit Album</string>
-
-    <!-- Keys for passing album related info as arguments -->
-    <string name="album_title_key">albumTitle</string>
-    <string name="album_artist_key">albumArtist</string>
     
     <!-- Strings for the dialog confirming if the user wants to delete an album -->
     <string name="dialog_delete_album_title">Confirm Album Deletion</string>

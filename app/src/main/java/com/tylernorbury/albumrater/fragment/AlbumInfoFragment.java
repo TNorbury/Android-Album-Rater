@@ -81,8 +81,8 @@ public class AlbumInfoFragment extends Fragment {
         // We'll start by getting our album from the database by using the
         // primary key which was supplied as arguments to the fragment
         LiveData<Album> album = AlbumRepository.getRepository((Application) AlbumRaterApp.getContext())
-                .getAlbum(getArguments().getString(getString(R.string.album_title_key)),
-                        getArguments().getString(getString(R.string.album_artist_key)));
+                .getAlbum(getArguments().getString(getString(R.string.original_album_title)),
+                        getArguments().getString(getString(R.string.original_album_title)));
 
         // When there are changes to the album, we want to update this view
         album.observe(this, new Observer<Album>() {

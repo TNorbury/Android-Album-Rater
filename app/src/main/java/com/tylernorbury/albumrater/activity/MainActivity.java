@@ -233,9 +233,13 @@ public class MainActivity extends AppCompatActivity implements AlbumListFragment
         Intent intent = new Intent();
         intent.setClass(MainActivity.this, AlbumInfoActivity.class);
 
-        // We want to pass the primary key of the album (its title and artist) to the intent
-        intent.putExtra(getString(R.string.album_title_key), album.getTitle());
-        intent.putExtra(getString(R.string.album_artist_key), album.getArtist());
+        // We want to pass the values of the album to this activity, so that it
+        // can display them
+        intent.putExtra(getString(R.string.original_album_title), album.getTitle());
+        intent.putExtra(getString(R.string.original_album_artist), album.getArtist());
+        intent.putExtra(getString(R.string.original_album_rating), album.getRating());
+        intent.putExtra(getString(R.string.original_album_review), album.getReview());
+        intent.putExtra(getString(R.string.original_album_date), album.getReviewDate());
 
         // Start the activity to display album info, expecting a result in
         // return
