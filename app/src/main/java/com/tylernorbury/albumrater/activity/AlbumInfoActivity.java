@@ -49,7 +49,7 @@ public class AlbumInfoActivity extends AppCompatActivity implements AlbumInfoFra
 
         // Give the reply intent the primary key of the album to delete
         reply.putExtra(getString(R.string.original_album_title), album.getTitle());
-        reply.putExtra(getString(R.string.original_album_title), album.getArtist());
+        reply.putExtra(getString(R.string.original_album_artist), album.getArtist());
 
         // Indicate what type of result is being returned from this activity and
         // then "finish" this activity
@@ -121,6 +121,7 @@ public class AlbumInfoActivity extends AppCompatActivity implements AlbumInfoFra
             // Indicate to the calling activity that this result is for
             // submitting an edit
             setResult(RESULT_EDIT);
+            finish();
         }
     }
 }
