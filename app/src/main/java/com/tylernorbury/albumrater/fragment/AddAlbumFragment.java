@@ -21,8 +21,6 @@ import com.tylernorbury.albumrater.viewModel.AlbumViewModel;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link AddAlbumFragment#newInstance} factory method to
- * create an instance of this fragment.
  */
 public class AddAlbumFragment extends Fragment {
 
