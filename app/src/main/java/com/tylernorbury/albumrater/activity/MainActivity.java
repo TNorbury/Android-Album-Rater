@@ -262,5 +262,14 @@ public class MainActivity extends AppCompatActivity implements AlbumListFragment
             mAlbumViewModel.deleteAlbum(data.getStringExtra(getString(R.string.original_album_title)),
                     data.getStringExtra(getString(R.string.original_album_artist)));
         }
+
+        else if (requestCode == REQUEST_CODE_DISPLAY_ALBUM_INFO && resultCode == AlbumInfoActivity.RESULT_EDIT) {
+            // TODO remove toast
+            Toast.makeText(this, "Editing Album", Toast.LENGTH_SHORT).show();
+
+            // TODO construct an album from the "extra" that were passed
+
+            // TODO call the view model and tell it to update the album
+        }
     }
 }

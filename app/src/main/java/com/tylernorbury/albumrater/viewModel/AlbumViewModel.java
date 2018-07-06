@@ -85,6 +85,18 @@ public class AlbumViewModel extends AndroidViewModel {
     }
 
     /**
+     * Update the album with the given "old" primary key, with the values of the
+     * "new" album
+     *
+     * @param oldAlbumTitle The title of the album to update
+     * @param oldAlbumArtist The artist of the album to update
+     * @param newAlbum The "updated" album
+     */
+    public void updateAlbum(String oldAlbumTitle, String oldAlbumArtist, Album newAlbum) {
+        mRepository.updateAlbum(oldAlbumTitle, oldAlbumArtist, newAlbum);
+    }
+
+    /**
      * Updates the search parameter that'll be used when getting albums from
      * the database
      *
