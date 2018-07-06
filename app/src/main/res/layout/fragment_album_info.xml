@@ -64,6 +64,7 @@
 
     <Button
         android:id="@+id/delete_album"
+        style="@android:style/Widget.Material.Button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="32dp"
