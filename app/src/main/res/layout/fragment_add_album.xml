@@ -20,7 +20,7 @@
             android:layout_marginTop="16dp"
             android:ems="10"
             android:hint="@string/album_name_hint"
-            android:inputType="textCapSentences"
+            android:inputType="textCapWords"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
