@@ -52,7 +52,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/edit_album"
+        android:id="@+id/btn_edit_album"
         style="@android:style/Widget.Material.Button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -63,7 +63,7 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
-        android:id="@+id/delete_album"
+        android:id="@+id/btn_delete_album"
         style="@android:style/Widget.Material.Button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

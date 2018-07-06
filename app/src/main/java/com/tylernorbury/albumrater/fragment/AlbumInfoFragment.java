@@ -128,7 +128,7 @@ public class AlbumInfoFragment extends Fragment {
         });
 
         // Add an on click listeners to the edit album button
-        ((Button) view.findViewById(R.id.edit_album)).setOnClickListener(new View.OnClickListener() {
+        ((Button) view.findViewById(R.id.btn_edit_album)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 // TODO Implement functionality for clicking on the edit album button
@@ -140,7 +140,7 @@ public class AlbumInfoFragment extends Fragment {
         });
 
         // Add an on click listener to the delete album button
-        ((Button) view.findViewById(R.id.delete_album)).setOnClickListener(new View.OnClickListener() {
+        ((Button) view.findViewById(R.id.btn_delete_album)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 

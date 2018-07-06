@@ -7,7 +7,7 @@
     tools:context=".fragment.EditAlbumFragment">
 
     <EditText
-        android:id="@+id/edit_album_name"
+        android:id="@+id/edit_album_title"
         style="@android:style/Widget.Material.EditText"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -34,7 +34,7 @@
         android:inputType="textCapWords"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edit_album_name" />
+        app:layout_constraintTop_toBottomOf="@+id/edit_album_title" />
 
     <RadioGroup
         android:id="@+id/add_album_rating"
