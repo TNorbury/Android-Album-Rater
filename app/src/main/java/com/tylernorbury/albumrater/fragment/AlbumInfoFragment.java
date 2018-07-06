@@ -30,7 +30,7 @@ import com.tylernorbury.albumrater.database.repository.AlbumRepository;
 public class AlbumInfoFragment extends Fragment {
     private Album mAlbum;
     private OnAlbumDeletedListener mOnAlbumDeletedListener;
-    private OnAlbumEditListener mOnAlbumEditListener;
+    private OnAlbumEditEventListener mOnAlbumEditEventListener;
 
     /**
      * Listener for when the user selects to delete an album
@@ -40,10 +40,31 @@ public class AlbumInfoFragment extends Fragment {
     }
 
     /**
-     * Listener for when the user selects to delete an album
+     * Listener for when the user selects to edit an album, and also handles all
+     * events related to editing an album, such as submitting an edit, or
+     * backing out of an edit
      */
-    public interface OnAlbumEditListener {
-        void onAlbumEdit(Album album);
+    public interface OnAlbumEditEventListener {
+
+        /**
+         * This tells the listener that it should start the process of editing
+         * an album
+         */
+        int EDIT_ALBUM_START_CODE = 1;
+
+        /**
+         * This tells the listener that it should submit the changes made by the
+         * edit
+         */
+        int EDIT_ALBUM_SUBMIT_CODE = 2;
+
+        /**
+         * This tells the listener that it should cancel the edit and revert
+         * back to some other UI state
+         */
+        int EDIT_ALBUM_CANCEL_CODE = 3;
+
+        void onAlbumEditEvent(Album album, int editCode);
     }
 
     /**
@@ -70,7 +91,7 @@ public class AlbumInfoFragment extends Fragment {
 
         // Create a listener from the attaching context to handle album editing
         // events
-        mOnAlbumEditListener = (OnAlbumEditListener) context;
+        mOnAlbumEditEventListener = (OnAlbumEditEventListener) context;
     }
 
     @Override
@@ -134,7 +155,8 @@ public class AlbumInfoFragment extends Fragment {
                 // TODO Implement functionality for clicking on the edit album button
                 // We want to signal to our parent activity that we want to edit
                 // this album
-                mOnAlbumEditListener.onAlbumEdit(mAlbum);
+                mOnAlbumEditEventListener.onAlbumEditEvent(mAlbum,
+                        OnAlbumEditEventListener.EDIT_ALBUM_START_CODE);
 
             }
         });

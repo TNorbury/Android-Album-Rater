@@ -37,7 +37,7 @@
         app:layout_constraintTop_toBottomOf="@+id/edit_album_title" />
 
     <RadioGroup
-        android:id="@+id/add_album_rating"
+        android:id="@+id/edit_album_rating"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
@@ -74,7 +74,7 @@
         android:layout_marginTop="16dp"
         android:text="@string/btn_cancel_edit"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/add_album_rating" />
+        app:layout_constraintTop_toBottomOf="@+id/edit_album_rating" />
 
     <Button
         android:id="@+id/btn_submit_edit"
@@ -84,6 +84,6 @@
         android:layout_marginTop="16dp"
         android:text="@string/btn_submit_edit"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/add_album_rating" />
+        app:layout_constraintTop_toBottomOf="@+id/edit_album_rating" />
 
 </android.support.constraint.ConstraintLayout>
