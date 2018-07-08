@@ -36,12 +36,26 @@
     <!-- Labels for the album info view buttons -->
     <string name="btn_delete_album">Delete Album</string>
     <string name="btn_edit_album">Edit Album</string>
-
-    <!-- Keys for passing album related info as arguments -->
-    <string name="album_title_key">albumTitle</string>
-    <string name="album_artist_key">albumArtist</string>
     
     <!-- Strings for the dialog confirming if the user wants to delete an album -->
     <string name="dialog_delete_album_title">Confirm Album Deletion</string>
     <string name="dialog_delete_album_message">Are you sure you want to delete this album (this can\'t be undone)?</string>
+
+    <!-- Strings for the edit album fragment -->
+    <string name="btn_cancel_edit">Cancel</string>
+    <string name="btn_submit_edit">Submit Edit</string>
+    
+    <!-- Strings for bundle keys related to editing albums -->
+    <string name="original_album_title">origAlbumTitle</string>
+    <string name="original_album_artist">origAlbumArtist</string>
+    <string name="original_album_rating">origAlbumRating</string>
+    <string name="original_album_review">origAlbumReview</string>
+    <string name="original_album_date">origAlbumDate</string>
+    <string name="new_album_title">newAlbumTitle</string>
+    <string name="new_album_artist">newAlbumArtist</string>
+    <string name="new_album_rating">newAlbumRating</string>
+    <string name="new_album_review">newAlbumReview</string>
+    <string name="new_album_date">newAlbumDate</string>
+
+    <string name="invalid_album_form_message">Please fill out all the fields and select a rating before submitting</string>
 </resources>

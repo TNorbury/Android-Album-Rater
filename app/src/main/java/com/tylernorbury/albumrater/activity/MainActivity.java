@@ -233,9 +233,13 @@ public class MainActivity extends AppCompatActivity implements AlbumListFragment
         Intent intent = new Intent();
         intent.setClass(MainActivity.this, AlbumInfoActivity.class);
 
-        // We want to pass the primary key of the album (its title and artist) to the intent
-        intent.putExtra(getString(R.string.album_title_key), album.getTitle());
-        intent.putExtra(getString(R.string.album_artist_key), album.getArtist());
+        // We want to pass the values of the album to this activity, so that it
+        // can display them
+        intent.putExtra(getString(R.string.original_album_title), album.getTitle());
+        intent.putExtra(getString(R.string.original_album_artist), album.getArtist());
+        intent.putExtra(getString(R.string.original_album_rating), album.getRating());
+        intent.putExtra(getString(R.string.original_album_review), album.getReview());
+        intent.putExtra(getString(R.string.original_album_date), album.getReviewDate());
 
         // Start the activity to display album info, expecting a result in
         // return
@@ -255,8 +259,26 @@ public class MainActivity extends AppCompatActivity implements AlbumListFragment
 
             // Tell the view model to delete the album and give it the primary
             // key of the album to delete
-            mAlbumViewModel.deleteAlbum(data.getStringExtra(getString(R.string.album_title_key)),
-                    data.getStringExtra(getString(R.string.album_artist_key)));
+            mAlbumViewModel.deleteAlbum(data.getStringExtra(getString(R.string.original_album_title)),
+                    data.getStringExtra(getString(R.string.original_album_artist)));
+        }
+
+        else if (requestCode == REQUEST_CODE_DISPLAY_ALBUM_INFO && resultCode == AlbumInfoActivity.RESULT_EDIT) {
+
+            // Construct an new album object from the updated values provided by the user
+            Album updatedAlbum = new Album(
+                    data.getStringExtra(getString(R.string.new_album_title)),
+                    data.getStringExtra(getString(R.string.new_album_artist)),
+                    data.getIntExtra(getString(R.string.new_album_rating), -1),
+                    data.getStringExtra(getString(R.string.new_album_review)));
+
+            // We now want to make a call to the view model, telling it to
+            // update the album with the given primary key, updating it with the
+            // values in the "new" album
+            mAlbumViewModel.updateAlbum(
+                    data.getStringExtra(getString(R.string.original_album_title)),
+                    data.getStringExtra(getString(R.string.original_album_artist)),
+                    updatedAlbum);
         }
     }
 }

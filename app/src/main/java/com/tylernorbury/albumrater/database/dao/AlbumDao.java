@@ -13,6 +13,7 @@ import android.arch.persistence.room.Query;
 
 import com.tylernorbury.albumrater.database.entity.Album;
 
+import java.util.GregorianCalendar;
 import java.util.List;
 
 /**
@@ -73,6 +74,28 @@ public interface AlbumDao {
     @Query("DELETE FROM album " +
             "WHERE title=:albumTitle AND artist=:albumArtist")
     void deleteAlbum(String albumTitle, String albumArtist);
+
+    /**
+     * Update the album with the given "old" primary key, and replace its fields
+     * with the data from the "new" album
+     *
+     * @param oldAlbumTitle The title of the album to update
+     * @param oldAlbumArtist The artist of the album to update
+     *
+     * @param newAlbumTitle What the album's new title will be
+     * @param newAlbumArtist What the album's new artist will be
+     * @param newAlbumRating What the album's new rating will be
+     * @param newAlbumReview What the album's new review will be
+     */
+    @Query("UPDATE album " +
+            "SET title=:newAlbumTitle, " +
+            "artist=:newAlbumArtist," +
+            "rating=:newAlbumRating," +
+            "review=:newAlbumReview " +
+            "WHERE title=:oldAlbumTitle AND artist=:oldAlbumArtist")
+    void updateAlbum(String oldAlbumTitle, String oldAlbumArtist,
+                     String newAlbumTitle, String newAlbumArtist,
+                     int newAlbumRating, String newAlbumReview);
 
 
 

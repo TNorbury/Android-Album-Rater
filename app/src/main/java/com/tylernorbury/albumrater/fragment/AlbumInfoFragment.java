@@ -30,9 +30,41 @@ import com.tylernorbury.albumrater.database.repository.AlbumRepository;
 public class AlbumInfoFragment extends Fragment {
     private Album mAlbum;
     private OnAlbumDeletedListener mOnAlbumDeletedListener;
+    private OnAlbumEditEventListener mOnAlbumEditEventListener;
 
+    /**
+     * Listener for when the user selects to delete an album
+     */
     public interface OnAlbumDeletedListener {
         void onAlbumDeleted(Album album);
+    }
+
+    /**
+     * Listener for when the user selects to edit an album, and also handles all
+     * events related to editing an album, such as submitting an edit, or
+     * backing out of an edit
+     */
+    public interface OnAlbumEditEventListener {
+
+        /**
+         * This tells the listener that it should start the process of editing
+         * an album
+         */
+        int EDIT_ALBUM_START_CODE = 1;
+
+        /**
+         * This tells the listener that it should submit the changes made by the
+         * edit
+         */
+        int EDIT_ALBUM_SUBMIT_CODE = 2;
+
+        /**
+         * This tells the listener that it should cancel the edit and revert
+         * back to some other UI state
+         */
+        int EDIT_ALBUM_CANCEL_CODE = 3;
+
+        void onAlbumEditEvent(Album album, int editCode);
     }
 
     /**
@@ -56,6 +88,10 @@ public class AlbumInfoFragment extends Fragment {
         // Create a reference to the attaching context and treat it as a
         // listener for album deletion events
         mOnAlbumDeletedListener = (OnAlbumDeletedListener) context;
+
+        // Create a listener from the attaching context to handle album editing
+        // events
+        mOnAlbumEditEventListener = (OnAlbumEditEventListener) context;
     }
 
     @Override
@@ -66,8 +102,8 @@ public class AlbumInfoFragment extends Fragment {
         // We'll start by getting our album from the database by using the
         // primary key which was supplied as arguments to the fragment
         LiveData<Album> album = AlbumRepository.getRepository((Application) AlbumRaterApp.getContext())
-                .getAlbum(getArguments().getString(getString(R.string.album_title_key)),
-                        getArguments().getString(getString(R.string.album_artist_key)));
+                .getAlbum(getArguments().getString(getString(R.string.original_album_title)),
+                        getArguments().getString(getString(R.string.original_album_artist)));
 
         // When there are changes to the album, we want to update this view
         album.observe(this, new Observer<Album>() {
@@ -113,17 +149,19 @@ public class AlbumInfoFragment extends Fragment {
         });
 
         // Add an on click listeners to the edit album button
-        ((Button) view.findViewById(R.id.edit_album)).setOnClickListener(new View.OnClickListener() {
+        ((Button) view.findViewById(R.id.btn_edit_album)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // TODO Implement functionality for clicking on the edit album button
-                // Send a toast to indicate that the button was clicked
-                Toast.makeText(getContext(), "Edit Album Button Clicked", Toast.LENGTH_SHORT).show();
+                // We want to signal to our parent activity that we want to edit
+                // this album
+                mOnAlbumEditEventListener.onAlbumEditEvent(mAlbum,
+                        OnAlbumEditEventListener.EDIT_ALBUM_START_CODE);
+
             }
         });
 
         // Add an on click listener to the delete album button
-        ((Button) view.findViewById(R.id.delete_album)).setOnClickListener(new View.OnClickListener() {
+        ((Button) view.findViewById(R.id.btn_delete_album)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 

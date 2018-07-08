@@ -33,6 +33,10 @@ public class AlbumRepository {
 
     private static final int ALBUM_TITLE_INDEX = 0;
     private static final int ALBUM_ARTIST_INDEX = 1;
+    private static final int NEW_ALBUM_TITLE_INDEX = 2;
+    private static final int NEW_ALBUM_ARTIST_INDEX = 3;
+    private static final int NEW_ALBUM_RATING_INDEX = 4;
+    private static final int NEW_ALBUM_REVIEW_INDEX = 5;
 
     // We want the repository to be a singleton
     private static AlbumRepository INSTANCE;
@@ -171,6 +175,31 @@ public class AlbumRepository {
     }
 
     /**
+     * Update the album with the given "old" primary key, with the values of the
+     * "new" album
+     *
+     * @param oldAlbumTitle The title of the album to update
+     * @param oldAlbumArtist The artist of the album to update
+     * @param newAlbum The "updated" album
+     */
+    public void updateAlbum(String oldAlbumTitle, String oldAlbumArtist, Album newAlbum) {
+
+        // Create an array of the various values we'll need to pass to the DAO
+        String[] args = new String[6];
+        args[ALBUM_TITLE_INDEX] = oldAlbumTitle;
+        args[ALBUM_ARTIST_INDEX] = oldAlbumArtist;
+        args[NEW_ALBUM_TITLE_INDEX] = newAlbum.getTitle();
+        args[NEW_ALBUM_ARTIST_INDEX] = newAlbum.getArtist();
+        args[NEW_ALBUM_REVIEW_INDEX] = newAlbum.getReview();
+
+        // Since this is an array of strings, we need to convert the rating
+        // (an int) into a string
+        args[NEW_ALBUM_RATING_INDEX] = String.valueOf(newAlbum.getRating());
+
+        new UpdateAlbumAsyncTask(mAlbumDao).execute(args);
+    }
+
+    /**
      * Formats the given search parameter to make it better for searching
      *
      * @param searchParameter The parameter to format
@@ -248,6 +277,26 @@ public class AlbumRepository {
         @Override
         protected Void doInBackground(String... args) {
             mAsyncDao.deleteAlbum(args[ALBUM_TITLE_INDEX], args[ALBUM_ARTIST_INDEX]);
+            return null;
+        }
+    }
+
+    private static class UpdateAlbumAsyncTask extends AsyncTask<String, Void, Void> {
+        private AlbumDao mAsyncDao;
+
+        UpdateAlbumAsyncTask(AlbumDao dao) {
+            mAsyncDao = dao;
+        }
+
+        @Override
+        protected Void doInBackground(String... args) {
+            // Take the arguments supplied and pass them to the DAO
+            mAsyncDao.updateAlbum(args[ALBUM_TITLE_INDEX],
+                    args[ALBUM_ARTIST_INDEX], args[NEW_ALBUM_TITLE_INDEX],
+                    args[NEW_ALBUM_ARTIST_INDEX],
+                    // We have to covert the rating back to an integer
+                    Integer.parseInt(args[NEW_ALBUM_RATING_INDEX]),
+                    args[NEW_ALBUM_REVIEW_INDEX]);
             return null;
         }
     }

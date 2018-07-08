@@ -34,7 +34,7 @@ public class AddAlbumFragment extends Fragment {
 
             // Get the name of the album
             String albumName = ((TextView)form
-                    .findViewById(R.id.add_album_name)).getText().toString();
+                    .findViewById(R.id.add_album_title)).getText().toString();
 
             // If the album name is blank, tell the user to fill it out
             if (albumName.isEmpty()) {
@@ -88,8 +88,7 @@ public class AddAlbumFragment extends Fragment {
             // Otherwise, if the form isn't valid, tell the user.
             else {
                 Toast.makeText(AlbumRaterApp.getContext(),
-                        "Please fill out all the fields and select a rating" +
-                                " before submitting",
+                        getString(R.string.invalid_album_form_message),
                         Toast.LENGTH_LONG).show();
             }
         }
