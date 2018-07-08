@@ -152,7 +152,6 @@ public class AlbumInfoFragment extends Fragment {
         ((Button) view.findViewById(R.id.btn_edit_album)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // TODO Implement functionality for clicking on the edit album button
                 // We want to signal to our parent activity that we want to edit
                 // this album
                 mOnAlbumEditEventListener.onAlbumEditEvent(mAlbum,

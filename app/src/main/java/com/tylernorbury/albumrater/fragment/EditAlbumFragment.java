@@ -132,10 +132,10 @@ public class EditAlbumFragment extends Fragment {
 
                 // If either the "good" or "bad" rating is selected, set the
                 // corresponding rating
-                if (selectedRating == R.id.add_album_rating_good) {
+                if (selectedRating == R.id.edit_album_rating_good) {
                     albumRating = Album.GOOD_ALBUM;
                 }
-                else if (selectedRating == R.id.add_album_rating_bad) {
+                else if (selectedRating == R.id.edit_album_rating_bad) {
                     albumRating = Album.BAD_ALBUM;
                 }
 

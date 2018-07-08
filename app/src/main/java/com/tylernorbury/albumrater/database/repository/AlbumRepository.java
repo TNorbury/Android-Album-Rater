@@ -190,11 +190,11 @@ public class AlbumRepository {
         args[ALBUM_ARTIST_INDEX] = oldAlbumArtist;
         args[NEW_ALBUM_TITLE_INDEX] = newAlbum.getTitle();
         args[NEW_ALBUM_ARTIST_INDEX] = newAlbum.getArtist();
+        args[NEW_ALBUM_REVIEW_INDEX] = newAlbum.getReview();
 
         // Since this is an array of strings, we need to convert the rating
         // (an int) into a string
         args[NEW_ALBUM_RATING_INDEX] = String.valueOf(newAlbum.getRating());
-        args[NEW_ALBUM_REVIEW_INDEX] = newAlbum.getReview();
 
         new UpdateAlbumAsyncTask(mAlbumDao).execute(args);
     }

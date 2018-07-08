@@ -1,9 +1,8 @@
 package com.tylernorbury.albumrater.activity;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.widget.Toast;
+import android.support.v7.app.AppCompatActivity;
 
 import com.tylernorbury.albumrater.R;
 import com.tylernorbury.albumrater.database.entity.Album;
@@ -59,9 +58,6 @@ public class AlbumInfoActivity extends AppCompatActivity implements AlbumInfoFra
 
     @Override
     public void onAlbumEditEvent(Album album, int editCode) {
-        // Swap out the fragments so that we're displaying the fragment for
-        // editing albums
-        Toast.makeText(this, "Edit Album Button Clicked", Toast.LENGTH_SHORT).show();
 
         // If we're starting an edit, then we want to swap fragments so that
         // we're displaying the edit album fragment
@@ -120,7 +116,7 @@ public class AlbumInfoActivity extends AppCompatActivity implements AlbumInfoFra
 
             // Indicate to the calling activity that this result is for
             // submitting an edit
-            setResult(RESULT_EDIT);
+            setResult(RESULT_EDIT, reply);
             finish();
         }
     }

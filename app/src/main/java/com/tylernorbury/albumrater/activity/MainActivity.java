@@ -264,12 +264,21 @@ public class MainActivity extends AppCompatActivity implements AlbumListFragment
         }
 
         else if (requestCode == REQUEST_CODE_DISPLAY_ALBUM_INFO && resultCode == AlbumInfoActivity.RESULT_EDIT) {
-            // TODO remove toast
-            Toast.makeText(this, "Editing Album", Toast.LENGTH_SHORT).show();
 
-            // TODO construct an album from the "extra" that were passed
+            // Construct an new album object from the updated values provided by the user
+            Album updatedAlbum = new Album(
+                    data.getStringExtra(getString(R.string.new_album_title)),
+                    data.getStringExtra(getString(R.string.new_album_artist)),
+                    data.getIntExtra(getString(R.string.new_album_rating), -1),
+                    data.getStringExtra(getString(R.string.new_album_review)));
 
-            // TODO call the view model and tell it to update the album
+            // We now want to make a call to the view model, telling it to
+            // update the album with the given primary key, updating it with the
+            // values in the "new" album
+            mAlbumViewModel.updateAlbum(
+                    data.getStringExtra(getString(R.string.original_album_title)),
+                    data.getStringExtra(getString(R.string.original_album_artist)),
+                    updatedAlbum);
         }
     }
 }
