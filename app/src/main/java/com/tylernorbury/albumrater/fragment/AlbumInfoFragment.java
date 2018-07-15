@@ -144,6 +144,10 @@ public class AlbumInfoFragment extends Fragment {
                                         .getDrawable(R.drawable.ic_thumb_down_unselected_big,
                                                 null));
                     }
+
+                    // Display the rating of the album
+                    ((TextView)view.findViewById(R.id.album_review))
+                            .setText(album.getReview());
                 }
             }
         });
