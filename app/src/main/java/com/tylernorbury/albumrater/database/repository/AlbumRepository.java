@@ -18,7 +18,8 @@ import java.util.List;
 /**
  * Repository for accessing album data
  */
-public class AlbumRepository {
+public class AlbumRepository
+{
 
     // We'll use these codes to determine which query we'll call. The different
     // codes represent a different combination of column name and ordering
@@ -46,9 +47,11 @@ public class AlbumRepository {
 
     /**
      * Create an album repository
+     *
      * @param application The application context
      */
-    private AlbumRepository(Application application) {
+    private AlbumRepository(Application application)
+    {
 
         // Get the DAO and all the albums
         mAlbumDao = AlbumDatabase.getDatabase(application).albumDao();
@@ -57,14 +60,19 @@ public class AlbumRepository {
 
     /**
      * Gets the repository
+     *
      * @param application The application context
      * @return The Album repository
      */
-    public static AlbumRepository getRepository(Application application) {
+    public static AlbumRepository getRepository(Application application)
+    {
         // If the repository hasn't been created, then create it
-        if (INSTANCE == null) {
-            synchronized (AlbumRepository.class) {
-                if (INSTANCE == null) {
+        if (INSTANCE == null)
+        {
+            synchronized (AlbumRepository.class)
+            {
+                if (INSTANCE == null)
+                {
                     INSTANCE = new AlbumRepository(application);
                 }
             }
@@ -75,7 +83,8 @@ public class AlbumRepository {
     /**
      * @return Returns all the albums
      */
-    public LiveData<List<Album>> getAllAlbums() {
+    public LiveData<List<Album>> getAllAlbums()
+    {
         return mAllAlbums;
     }
 
@@ -85,62 +94,73 @@ public class AlbumRepository {
      *
      * @param queryCode The code for the query that'll well use to retrieve the
      *                  data.
-     *
      * @return an ordered list of the albums in the database.
      */
-    public LiveData<List<Album>> getAllAlbumsOrdered(int queryCode, String searchParameter) {
-
+    public LiveData<List<Album>> getAllAlbumsOrdered(int queryCode, String searchParameter)
+    {
         // Depending on the given query code, calling the corresponding query
         // from the DAO
-        switch (queryCode) {
+        switch (queryCode)
+        {
             case QUERY_TITLE_ASC:
-                mAllAlbums = mAlbumDao.getAllAlbumsOrderedTitleASC(formatSearchParameter(searchParameter));
+                mAllAlbums = mAlbumDao
+                        .getAllAlbumsOrderedTitleASC(formatSearchParameter(searchParameter));
                 break;
 
             case QUERY_TITLE_DESC:
-                mAllAlbums = mAlbumDao.getAllAlbumsOrderedTitleDESC(formatSearchParameter(searchParameter));
+                mAllAlbums = mAlbumDao
+                        .getAllAlbumsOrderedTitleDESC(formatSearchParameter(searchParameter));
                 break;
 
             case QUERY_ARTIST_ASC:
-                mAllAlbums = mAlbumDao.getAllAlbumsOrderedArtistASC(formatSearchParameter(searchParameter));
+                mAllAlbums = mAlbumDao
+                        .getAllAlbumsOrderedArtistASC(formatSearchParameter(searchParameter));
                 break;
 
             case QUERY_ARTIST_DESC:
-                mAllAlbums = mAlbumDao.getAllAlbumsOrderedArtistDESC(formatSearchParameter(searchParameter));
+                mAllAlbums = mAlbumDao
+                        .getAllAlbumsOrderedArtistDESC(formatSearchParameter(searchParameter));
                 break;
 
             case QUERY_RATING_ASC:
-                mAllAlbums = mAlbumDao.getAllAlbumsOrderedRatingASC(formatSearchParameter(searchParameter));
+                mAllAlbums = mAlbumDao
+                        .getAllAlbumsOrderedRatingASC(formatSearchParameter(searchParameter));
                 break;
 
             case QUERY_RATING_DESC:
-                mAllAlbums = mAlbumDao.getAllAlbumsOrderedRatingDESC(formatSearchParameter(searchParameter));
+                mAllAlbums = mAlbumDao
+                        .getAllAlbumsOrderedRatingDESC(formatSearchParameter(searchParameter));
                 break;
 
             case QUERY_DATE_ASC:
-                mAllAlbums = mAlbumDao.getAllAlbumsOrderedDateASC(formatSearchParameter(searchParameter));
+                mAllAlbums = mAlbumDao
+                        .getAllAlbumsOrderedDateASC(formatSearchParameter(searchParameter));
                 break;
 
             case QUERY_DATE_DESC:
-                mAllAlbums = mAlbumDao.getAllAlbumsOrderedDateDESC(formatSearchParameter(searchParameter));
+                mAllAlbums = mAlbumDao
+                        .getAllAlbumsOrderedDateDESC(formatSearchParameter(searchParameter));
                 break;
         }
 
-        return  mAllAlbums;
+        return mAllAlbums;
     }
 
     /**
      * Insert an album into the repository.
+     *
      * @param album The album to be inserted
      */
-    public void insert(Album album) {
+    public void insert(Album album)
+    {
         new InsertAsyncTask(mAlbumDao).execute(album);
     }
 
     /**
      * Deletes all the albums from the database
      */
-    public void deleteAll() {
+    public void deleteAll()
+    {
         // Create a new asynchronous task to clear the database
         new DeleteAllAsyncTask(mAlbumDao).execute();
     }
@@ -148,22 +168,23 @@ public class AlbumRepository {
     /**
      * Gets the album with the given title and artist
      *
-     * @param albumTitle the title of the album
+     * @param albumTitle  the title of the album
      * @param albumArtist the artist of the album
-     *
      * @return The album with the given primary key
      */
-    public LiveData<Album> getAlbum(String albumTitle, String albumArtist) {
+    public LiveData<Album> getAlbum(String albumTitle, String albumArtist)
+    {
         return mAlbumDao.getAlbum(albumTitle, albumArtist);
     }
 
     /**
      * Deletes an album for the database with the matching primary key
      *
-     * @param albumTitle The title of the album to delete
+     * @param albumTitle  The title of the album to delete
      * @param albumArtist The artist of the album to delete
      */
-    public void deleteAlbum(String albumTitle, String albumArtist) {
+    public void deleteAlbum(String albumTitle, String albumArtist)
+    {
         // Create an array representing the primary key of the album to be deleted
         String[] albumPrimaryKey = new String[2];
         albumPrimaryKey[ALBUM_TITLE_INDEX] = albumTitle;
@@ -178,12 +199,12 @@ public class AlbumRepository {
      * Update the album with the given "old" primary key, with the values of the
      * "new" album
      *
-     * @param oldAlbumTitle The title of the album to update
+     * @param oldAlbumTitle  The title of the album to update
      * @param oldAlbumArtist The artist of the album to update
-     * @param newAlbum The "updated" album
+     * @param newAlbum       The "updated" album
      */
-    public void updateAlbum(String oldAlbumTitle, String oldAlbumArtist, Album newAlbum) {
-
+    public void updateAlbum(String oldAlbumTitle, String oldAlbumArtist, Album newAlbum)
+    {
         // Create an array of the various values we'll need to pass to the DAO
         String[] args = new String[6];
         args[ALBUM_TITLE_INDEX] = oldAlbumTitle;
@@ -205,7 +226,8 @@ public class AlbumRepository {
      * @param searchParameter The parameter to format
      * @return a formatted search parameter
      */
-    private String formatSearchParameter(String searchParameter) {
+    private String formatSearchParameter(String searchParameter)
+    {
         StringBuilder sb = new StringBuilder();
 
         // Firstly we want to put an SQL wild card character at the start of the
@@ -226,16 +248,18 @@ public class AlbumRepository {
     /**
      * Helper class that creates thread(s) to clear the database
      */
-    private static class DeleteAllAsyncTask extends AsyncTask<Void, Void, Void> {
-
+    private static class DeleteAllAsyncTask extends AsyncTask<Void, Void, Void>
+    {
         private AlbumDao mAsyncDao;
 
-        DeleteAllAsyncTask(AlbumDao dao) {
+        DeleteAllAsyncTask(AlbumDao dao)
+        {
             mAsyncDao = dao;
         }
 
         @Override
-        protected Void doInBackground(Void... voids) {
+        protected Void doInBackground(Void... voids)
+        {
             mAsyncDao.deleteAll();
             return null;
         }
@@ -245,20 +269,23 @@ public class AlbumRepository {
      * Helper class that handles creating threads to handle the insertion of
      * albums into the repository.
      */
-    private static class InsertAsyncTask extends AsyncTask<Album, Void, Void> {
-
+    private static class InsertAsyncTask extends AsyncTask<Album, Void, Void>
+    {
         private AlbumDao mAsyncDao;
 
         /**
          * Create a new async task
+         *
          * @param dao The DAO that the task will use.
          */
-        InsertAsyncTask(AlbumDao dao) {
+        InsertAsyncTask(AlbumDao dao)
+        {
             mAsyncDao = dao;
         }
 
         @Override
-        protected Void doInBackground(final Album... params) {
+        protected Void doInBackground(final Album... params)
+        {
             mAsyncDao.insert(params[0]);
             return null;
         }
@@ -267,36 +294,40 @@ public class AlbumRepository {
     /**
      * Helper class which creates a thread to delete an album from the database
      */
-    private static class DeleteAlbumAsyncTask extends AsyncTask<String, Void, Void> {
+    private static class DeleteAlbumAsyncTask extends AsyncTask<String, Void, Void>
+    {
         private AlbumDao mAsyncDao;
 
-        public DeleteAlbumAsyncTask(AlbumDao dao) {
+        public DeleteAlbumAsyncTask(AlbumDao dao)
+        {
             mAsyncDao = dao;
         }
 
         @Override
-        protected Void doInBackground(String... args) {
+        protected Void doInBackground(String... args)
+        {
             mAsyncDao.deleteAlbum(args[ALBUM_TITLE_INDEX], args[ALBUM_ARTIST_INDEX]);
             return null;
         }
     }
 
-    private static class UpdateAlbumAsyncTask extends AsyncTask<String, Void, Void> {
+    private static class UpdateAlbumAsyncTask extends AsyncTask<String, Void, Void>
+    {
         private AlbumDao mAsyncDao;
 
-        UpdateAlbumAsyncTask(AlbumDao dao) {
+        UpdateAlbumAsyncTask(AlbumDao dao)
+        {
             mAsyncDao = dao;
         }
 
         @Override
-        protected Void doInBackground(String... args) {
+        protected Void doInBackground(String... args)
+        {
             // Take the arguments supplied and pass them to the DAO
-            mAsyncDao.updateAlbum(args[ALBUM_TITLE_INDEX],
-                    args[ALBUM_ARTIST_INDEX], args[NEW_ALBUM_TITLE_INDEX],
-                    args[NEW_ALBUM_ARTIST_INDEX],
+            mAsyncDao.updateAlbum(args[ALBUM_TITLE_INDEX], args[ALBUM_ARTIST_INDEX],
+                    args[NEW_ALBUM_TITLE_INDEX], args[NEW_ALBUM_ARTIST_INDEX],
                     // We have to covert the rating back to an integer
-                    Integer.parseInt(args[NEW_ALBUM_RATING_INDEX]),
-                    args[NEW_ALBUM_REVIEW_INDEX]);
+                    Integer.parseInt(args[NEW_ALBUM_RATING_INDEX]), args[NEW_ALBUM_REVIEW_INDEX]);
             return null;
         }
     }

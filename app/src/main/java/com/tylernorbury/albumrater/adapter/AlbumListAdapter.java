@@ -20,7 +20,8 @@ import java.util.List;
 /**
  * A class that creates an adapter between albums and a recycler view
  */
-public class AlbumListAdapter extends RecyclerView.Adapter<AlbumListAdapter.AlbumViewHolder> {
+public class AlbumListAdapter extends RecyclerView.Adapter<AlbumListAdapter.AlbumViewHolder>
+{
 
     private int mSelectedAlbumIndex = 0;
     private final LayoutInflater mInflater;
@@ -31,21 +32,25 @@ public class AlbumListAdapter extends RecyclerView.Adapter<AlbumListAdapter.Albu
      * A view holder that holds and represents a single album. Also handles
      * events when the album is selected.
      */
-    class AlbumViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    class AlbumViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener
+    {
         private final GridLayout mAlbumView;
 
-        AlbumViewHolder(View albumView) {
+        AlbumViewHolder(View albumView)
+        {
             super(albumView);
             mAlbumView = albumView.findViewById(R.id.albumView);
             mAlbumView.setOnClickListener(this);
         }
 
-        public GridLayout getAlbumView() {
+        public GridLayout getAlbumView()
+        {
             return mAlbumView;
         }
 
         @Override
-        public void onClick(View v) {
+        public void onClick(View v)
+        {
 
             // Since a new album has been selected, update the index to that of
             // the currently selected album
@@ -64,15 +69,18 @@ public class AlbumListAdapter extends RecyclerView.Adapter<AlbumListAdapter.Albu
      * This interface handles events for when an album is selected from the
      * recycler view
      */
-    public interface OnAlbumSelectedListener {
+    public interface OnAlbumSelectedListener
+    {
         void onAlbumSelectedListener(Album album);
     }
 
     /**
      * Create a new AlbumListAdapter
+     *
      * @param context The application context
      */
-    public AlbumListAdapter(Context context) {
+    public AlbumListAdapter(Context context)
+    {
         mInflater = LayoutInflater.from(context);
 
         // From the given context, create a new listener.
@@ -81,7 +89,8 @@ public class AlbumListAdapter extends RecyclerView.Adapter<AlbumListAdapter.Albu
 
     @NonNull
     @Override
-    public AlbumViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public AlbumViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType)
+    {
         View itemView = mInflater.inflate(R.layout.recyclerview_album, parent, false);
         return new AlbumViewHolder(itemView);
     }
@@ -90,15 +99,17 @@ public class AlbumListAdapter extends RecyclerView.Adapter<AlbumListAdapter.Albu
      * This method binds a ViewHolder to a particular album from the list of
      * albums
      *
-     * @param holder The ViewHolder that will be bound to
+     * @param holder   The ViewHolder that will be bound to
      * @param position The position, in the list of albums, that will be bound
      */
     @Override
-    public void onBindViewHolder(AlbumViewHolder holder, int position) {
+    public void onBindViewHolder(AlbumViewHolder holder, int position)
+    {
 
         // If we've received a list of albums, then set up the current album's
         // view with the relevant UI information
-        if (mAlbums != null) {
+        if (mAlbums != null)
+        {
             Album current = mAlbums.get(position);
 
             // Display the title of the mAlbumView
@@ -120,18 +131,18 @@ public class AlbumListAdapter extends RecyclerView.Adapter<AlbumListAdapter.Albu
 
             // If the mAlbumView's rating is positive (i.e. 1), then we'll display a
             // thumbs up
-            if (current.getRating() == Album.GOOD_ALBUM) {
-                ratingImage.setImageDrawable(AlbumRaterApp.getContext()
-                        .getResources().getDrawable(
-                                R.drawable.ic_thumb_up_black_24dp, null));
+            if (current.getRating() == Album.GOOD_ALBUM)
+            {
+                ratingImage.setImageDrawable(AlbumRaterApp.getContext().getResources()
+                        .getDrawable(R.drawable.ic_thumb_up_black_24dp, null));
             }
 
             // Otherwise, if it's negative (i.e. 0), then we'll display a
             // thumbs down
-            else if (current.getRating() == Album.BAD_ALBUM) {
-                ratingImage.setImageDrawable(AlbumRaterApp.getContext()
-                        .getResources().getDrawable(
-                                R.drawable.ic_thumb_down_black_24dp, null));
+            else if (current.getRating() == Album.BAD_ALBUM)
+            {
+                ratingImage.setImageDrawable(AlbumRaterApp.getContext().getResources()
+                        .getDrawable(R.drawable.ic_thumb_down_black_24dp, null));
             }
         }
     }
@@ -142,7 +153,8 @@ public class AlbumListAdapter extends RecyclerView.Adapter<AlbumListAdapter.Albu
      *
      * @param albums The new list of albums
      */
-    public void setAlbums(List<Album> albums) {
+    public void setAlbums(List<Album> albums)
+    {
         mAlbums = albums;
         notifyDataSetChanged();
     }
@@ -152,13 +164,16 @@ public class AlbumListAdapter extends RecyclerView.Adapter<AlbumListAdapter.Albu
      * @return The total number of items in this adapter
      */
     @Override
-    public int getItemCount() {
+    public int getItemCount()
+    {
         int itemCount;
 
-        if (mAlbums != null) {
+        if (mAlbums != null)
+        {
             itemCount = mAlbums.size();
         }
-        else {
+        else
+        {
             itemCount = 0;
         }
 

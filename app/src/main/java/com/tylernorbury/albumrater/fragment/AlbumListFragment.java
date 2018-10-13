@@ -33,13 +33,13 @@ import com.tylernorbury.albumrater.database.repository.AlbumRepository;
 import com.tylernorbury.albumrater.viewModel.AlbumViewModel;
 
 
-
 /**
  * A simple {@link Fragment} subclass.
  * Use the {@link AlbumListFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class AlbumListFragment extends Fragment implements AdapterView.OnItemSelectedListener {
+public class AlbumListFragment extends Fragment implements AdapterView.OnItemSelectedListener
+{
 
     private static AlbumListAdapter mAdapter;
     private OnSortParametersChangedListener mOnSortParametersChangedListener;
@@ -49,26 +49,32 @@ public class AlbumListFragment extends Fragment implements AdapterView.OnItemSel
      * This interface will handle events when a new sorting parameter is
      * selected from the spinner
      */
-    public interface OnSortParametersChangedListener {
+    public interface OnSortParametersChangedListener
+    {
         void onSortParametersChanged(int queryCode);
     }
 
 
-    public interface OnSearchQuerySubmittedListener {
+    public interface OnSearchQuerySubmittedListener
+    {
         void onSearchQuerySubmittedListener(String searchQuery);
     }
 
     /**
      * Creates a new AlbumListFragment
      */
-    public AlbumListFragment() { }
+    public AlbumListFragment()
+    {
+    }
 
     /**
      * Create a new instance of this AlbumListFragment
+     *
      * @param adapter The RecyclerView adapter that this fragment will use.
      * @return a new AlbumListFragment
      */
-    public static AlbumListFragment newInstance(AlbumListAdapter adapter) {
+    public static AlbumListFragment newInstance(AlbumListAdapter adapter)
+    {
 
         // Create a new fragment
         AlbumListFragment fragment = new AlbumListFragment();
@@ -81,13 +87,15 @@ public class AlbumListFragment extends Fragment implements AdapterView.OnItemSel
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+                             Bundle savedInstanceState)
+    {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_album_list, container, false);
     }
 
     @Override
-    public void onViewCreated(@NonNull final View view, @Nullable Bundle savedInstanceState) {
+    public void onViewCreated(@NonNull final View view, @Nullable Bundle savedInstanceState)
+    {
         super.onViewCreated(view, savedInstanceState);
 
         // Get a reference to the recycler view
@@ -104,9 +112,11 @@ public class AlbumListFragment extends Fragment implements AdapterView.OnItemSel
 
         // Create an onClick listener for the search button
         ImageButton searchButton = view.findViewById(R.id.search_button);
-        searchButton.setOnClickListener(new View.OnClickListener() {
+        searchButton.setOnClickListener(new View.OnClickListener()
+        {
             @Override
-            public void onClick(View v) {
+            public void onClick(View v)
+            {
                 // Call the helper method to process the search
                 handleSearch();
             }
@@ -114,13 +124,16 @@ public class AlbumListFragment extends Fragment implements AdapterView.OnItemSel
 
         // Create and set a listener for whenever the return/enter key is pressed
         EditText searchField = view.findViewById(R.id.search_text);
-        searchField.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+        searchField.setOnEditorActionListener(new TextView.OnEditorActionListener()
+        {
             @Override
-            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event)
+            {
 
                 // If the IME Action "done" happened, then call the method to
                 // handle searches
-                if (actionId == EditorInfo.IME_ACTION_DONE) {
+                if (actionId == EditorInfo.IME_ACTION_DONE)
+                {
                     handleSearch();
                 }
 
@@ -132,28 +145,34 @@ public class AlbumListFragment extends Fragment implements AdapterView.OnItemSel
     }
 
     @Override
-    public void onAttach(Context context) {
+    public void onAttach(Context context)
+    {
         super.onAttach(context);
 
         // Try to cast the given context into an OnSortParametersChangedListener and an OnSearchQuerySubmittedListener
-        try {
+        try
+        {
             mOnSortParametersChangedListener = (OnSortParametersChangedListener) context;
             mOnSearchQuerySubmittedListener = (OnSearchQuerySubmittedListener) context;
         }
-        catch (ClassCastException e) {
-            throw new ClassCastException(context.toString() + " must implement OnSortParametersChangedListener AND OnSearchQuerySubmittedListener");
+        catch (ClassCastException e)
+        {
+            throw new ClassCastException(
+                    context.toString() + " must implement OnSortParametersChangedListener AND OnSearchQuerySubmittedListener");
         }
     }
 
     @Override
-    public void onResume() {
+    public void onResume()
+    {
         super.onResume();
 
         // Set the spinner's selection to the whatever it was the last time the
         // user was on this fragment. This is done so that there is some
         // persistence when the user comes back to the persistence
         Spinner s = getView().findViewById(R.id.sorting_spinner);
-        s.setSelection(ViewModelProviders.of(getActivity()).get(AlbumViewModel.class).getCurrentQuerySelection());
+        s.setSelection(ViewModelProviders.of(getActivity()).get(AlbumViewModel.class)
+                .getCurrentQuerySelection());
 
         // However, we do want to clear the search parameters so that all albums
         // will be displayed (albeit in the previously selected order) when they
@@ -170,13 +189,14 @@ public class AlbumListFragment extends Fragment implements AdapterView.OnItemSel
      * This will handle an item being selected from the spinner. The sorting of
      * the album list will be changed depending on the selection
      *
-     * @param parent The AdapterView where the selection happened
-     * @param view The view within the AdapterView that was clicked
+     * @param parent   The AdapterView where the selection happened
+     * @param view     The view within the AdapterView that was clicked
      * @param position The position of the view in the adapter
-     * @param id The row id of the item that is selected
+     * @param id       The row id of the item that is selected
      */
     @Override
-    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+    public void onItemSelected(AdapterView<?> parent, View view, int position, long id)
+    {
 
         // Get the string value of the spinner item that
         String sortSelection = parent.getItemAtPosition(position).toString();
@@ -184,34 +204,42 @@ public class AlbumListFragment extends Fragment implements AdapterView.OnItemSel
 
         // Based on the selected option, determine query code we'll use
         // Sort by title
-        if (sortSelection.equals(getString(R.string.sort_title_asc))) {
+        if (sortSelection.equals(getString(R.string.sort_title_asc)))
+        {
             queryCode = AlbumRepository.QUERY_TITLE_ASC;
         }
-        else if (sortSelection.equals(getString(R.string.sort_title_desc))) {
+        else if (sortSelection.equals(getString(R.string.sort_title_desc)))
+        {
             queryCode = AlbumRepository.QUERY_TITLE_DESC;
         }
 
         // Sort by name of artist
-        else if (sortSelection.equals(getString(R.string.sort_artist_asc))) {
+        else if (sortSelection.equals(getString(R.string.sort_artist_asc)))
+        {
             queryCode = AlbumRepository.QUERY_ARTIST_ASC;
         }
-        else if (sortSelection.equals(getString(R.string.sort_artist_desc))) {
+        else if (sortSelection.equals(getString(R.string.sort_artist_desc)))
+        {
             queryCode = AlbumRepository.QUERY_ARTIST_DESC;
         }
 
         // Sorting by rating
-        else if (sortSelection.equals(getString(R.string.sort_rating_asc))) {
+        else if (sortSelection.equals(getString(R.string.sort_rating_asc)))
+        {
             queryCode = AlbumRepository.QUERY_RATING_ASC;
         }
-        else if (sortSelection.equals(getString(R.string.sort_rating_desc))) {
+        else if (sortSelection.equals(getString(R.string.sort_rating_desc)))
+        {
             queryCode = AlbumRepository.QUERY_RATING_DESC;
         }
 
         // Sorting by date of review
-        else if (sortSelection.equals(getString(R.string.sort_date_asc))) {
+        else if (sortSelection.equals(getString(R.string.sort_date_asc)))
+        {
             queryCode = AlbumRepository.QUERY_DATE_ASC;
         }
-        else if (sortSelection.equals(getString(R.string.sort_date_desc))) {
+        else if (sortSelection.equals(getString(R.string.sort_date_desc)))
+        {
             queryCode = AlbumRepository.QUERY_DATE_DESC;
         }
 
@@ -219,7 +247,8 @@ public class AlbumListFragment extends Fragment implements AdapterView.OnItemSel
     }
 
     @Override
-    public void onNothingSelected(AdapterView<?> parent) {
+    public void onNothingSelected(AdapterView<?> parent)
+    {
         // If nothing is selected, then we'll do nothing
     }
 
@@ -228,18 +257,21 @@ public class AlbumListFragment extends Fragment implements AdapterView.OnItemSel
      * pressing the search button or hitting the return key while in the search
      * text box. This method generate an OnSearchSubmitted event
      */
-    private void handleSearch() {
+    private void handleSearch()
+    {
 
         // Under most cases when this method is called the search box will be
         // selected and the software keyboard will be up. Assuming that's the
         // case then we want to move the keyboard off screen.
-        InputMethodManager imm = (InputMethodManager) AlbumRaterApp.getContext().getSystemService(Activity.INPUT_METHOD_SERVICE);
+        InputMethodManager imm = (InputMethodManager) AlbumRaterApp.getContext()
+                .getSystemService(Activity.INPUT_METHOD_SERVICE);
         imm.hideSoftInputFromWindow(getView().getWindowToken(), 0);
 
         // We also want to clear focus from the search box
         getView().clearFocus();
 
-        String searchText = ((EditText)(getView().findViewById(R.id.search_text))).getText().toString();
+        String searchText = ((EditText) (getView().findViewById(R.id.search_text))).getText()
+                .toString();
         mOnSearchQuerySubmittedListener.onSearchQuerySubmittedListener(searchText);
     }
 

@@ -24,7 +24,8 @@ import com.tylernorbury.albumrater.database.entity.Album;
  */
 @Database(entities = {Album.class}, version = 1)
 @TypeConverters(DateTimeConverter.class)
-public abstract class AlbumDatabase extends RoomDatabase {
+public abstract class AlbumDatabase extends RoomDatabase
+{
 
     // Gets an instance of the Album DAO
     public abstract AlbumDao albumDao();
@@ -32,23 +33,26 @@ public abstract class AlbumDatabase extends RoomDatabase {
     // The database will be singleton
     private static AlbumDatabase INSTANCE;
 
-    public static AlbumDatabase getDatabase(final Context context) {
+    public static AlbumDatabase getDatabase(final Context context)
+    {
 
         // If the database hasn't been instantiated, then create it
-        if (INSTANCE == null) {
+        if (INSTANCE == null)
+        {
 
             // Synchronize the creation to prevent race conditions
-            synchronized (AlbumDatabase.class) {
+            synchronized (AlbumDatabase.class)
+            {
 
                 // Double check to make sure that the database wasn't created
                 // whilst waiting
-                if (INSTANCE == null) {
+                if (INSTANCE == null)
+                {
 
                     // Create the database
-                    INSTANCE = Room.databaseBuilder(context.getApplicationContext(),
-                            AlbumDatabase.class, "albumDatabase")
-                        .addCallback(sAlbumDatabaseCallback)
-                        .build();
+                    INSTANCE = Room
+                            .databaseBuilder(context.getApplicationContext(), AlbumDatabase.class,
+                                    "albumDatabase").addCallback(sAlbumDatabaseCallback).build();
                 }
             }
         }
@@ -60,13 +64,16 @@ public abstract class AlbumDatabase extends RoomDatabase {
      * Add a callback that gets fired when the database is opened. As it stands
      * this will only be used for testing purposes.
      */
-    private static AlbumDatabase.Callback sAlbumDatabaseCallback = new RoomDatabase.Callback() {
+    private static AlbumDatabase.Callback sAlbumDatabaseCallback = new RoomDatabase.Callback()
+    {
         @Override
-        public void onOpen(@NonNull SupportSQLiteDatabase db) {
+        public void onOpen(@NonNull SupportSQLiteDatabase db)
+        {
 
             // If this is a debug version, then we'll artificially populate
             // the database
-            if (BuildConfig.DEBUG) {
+            if (BuildConfig.DEBUG)
+            {
                 super.onOpen(db);
                 // new PopulateDbAsync(INSTANCE).execute();
             }
@@ -77,44 +84,48 @@ public abstract class AlbumDatabase extends RoomDatabase {
      * This class gets used during the callback function above.
      * It's function is to insert some dummy/test data into the database.
      */
-    private static class PopulateDbAsync extends AsyncTask<Void, Void, Void> {
+    private static class PopulateDbAsync extends AsyncTask<Void, Void, Void>
+    {
 
         private final AlbumDao mDao;
 
-        PopulateDbAsync(AlbumDatabase db) {
+        PopulateDbAsync(AlbumDatabase db)
+        {
             mDao = db.albumDao();
         }
 
 
         @Override
-        protected Void doInBackground(final Void... params) {
+        protected Void doInBackground(final Void... params)
+        {
             mDao.deleteAll();
 
             // An array of albums to insert into the database.
-            Album[] albums = {
-                new Album("Larva", "James Gameboy", Album.GOOD_ALBUM),
-                new Album("Evil Friends", "Portugal. The Man", Album.GOOD_ALBUM),
-                new Album("Pure Heroin", "Lorde", Album.GOOD_ALBUM),
-                new Album("When I Was Young", "MØ", Album.GOOD_ALBUM),
-                new Album("How Did We Get So Dark?", "Royal Blood", Album.BAD_ALBUM),
-                new Album("You're Gonna Miss It All", "Modern Baseball", Album.GOOD_ALBUM),
-                new Album("Big Fish Theory", "Vince Staples", Album.GOOD_ALBUM),
-                new Album("Cozy Tapes Vol. 2: Too Cozy", "A$AP Mob", Album.BAD_ALBUM),
-                new Album("Black Sabbath", "Black Sabbath", Album.GOOD_ALBUM),
-                new Album("KIDS SEE GHOSTS", "KIDS SEE GHOSTS", Album.GOOD_ALBUM),
-                new Album("More Life", "Drake", Album.BAD_ALBUM),
-                new Album("Views", "Drake", Album.BAD_ALBUM)
-            };
+            Album[] albums = {new Album("Larva", "James Gameboy", Album.GOOD_ALBUM), new Album(
+                    "Evil Friends", "Portugal. The Man", Album.GOOD_ALBUM), new Album("Pure Heroin",
+                    "Lorde", Album.GOOD_ALBUM), new Album("When I Was Young", "MØ",
+                    Album.GOOD_ALBUM), new Album("How Did We Get So Dark?", "Royal Blood",
+                    Album.BAD_ALBUM), new Album("You're Gonna Miss It All", "Modern Baseball",
+                    Album.GOOD_ALBUM), new Album("Big Fish Theory", "Vince Staples",
+                    Album.GOOD_ALBUM), new Album("Cozy Tapes Vol. 2: Too Cozy", "A$AP Mob",
+                    Album.BAD_ALBUM), new Album("Black Sabbath", "Black Sabbath",
+                    Album.GOOD_ALBUM), new Album("KIDS SEE GHOSTS", "KIDS SEE GHOSTS",
+                    Album.GOOD_ALBUM), new Album("More Life", "Drake", Album.BAD_ALBUM), new Album(
+                    "Views", "Drake", Album.BAD_ALBUM)};
 
             // Go through all the albums above and insert them into the database
-            for (Album album: albums) {
+            for (Album album : albums)
+            {
                 mDao.insert(album);
 
                 // Add a small delay in between each insertion to simulate data
                 // being updated on the fly
-                try {
+                try
+                {
                     Thread.sleep(500);
-                } catch (InterruptedException e) {
+                }
+                catch (InterruptedException e)
+                {
                     e.printStackTrace();
                 }
             }

@@ -6,12 +6,14 @@ import android.content.Context;
 /**
  * Class which serves as an interface to the application context
  */
-public class AlbumRaterApp extends Application {
+public class AlbumRaterApp extends Application
+{
 
     private static Context mContext;
 
     @Override
-    public void onCreate() {
+    public void onCreate()
+    {
         super.onCreate();
         mContext = getApplicationContext();
     }
@@ -19,7 +21,8 @@ public class AlbumRaterApp extends Application {
     /**
      * @return the application's context
      */
-    public static Context getContext() {
+    public static Context getContext()
+    {
         return AlbumRaterApp.mContext;
     }
 

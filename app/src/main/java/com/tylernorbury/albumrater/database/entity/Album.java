@@ -17,7 +17,8 @@ import java.util.GregorianCalendar;
  * Represents a database entity for an album and its corresponding review.
  */
 @Entity(tableName = "album", primaryKeys = {"title", "artist"})
-public class Album {
+public class Album
+{
 
     // Constants used to represent the internal ranking of an album as good or bad.
     public static final int GOOD_ALBUM = 1;
@@ -48,25 +49,27 @@ public class Album {
 
     /**
      * Creates a new album that only has a rating, and no review
-
-     * @param title The title of the album
+     *
+     * @param title  The title of the album
      * @param artist The artist who made the album
      * @param rating The user's rating of the album
      */
     @Ignore
-    public Album(@NonNull String title, @NonNull String artist, int rating) {
+    public Album(@NonNull String title, @NonNull String artist, int rating)
+    {
         this(title, artist, rating, "");
     }
 
     /**
      * Create a new album entity
-     * @param title The title of the album
+     *
+     * @param title  The title of the album
      * @param artist The artist who made the album
      * @param rating The user's numerical rating of the album
      * @param review The user's review (in words) of the album
      */
-    public Album(@NonNull String title, @NonNull String artist, int rating,
-                 String review) {
+    public Album(@NonNull String title, @NonNull String artist, int rating, String review)
+    {
         mTitle = title;
         mArtist = artist;
         mRating = rating;
@@ -81,7 +84,8 @@ public class Album {
      * @return The title of the album
      */
     @NonNull
-    public String getTitle() {
+    public String getTitle()
+    {
         return mTitle;
     }
 
@@ -89,28 +93,32 @@ public class Album {
      * @return The artist who made the album
      */
     @NonNull
-    public String getArtist() {
+    public String getArtist()
+    {
         return mArtist;
     }
 
     /**
      * @return The numerical rating of the album
      */
-    public int getRating() {
+    public int getRating()
+    {
         return mRating;
     }
 
     /**
      * @return The worded review of the album
      */
-    public String getReview() {
+    public String getReview()
+    {
         return mReview;
     }
 
     /**
      * @return The date when the review was posted
      */
-    public GregorianCalendar getReviewDate() {
+    public GregorianCalendar getReviewDate()
+    {
         return mReviewDate;
     }
 
@@ -119,17 +127,19 @@ public class Album {
      *
      * @return The date of the review
      */
-    public String getReviewDateString() {
-        return (mReviewDate.get(Calendar.MONTH) + 1)
-                + "-" + mReviewDate.get(Calendar.DATE)
-                + "-" + mReviewDate.get(Calendar.YEAR);
+    public String getReviewDateString()
+    {
+        return (mReviewDate.get(Calendar.MONTH) + 1) + "-" + mReviewDate
+                .get(Calendar.DATE) + "-" + mReviewDate.get(Calendar.YEAR);
     }
 
     /**
      * Set the date that the review was created.
+     *
      * @param date The date of the review
      */
-    public void setReviewDate(GregorianCalendar date) {
+    public void setReviewDate(GregorianCalendar date)
+    {
         mReviewDate = date;
     }
 }

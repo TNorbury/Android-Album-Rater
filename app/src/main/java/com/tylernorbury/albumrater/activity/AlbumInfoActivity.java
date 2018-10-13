@@ -9,7 +9,8 @@ import com.tylernorbury.albumrater.database.entity.Album;
 import com.tylernorbury.albumrater.fragment.AlbumInfoFragment;
 import com.tylernorbury.albumrater.fragment.EditAlbumFragment;
 
-public class AlbumInfoActivity extends AppCompatActivity implements AlbumInfoFragment.OnAlbumDeletedListener, AlbumInfoFragment.OnAlbumEditEventListener {
+public class AlbumInfoActivity extends AppCompatActivity implements AlbumInfoFragment.OnAlbumDeletedListener, AlbumInfoFragment.OnAlbumEditEventListener
+{
 
     /**
      * Indicates that the calling activity should delete the album associated
@@ -24,7 +25,8 @@ public class AlbumInfoActivity extends AppCompatActivity implements AlbumInfoFra
     public static final int RESULT_EDIT = 2;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_album_info);
 
@@ -34,14 +36,13 @@ public class AlbumInfoActivity extends AppCompatActivity implements AlbumInfoFra
         // Create and display the album info fragment
         AlbumInfoFragment fragment = new AlbumInfoFragment();
         fragment.setArguments(getIntent().getExtras());
-        getSupportFragmentManager()
-                .beginTransaction()
-                .add(R.id.album_info_fragment_holder, fragment)
-                .commit();
+        getSupportFragmentManager().beginTransaction()
+                .add(R.id.album_info_fragment_holder, fragment).commit();
     }
 
     @Override
-    public void onAlbumDeleted(Album album) {
+    public void onAlbumDeleted(Album album)
+    {
         // Since our the user decided to delete the album, we want to return to
         // the activity that called us and tell it to delete the album
         Intent reply = new Intent();
@@ -57,11 +58,13 @@ public class AlbumInfoActivity extends AppCompatActivity implements AlbumInfoFra
     }
 
     @Override
-    public void onAlbumEditEvent(Album album, int editCode) {
+    public void onAlbumEditEvent(Album album, int editCode)
+    {
 
         // If we're starting an edit, then we want to swap fragments so that
         // we're displaying the edit album fragment
-        if (editCode == EDIT_ALBUM_START_CODE) {
+        if (editCode == EDIT_ALBUM_START_CODE)
+        {
             // Create a new edit album fragment
             EditAlbumFragment fragment = new EditAlbumFragment();
 
@@ -80,16 +83,14 @@ public class AlbumInfoActivity extends AppCompatActivity implements AlbumInfoFra
             fragment.setArguments(args);
 
             // Perform a fragment transaction to display the edit album fragment
-            getSupportFragmentManager()
-                    .beginTransaction()
-                    .replace(R.id.album_info_fragment_holder, fragment)
-                    .addToBackStack("")
-                    .commit();
+            getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.album_info_fragment_holder, fragment).addToBackStack("").commit();
         }
 
         // Otherwise, if we're canceling the edit, then we just want to swap
         // fragments so that we're displaying the album info fragment
-        else if (editCode == EDIT_ALBUM_CANCEL_CODE) {
+        else if (editCode == EDIT_ALBUM_CANCEL_CODE)
+        {
             // Since one can only get to the album edit fragment via the album
             // info fragment, and in the process of that the album info fragment
             // is added to the back stack, all we need to do is pop the back stack
@@ -99,7 +100,8 @@ public class AlbumInfoActivity extends AppCompatActivity implements AlbumInfoFra
         // Otherwise, if we're submitting the edit then we want to propagate
         // that back to the main activity so that it can handle updating the
         // database
-        else if (editCode == EDIT_ALBUM_SUBMIT_CODE) {
+        else if (editCode == EDIT_ALBUM_SUBMIT_CODE)
+        {
             // Create a reply intent that we'll use to get back to the main activity
             Intent reply = new Intent();
 

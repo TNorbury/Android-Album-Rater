@@ -12,7 +12,8 @@ import java.util.List;
 /**
  * ViewModel that handles the album data
  */
-public class AlbumViewModel extends AndroidViewModel {
+public class AlbumViewModel extends AndroidViewModel
+{
 
     private AlbumRepository mRepository;
     private LiveData<List<Album>> mAllAlbums;
@@ -22,9 +23,11 @@ public class AlbumViewModel extends AndroidViewModel {
 
     /**
      * Creates a new AlbumViewModel
+     *
      * @param application The Application context
      */
-    public AlbumViewModel(Application application) {
+    public AlbumViewModel(Application application)
+    {
         super(application);
         mRepository = AlbumRepository.getRepository(application);
         mAllAlbums = mRepository.getAllAlbums();
@@ -36,10 +39,10 @@ public class AlbumViewModel extends AndroidViewModel {
      *
      * @param queryCode The code for the query that'll well use to retrieve the
      *                  data. These values are defined in {@link AlbumRepository}
-     *
      * @return The list of albums, sorted by the given query code
      */
-    public LiveData<List<Album>> getAlbumsFromQuery(int queryCode) {
+    public LiveData<List<Album>> getAlbumsFromQuery(int queryCode)
+    {
         // Update the current query code that's being used
         mCurrentQuerySelection = queryCode;
 
@@ -55,32 +58,37 @@ public class AlbumViewModel extends AndroidViewModel {
      *
      * @return A list of all albums
      */
-    public LiveData<List<Album>> getAlbums() {
+    public LiveData<List<Album>> getAlbums()
+    {
         return getAlbumsFromQuery(getCurrentQuerySelection());
     }
 
     /**
      * Insert an album into the database
+     *
      * @param album The album to be inserted into the database.
      */
-    public void insert(Album album) {
+    public void insert(Album album)
+    {
         mRepository.insert(album);
     }
 
     /**
      * Delete all the records from the database
      */
-    public void deleteAll() {
+    public void deleteAll()
+    {
         mRepository.deleteAll();
     }
 
     /**
      * Deletes an album for the database with the matching primary key
      *
-     * @param albumTitle The title of the album to delete
+     * @param albumTitle  The title of the album to delete
      * @param albumArtist The artist of the album to delete
      */
-    public void deleteAlbum(String albumTitle, String albumArtist) {
+    public void deleteAlbum(String albumTitle, String albumArtist)
+    {
         mRepository.deleteAlbum(albumTitle, albumArtist);
     }
 
@@ -88,11 +96,12 @@ public class AlbumViewModel extends AndroidViewModel {
      * Update the album with the given "old" primary key, with the values of the
      * "new" album
      *
-     * @param oldAlbumTitle The title of the album to update
+     * @param oldAlbumTitle  The title of the album to update
      * @param oldAlbumArtist The artist of the album to update
-     * @param newAlbum The "updated" album
+     * @param newAlbum       The "updated" album
      */
-    public void updateAlbum(String oldAlbumTitle, String oldAlbumArtist, Album newAlbum) {
+    public void updateAlbum(String oldAlbumTitle, String oldAlbumArtist, Album newAlbum)
+    {
         mRepository.updateAlbum(oldAlbumTitle, oldAlbumArtist, newAlbum);
     }
 
@@ -105,14 +114,16 @@ public class AlbumViewModel extends AndroidViewModel {
      *                    to find album titles or artist that have the given
      *                    string in their name.
      */
-    public void updateSearchParameter(String searchQuery) {
+    public void updateSearchParameter(String searchQuery)
+    {
         mSearchParameter = searchQuery;
     }
 
     /**
      * @return the current query selection
      */
-    public int getCurrentQuerySelection() {
+    public int getCurrentQuerySelection()
+    {
         return mCurrentQuerySelection;
     }
 }

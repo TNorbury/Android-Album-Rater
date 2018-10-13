@@ -27,7 +27,8 @@ import com.tylernorbury.albumrater.database.repository.AlbumRepository;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class AlbumInfoFragment extends Fragment {
+public class AlbumInfoFragment extends Fragment
+{
     private Album mAlbum;
     private OnAlbumDeletedListener mOnAlbumDeletedListener;
     private OnAlbumEditEventListener mOnAlbumEditEventListener;
@@ -35,7 +36,8 @@ public class AlbumInfoFragment extends Fragment {
     /**
      * Listener for when the user selects to delete an album
      */
-    public interface OnAlbumDeletedListener {
+    public interface OnAlbumDeletedListener
+    {
         void onAlbumDeleted(Album album);
     }
 
@@ -44,7 +46,8 @@ public class AlbumInfoFragment extends Fragment {
      * events related to editing an album, such as submitting an edit, or
      * backing out of an edit
      */
-    public interface OnAlbumEditEventListener {
+    public interface OnAlbumEditEventListener
+    {
 
         /**
          * This tells the listener that it should start the process of editing
@@ -70,19 +73,22 @@ public class AlbumInfoFragment extends Fragment {
     /**
      * Create a new AlbumInfoFragment
      */
-    public AlbumInfoFragment() {
+    public AlbumInfoFragment()
+    {
         // Required empty public constructor
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+                             Bundle savedInstanceState)
+    {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_album_info, container, false);
     }
 
     @Override
-    public void onAttach(Context context) {
+    public void onAttach(Context context)
+    {
         super.onAttach(context);
 
         // Create a reference to the attaching context and treat it as a
@@ -95,34 +101,37 @@ public class AlbumInfoFragment extends Fragment {
     }
 
     @Override
-    public void onViewCreated(@NonNull final View view, @Nullable Bundle savedInstanceState) {
+    public void onViewCreated(@NonNull final View view, @Nullable Bundle savedInstanceState)
+    {
         super.onViewCreated(view, savedInstanceState);
 
         // Now that the view has been created, fill out the various fields
         // We'll start by getting our album from the database by using the
         // primary key which was supplied as arguments to the fragment
-        LiveData<Album> album = AlbumRepository.getRepository((Application) AlbumRaterApp.getContext())
+        LiveData<Album> album = AlbumRepository
+                .getRepository((Application) AlbumRaterApp.getContext())
                 .getAlbum(getArguments().getString(getString(R.string.original_album_title)),
                         getArguments().getString(getString(R.string.original_album_artist)));
 
         // When there are changes to the album, we want to update this view
-        album.observe(this, new Observer<Album>() {
+        album.observe(this, new Observer<Album>()
+        {
             @Override
-            public void onChanged(@Nullable Album album) {
+            public void onChanged(@Nullable Album album)
+            {
 
                 // Since this can get called after the album has been deleted,
                 // we want to make sure that it isn't null before we try to
                 // update the view
-                if (album != null){
+                if (album != null)
+                {
                     mAlbum = album;
 
                     // Set the title of the album
-                    ((TextView) view.findViewById(R.id.album_title))
-                            .setText(album.getTitle());
+                    ((TextView) view.findViewById(R.id.album_title)).setText(album.getTitle());
 
                     // Set the artist of the album
-                    ((TextView) view.findViewById(R.id.album_artist))
-                            .setText(album.getArtist());
+                    ((TextView) view.findViewById(R.id.album_artist)).setText(album.getArtist());
 
                     // Set the date fo the review of the album
                     ((TextView) view.findViewById(R.id.album_date))
@@ -130,72 +139,82 @@ public class AlbumInfoFragment extends Fragment {
 
                     // Display the correct rating image based upon the album's rating
                     // If the rating is good, then display a thumbs up
-                    if (album.getRating() == Album.GOOD_ALBUM) {
-                        ((ImageView) view.findViewById(R.id.album_rating))
-                                .setImageDrawable(getResources()
-                                        .getDrawable(R.drawable.ic_thumb_up_unselected_big,
-                                                null));
+                    if (album.getRating() == Album.GOOD_ALBUM)
+                    {
+                        ((ImageView) view.findViewById(R.id.album_rating)).setImageDrawable(
+                                getResources()
+                                        .getDrawable(R.drawable.ic_thumb_up_unselected_big, null));
                     }
 
                     // Otherwise, if the rating is bad, then display a thumbs down
-                    else if (album.getRating() == Album.BAD_ALBUM) {
-                        ((ImageView) view.findViewById(R.id.album_rating))
-                                .setImageDrawable(getResources()
-                                        .getDrawable(R.drawable.ic_thumb_down_unselected_big,
-                                                null));
+                    else if (album.getRating() == Album.BAD_ALBUM)
+                    {
+                        ((ImageView) view.findViewById(R.id.album_rating)).setImageDrawable(
+                                getResources().getDrawable(R.drawable.ic_thumb_down_unselected_big,
+                                        null));
                     }
 
                     // Display the rating of the album
-                    ((TextView)view.findViewById(R.id.album_review))
-                            .setText(album.getReview());
+                    ((TextView) view.findViewById(R.id.album_review)).setText(album.getReview());
                 }
             }
         });
 
         // Add an on click listeners to the edit album button
-        ((Button) view.findViewById(R.id.btn_edit_album)).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // We want to signal to our parent activity that we want to edit
-                // this album
-                mOnAlbumEditEventListener.onAlbumEditEvent(mAlbum,
-                        OnAlbumEditEventListener.EDIT_ALBUM_START_CODE);
+        ((Button) view.findViewById(R.id.btn_edit_album))
+                .setOnClickListener(new View.OnClickListener()
+                {
+                    @Override
+                    public void onClick(View v)
+                    {
+                        // We want to signal to our parent activity that we want to edit
+                        // this album
+                        mOnAlbumEditEventListener.onAlbumEditEvent(mAlbum,
+                                OnAlbumEditEventListener.EDIT_ALBUM_START_CODE);
 
-            }
-        });
+                    }
+                });
 
         // Add an on click listener to the delete album button
-        ((Button) view.findViewById(R.id.btn_delete_album)).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        ((Button) view.findViewById(R.id.btn_delete_album))
+                .setOnClickListener(new View.OnClickListener()
+                {
+                    @Override
+                    public void onClick(View v)
+                    {
 
-                // We want to create a pop-up to dialog to confirm that the user
-                // actually wants to delete this album
-                AlertDialog dialog = new AlertDialog.Builder(getActivity())
-                        .setTitle(R.string.dialog_delete_album_title)
-                        .setMessage(R.string.dialog_delete_album_message)
-                        .setPositiveButton(R.string.dialog_confirm, new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                Toast.makeText(getContext(), "Deleting Album", Toast.LENGTH_SHORT).show();
+                        // We want to create a pop-up to dialog to confirm that the user
+                        // actually wants to delete this album
+                        AlertDialog dialog = new AlertDialog.Builder(getActivity())
+                                .setTitle(R.string.dialog_delete_album_title)
+                                .setMessage(R.string.dialog_delete_album_message)
+                                .setPositiveButton(R.string.dialog_confirm,
+                                        new DialogInterface.OnClickListener()
+                                        {
+                                            @Override
+                                            public void onClick(DialogInterface dialog, int which)
+                                            {
+                                                Toast.makeText(getContext(), "Deleting Album",
+                                                        Toast.LENGTH_SHORT).show();
 
-                                // If the user chooses to delete this album,
-                                // then we want to inform our parent activity
-                                mOnAlbumDeletedListener.onAlbumDeleted(mAlbum);
-                            }
-                        })
-                        .setNegativeButton(R.string.dialog_cancel, new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                // If cancel is selected, then we won't do
-                                // anything, just close the dialog
-                            }
-                        })
-                        .create();
+                                                // If the user chooses to delete this album,
+                                                // then we want to inform our parent activity
+                                                mOnAlbumDeletedListener.onAlbumDeleted(mAlbum);
+                                            }
+                                        }).setNegativeButton(R.string.dialog_cancel,
+                                        new DialogInterface.OnClickListener()
+                                        {
+                                            @Override
+                                            public void onClick(DialogInterface dialog, int which)
+                                            {
+                                                // If cancel is selected, then we won't do
+                                                // anything, just close the dialog
+                                            }
+                                        }).create();
 
-                // We now want to "pop up" the dialog
-                dialog.show();
-            }
-        });
+                        // We now want to "pop up" the dialog
+                        dialog.show();
+                    }
+                });
     }
 }
