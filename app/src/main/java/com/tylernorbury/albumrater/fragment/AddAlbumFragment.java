@@ -73,7 +73,6 @@ public class AddAlbumFragment extends Fragment {
             String albumReview = ((TextView)form.findViewById(R.id.add_album_review))
                     .getText().toString();
 
-
             // If the form is considered "valid", then we want to insert the
             // data into the database
             if (validForm) {
