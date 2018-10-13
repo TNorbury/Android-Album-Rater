@@ -70,11 +70,11 @@ public class AlbumInfoActivity extends AppCompatActivity implements AlbumInfoFra
             args.putString(getString(R.string.original_album_title), album.getTitle());
             args.putString(getString(R.string.original_album_artist), album.getArtist());
             args.putInt(getString(R.string.original_album_rating), album.getRating());
+            args.putString(getString(R.string.original_album_review), album.getReview());
 
-            // As it stands I don't think I'll be needing this two values as they
+            // As it stands I don't think I'll be needing these two values as they
             // won't be changed by the user, but I'm leaving the code here just in case
-            /*args.putString(getString(R.string.original_album_review), album.getReview());
-            args.putSerializable(getString(R.string.original_album_date), album.getReviewDate());*/
+            /*args.putSerializable(getString(R.string.original_album_date), album.getReviewDate());*/
 
             // Attach the arguments to the fragment
             fragment.setArguments(args);

@@ -11,9 +11,9 @@
         style="@android:style/Widget.Material.EditText"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="64dp"
         android:layout_marginStart="32dp"
         android:layout_marginTop="16dp"
+        android:layout_marginEnd="32dp"
         android:ems="10"
         android:hint="@string/album_name_hint"
         android:inputType="textCapWords"
@@ -26,9 +26,9 @@
         style="@android:style/Widget.Material.EditText"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="64dp"
         android:layout_marginStart="32dp"
         android:layout_marginTop="16dp"
+        android:layout_marginEnd="32dp"
         android:ems="10"
         android:hint="@string/album_artist_hint"
         android:inputType="textCapWords"
@@ -74,16 +74,29 @@
         android:layout_marginTop="16dp"
         android:text="@string/btn_cancel_edit"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edit_album_rating" />
+        app:layout_constraintTop_toBottomOf="@+id/edit_album_review" />
 
     <Button
         android:id="@+id/btn_submit_edit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="64dp"
         android:layout_marginTop="16dp"
+        android:layout_marginEnd="32dp"
         android:text="@string/btn_submit_edit"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/edit_album_review" />
+
+    <EditText
+        android:id="@+id/edit_album_review"
+        android:layout_width="0dp"
+        android:layout_height="93dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="32dp"
+        android:ems="10"
+        android:inputType="textCapSentences|textMultiLine"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/edit_album_rating" />
 
 </android.support.constraint.ConstraintLayout>

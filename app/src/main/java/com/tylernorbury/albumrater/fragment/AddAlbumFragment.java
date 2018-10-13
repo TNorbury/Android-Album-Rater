@@ -69,10 +69,14 @@ public class AddAlbumFragment extends Fragment {
                 validForm &= false;
             }
 
+            // Finally, we want to get the review that was entered for this album
+            String albumReview = ((TextView)form.findViewById(R.id.add_album_review))
+                    .getText().toString();
+
             // If the form is considered "valid", then we want to insert the
             // data into the database
             if (validForm) {
-                Album album = new Album(albumName, albumArtist, albumRating);
+                Album album = new Album(albumName, albumArtist, albumRating, albumReview);
 
                 // Get the album view model from the parent activity and then
                 // insert the new album

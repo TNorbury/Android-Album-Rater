@@ -32,6 +32,7 @@
     <string name="album_title_placeholder">Album Title</string>
     <string name="album_artist_placeholder">Artist</string>
     <string name="album_date_placeholder">XX-XX-XXXX</string>
+    <string name="album_review_placeholder">Album Review</string>
 
     <!-- Labels for the album info view buttons -->
     <string name="btn_delete_album">Delete Album</string>
